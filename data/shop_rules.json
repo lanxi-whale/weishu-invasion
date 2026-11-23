@@ -1,0 +1,107 @@
+{
+ "side": "MONSTER",
+ "maxShopLevel": 6,
+ "shopSlots": {
+  "1": {
+   "chess": 3,
+   "item": 0
+  },
+  "2": {
+   "chess": 3,
+   "item": 0
+  },
+  "3": {
+   "chess": 3,
+   "item": 0
+  },
+  "4": {
+   "chess": 3,
+   "item": 0
+  },
+  "5": {
+   "chess": 3,
+   "item": 0
+  },
+  "6": {
+   "chess": 3,
+   "item": 0
+  }
+ },
+ "refreshPrice": 1,
+ "freeze": {
+  "price": 0,
+  "scope": "unsoldSlots"
+ },
+ "upgradePrices": {
+  "standard": [
+   5,
+   8,
+   11,
+   12,
+   13
+  ],
+  "fun": [
+   5,
+   8,
+   10,
+   11,
+   11
+  ],
+  "training": [
+   4,
+   4,
+   6,
+   9,
+   12
+  ]
+ },
+ "prices": {
+  "2": 2,
+  "3": 3,
+  "4": 4
+ },
+ "sellPrice": 1,
+ "poolCopies": {
+  "2": 18,
+  "3": 14,
+  "4": 8
+ },
+ "benchSize": 10,
+ "mergeCount": 3,
+ "starCap": 2,
+ "income": "min(3 + round, 12)",
+ "incomeCap": 12,
+ "leftoverFundsLost": true,
+ "shopOdds": "copyWeighted：每格从当前等级已解锁的怪物副本里等概率抽取",
+ "deploy": {
+  "base": 8,
+  "perShopLevel": 2,
+  "byLevel": {
+   "1": 8,
+   "2": 10,
+   "3": 12,
+   "4": 14,
+   "5": 16,
+   "6": 18
+  },
+  "note": "干员方固定 8；怪物方每升一级商店 +2"
+ },
+ "board": {
+  "cols": 7,
+  "rows": 6,
+  "note": "部署区为下三排，18 个部署位可容纳"
+ },
+ "tierCapByLevel": {
+  "1": 2,
+  "2": 2,
+  "3": 3,
+  "4": 3,
+  "5": 4,
+  "6": 4
+ },
+ "note": "怪物分 1–6 阶，达到对应商店等级后解锁。1–2 阶 2 费，3–4 阶 3 费，5–6 阶 4 费",
+ "availability": {
+  "eliteMinRound": 5,
+  "note": "第 1~4 回合商店不会刷出精英怪（ELITE），只能买到普通怪；第 5 回合起解禁"
+ }
+}

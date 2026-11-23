@@ -1,0 +1,18 @@
+# 依赖与构建产物
+node_modules/
+__pycache__/
+*.pyc
+.cache/
+
+# 大素材（走 Releases）
+game/public/assets/
+
+# 本地客户端数据、备份、演示、运维副本
+local-client-data/
+_backup_*/
+demo/
+game_ops/
+
+# 内部交接文档，不进公开仓库
+交接文档.md
+交接-*.md

@@ -1,0 +1,34 @@
+{
+ "2": [
+  "enemy_10001_trslim", "enemy_10031_cnvsld", "enemy_10065_ftzlc", "enemy_10094_crstf",
+  "enemy_1026_aghost", "enemy_1064_snsbr", "enemy_1067_snslime", "enemy_1132_sarchn",
+  "enemy_1148_dssbr", "enemy_1158_divman", "enemy_1165_duhond", "enemy_1166_dusbr",
+  "enemy_1197_sfshu", "enemy_1222_dpvt", "enemy_1251_lysyta", "enemy_1288_duskls",
+  "enemy_1325_cbgpro", "enemy_1360_dfello", "enemy_1407_hummbd", "enemy_1428_lrsoul",
+  "enemy_1433_dsbasi", "enemy_2021_syfish"
+ ],
+ "3": ["enemy_1023_jmage", "enemy_1041_lazerd"],
+ "4": [
+  "enemy_10034_cnvsax", "enemy_10042_prtrop", "enemy_10044_wintun", "enemy_10054_cjhot",
+  "enemy_10067_ftsjc", "enemy_1006_shield", "enemy_10077_mpbarr", "enemy_10084_hlegle",
+  "enemy_10087_hlchgr", "enemy_10097_crshd", "enemy_1010_demon", "enemy_10116_ymgtop",
+  "enemy_10122_uacann_2", "enemy_1017_defdrn", "enemy_1040_bombd", "enemy_1061_zomshd", "enemy_1104_lfkght",
+  "enemy_1118_lidbox_2",
+  "enemy_1133_harchn", "enemy_1160_hvyslr", "enemy_1172_dugago", "enemy_1225_dkmage",
+  "enemy_1234_dsubrl", "enemy_1252_lysytb_2", "enemy_1270_nhstlk", "enemy_1272_nhtank",
+  "enemy_1275_dwlock_2", "enemy_1292_duskld", "enemy_1299_ymkilr", "enemy_1328_cbjedi",
+  "enemy_1329_cbshld", "enemy_1375_ltnclr", "enemy_1375_ltnclr_2", "enemy_1376_ltndru_2",
+  "enemy_1385_winbom", "enemy_1388_wingnt", "enemy_1405_boomer_2", "enemy_1437_dsfull",
+  "enemy_2001_duckmi", "enemy_2009_csaudc", "enemy_2135_shkrbt", "enemy_9006_actoxi",
+  "enemy_9008_acbunn", "enemy_9010_acpupp", "enemy_9011_acrefr", "enemy_9026_acltm",
+  "enemy_9031_acrefd", "enemy_9040_accrit"
+ ],
+ "5": ["enemy_10085_hllevi_2", "enemy_1119_vofsd", "enemy_1162_magmot", "enemy_1254_lypa_2", "enemy_9034_acblk"],
+ "6": [
+  "enemy_10123_uareap", "enemy_10124_uashld_2", "enemy_10127_rkmbst_2",
+  "enemy_10163_mnctur_2", "enemy_1062_rager_2", "enemy_1069_icebrk_2", "enemy_1112_emppnt", "enemy_1207_sfji",
+  "enemy_1302_ymtro_2", "enemy_1320_wdrrl_2", "enemy_1409_bdguad_2", "enemy_1430_lrrook",
+  "enemy_2002_bearmi", "enemy_2085_skzjxd", "enemy_9007_acelem", "enemy_9022_acdumm",
+  "enemy_9024_acsgnt"
+ ]
+}

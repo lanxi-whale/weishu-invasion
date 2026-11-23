@@ -1,0 +1,958 @@
+{
+ "mon_main_yan": {
+  "bondId": "mon_main_yan",
+  "name": "炎",
+  "identifier": 900,
+  "isCore": true,
+  "bondType": "SEASON",
+  "bondOrder": 900,
+  "powerIdList": [
+   "monpow_yan"
+  ],
+  "iconId": "icon_main_yan",
+  "activeCount": 4,
+  "thresholds": [
+   4,
+   7
+  ],
+  "maxCount": null,
+  "thresholdTemplate": "count_threshold_upward",
+  "countMode": "BOARD",
+  "countsHand": false,
+  "countsGoldenOnly": false,
+  "activeType": "BATTLE",
+  "isActiveInDeck": false,
+  "noStack": false,
+  "weight": 10,
+  "maxInactiveBondCount": -1,
+  "layerMilestones": [],
+  "desc": "【炎】怪物羁绊 · 池内 8 只",
+  "monTier": "main"
+ },
+ "mon_main_seaborn": {
+  "bondId": "mon_main_seaborn",
+  "name": "海嗣",
+  "identifier": 901,
+  "isCore": true,
+  "bondType": "SEASON",
+  "bondOrder": 901,
+  "powerIdList": [
+   "monpow_seaborn"
+  ],
+  "iconId": "icon_main_seaborn",
+  "activeCount": 4,
+  "thresholds": [
+   4,
+   7
+  ],
+  "maxCount": null,
+  "thresholdTemplate": "count_threshold_upward",
+  "countMode": "BOARD",
+  "countsHand": false,
+  "countsGoldenOnly": false,
+  "activeType": "BATTLE",
+  "isActiveInDeck": false,
+  "noStack": false,
+  "weight": 10,
+  "maxInactiveBondCount": -1,
+  "layerMilestones": [],
+  "desc": "【海嗣】怪物羁绊 · 池内 10 只",
+  "monTier": "main"
+ },
+ "mon_main_slug": {
+  "bondId": "mon_main_slug",
+  "name": "源石虫",
+  "identifier": 902,
+  "isCore": true,
+  "bondType": "SEASON",
+  "bondOrder": 902,
+  "powerIdList": [
+   "monpow_slug"
+  ],
+  "iconId": "icon_main_slug",
+  "activeCount": 4,
+  "thresholds": [
+   4,
+   7
+  ],
+  "maxCount": null,
+  "thresholdTemplate": "count_threshold_upward",
+  "countMode": "BOARD",
+  "countsHand": false,
+  "countsGoldenOnly": false,
+  "activeType": "BATTLE",
+  "isActiveInDeck": false,
+  "noStack": false,
+  "weight": 10,
+  "maxInactiveBondCount": -1,
+  "layerMilestones": [],
+  "desc": "【源石虫】怪物羁绊 · 池内 8 种\n在场 4 种不同的【源石虫】时，每个【源石虫】单位增加 3 只怪物。\n在场 7 种不同的【源石虫】时，每个【源石虫】单位增加 6 只怪物。\n只生效最高档，不叠加。",
+  "monTier": "main"
+ },
+ "mon_main_court": {
+  "bondId": "mon_main_court",
+  "name": "萨卡兹",
+  "identifier": 903,
+  "isCore": true,
+  "bondType": "SEASON",
+  "bondOrder": 903,
+  "powerIdList": [
+   "monpow_court"
+  ],
+  "iconId": "icon_main_court",
+  "activeCount": 4,
+  "thresholds": [
+   4,
+   7
+  ],
+  "maxCount": null,
+  "thresholdTemplate": "count_threshold_upward",
+  "countMode": "BOARD",
+  "countsHand": false,
+  "countsGoldenOnly": false,
+  "activeType": "BATTLE",
+  "isActiveInDeck": false,
+  "noStack": false,
+  "weight": 10,
+  "maxInactiveBondCount": -1,
+  "layerMilestones": [],
+  "desc": "【萨卡兹】怪物羁绊 · 池内 8 只",
+  "monTier": "main"
+ },
+ "mon_main_decay": {
+  "bondId": "mon_main_decay",
+  "name": "萨卡兹·枯朽",
+  "identifier": 904,
+  "isCore": true,
+  "bondType": "SEASON",
+  "bondOrder": 904,
+  "powerIdList": [
+   "monpow_decay"
+  ],
+  "iconId": "icon_main_decay",
+  "activeCount": 4,
+  "thresholds": [
+   4,
+   7
+  ],
+  "maxCount": null,
+  "thresholdTemplate": "count_threshold_upward",
+  "countMode": "BOARD",
+  "countsHand": false,
+  "countsGoldenOnly": false,
+  "activeType": "BATTLE",
+  "isActiveInDeck": false,
+  "noStack": false,
+  "weight": 10,
+  "maxInactiveBondCount": -1,
+  "layerMilestones": [],
+  "desc": "【萨卡兹·枯朽】怪物羁绊 · 池内 19 只",
+  "monTier": "main"
+ },
+ "mon_main_reunion": {
+  "bondId": "mon_main_reunion",
+  "name": "整合运动",
+  "identifier": 905,
+  "isCore": true,
+  "bondType": "SEASON",
+  "bondOrder": 905,
+  "powerIdList": [
+   "monpow_reunion"
+  ],
+  "iconId": "icon_main_reunion",
+  "activeCount": 4,
+  "thresholds": [
+   4,
+   7
+  ],
+  "maxCount": null,
+  "thresholdTemplate": "count_threshold_upward",
+  "countMode": "BOARD",
+  "countsHand": false,
+  "countsGoldenOnly": false,
+  "activeType": "BATTLE",
+  "isActiveInDeck": false,
+  "noStack": false,
+  "weight": 10,
+  "maxInactiveBondCount": -1,
+  "layerMilestones": [],
+  "desc": "【整合运动】怪物羁绊 · 池内 15 只",
+  "monTier": "main"
+ },
+ "mon_main_drone": {
+  "bondId": "mon_main_drone",
+  "name": "无人机",
+  "identifier": 906,
+  "isCore": true,
+  "bondType": "SEASON",
+  "bondOrder": 906,
+  "powerIdList": [
+   "monpow_drone"
+  ],
+  "iconId": "icon_main_drone",
+  "activeCount": 4,
+  "thresholds": [
+   4,
+   7
+  ],
+  "maxCount": null,
+  "thresholdTemplate": "count_threshold_upward",
+  "countMode": "BOARD",
+  "countsHand": false,
+  "countsGoldenOnly": false,
+  "activeType": "BATTLE",
+  "isActiveInDeck": false,
+  "noStack": false,
+  "weight": 10,
+  "maxInactiveBondCount": -1,
+  "layerMilestones": [],
+  "desc": "【无人机】怪物羁绊 · 池内 7 只",
+  "monTier": "main"
+ },
+ "mon_main_witchking": {
+  "bondId": "mon_main_witchking",
+  "name": "巫王乐团",
+  "identifier": 907,
+  "isCore": true,
+  "bondType": "SEASON",
+  "bondOrder": 907,
+  "powerIdList": [
+   "monpow_witchking"
+  ],
+  "iconId": "icon_main_witchking",
+  "activeCount": 4,
+  "thresholds": [
+   4,
+   7
+  ],
+  "maxCount": null,
+  "thresholdTemplate": "count_threshold_upward",
+  "countMode": "BOARD",
+  "countsHand": false,
+  "countsGoldenOnly": false,
+  "activeType": "BATTLE",
+  "isActiveInDeck": false,
+  "noStack": false,
+  "weight": 10,
+  "maxInactiveBondCount": -1,
+  "layerMilestones": [],
+  "desc": "【巫王乐团】怪物羁绊 · 池内 6 只",
+  "monTier": "main"
+ },
+ "mon_main_phantasm": {
+  "bondId": "mon_main_phantasm",
+  "name": "假想敌",
+  "identifier": 908,
+  "isCore": true,
+  "bondType": "SEASON",
+  "bondOrder": 908,
+  "powerIdList": [
+   "monpow_phantasm"
+  ],
+  "iconId": "icon_main_phantasm",
+  "activeCount": 4,
+  "thresholds": [
+   4,
+   7
+  ],
+  "maxCount": null,
+  "thresholdTemplate": "count_threshold_upward",
+  "countMode": "BOARD",
+  "countsHand": false,
+  "countsGoldenOnly": false,
+  "activeType": "BATTLE",
+  "isActiveInDeck": false,
+  "noStack": false,
+  "weight": 10,
+  "maxInactiveBondCount": -1,
+  "layerMilestones": [],
+  "desc": "【假想敌】怪物羁绊 · 池内 11 只",
+  "monTier": "main"
+ },
+ "mon_main_infection": {
+  "bondId": "mon_main_infection",
+  "name": "感染",
+  "identifier": 909,
+  "isCore": true,
+  "bondType": "SEASON",
+  "bondOrder": 909,
+  "powerIdList": [
+   "monpow_infection"
+  ],
+  "iconId": "icon_main_infection",
+  "activeCount": 4,
+  "thresholds": [
+   4,
+   7
+  ],
+  "maxCount": null,
+  "thresholdTemplate": "count_threshold_upward",
+  "countMode": "BOARD",
+  "countsHand": false,
+  "countsGoldenOnly": false,
+  "activeType": "BATTLE",
+  "isActiveInDeck": false,
+  "noStack": false,
+  "weight": 10,
+  "maxInactiveBondCount": -1,
+  "layerMilestones": [],
+  "desc": "【感染】怪物羁绊 · 池内 10 只",
+  "monTier": "main"
+ },
+ "mon_main_abyss": {
+  "bondId": "mon_main_abyss",
+  "name": "深池",
+  "identifier": 910,
+  "isCore": true,
+  "bondType": "SEASON",
+  "bondOrder": 910,
+  "powerIdList": [
+   "monpow_abyss"
+  ],
+  "iconId": "icon_main_abyss",
+  "activeCount": 4,
+  "thresholds": [
+   4,
+   7
+  ],
+  "maxCount": null,
+  "thresholdTemplate": "count_threshold_upward",
+  "countMode": "BOARD",
+  "countsHand": false,
+  "countsGoldenOnly": false,
+  "activeType": "BATTLE",
+  "isActiveInDeck": false,
+  "noStack": false,
+  "weight": 10,
+  "maxInactiveBondCount": -1,
+  "layerMilestones": [],
+  "desc": "【深池】怪物羁绊 · 池内 9 只",
+  "monTier": "main"
+ },
+ "mon_minor_snow": {
+  "bondId": "mon_minor_snow",
+  "name": "雪怪",
+  "identifier": 911,
+  "isCore": false,
+  "bondType": "SEASON",
+  "bondOrder": 911,
+  "powerIdList": [
+   "monpow_snow"
+  ],
+  "iconId": "icon_minor_snow",
+  "activeCount": 2,
+  "thresholds": [
+   2
+  ],
+  "maxCount": null,
+  "thresholdTemplate": "count_threshold_upward",
+  "countMode": "BOARD",
+  "countsHand": false,
+  "countsGoldenOnly": false,
+  "activeType": "BATTLE",
+  "isActiveInDeck": false,
+  "noStack": false,
+  "weight": 10,
+  "maxInactiveBondCount": -1,
+  "layerMilestones": [],
+  "desc": "【雪怪】怪物羁绊 · 池内 2 只",
+  "monTier": "minor"
+ },
+ "mon_minor_special": {
+  "bondId": "mon_minor_special",
+  "name": "特殊",
+  "identifier": 912,
+  "isCore": false,
+  "bondType": "SEASON",
+  "bondOrder": 912,
+  "powerIdList": [
+   "monpow_special"
+  ],
+  "iconId": "icon_minor_special",
+  "activeCount": 2,
+  "thresholds": [
+   2,
+   4
+  ],
+  "maxCount": null,
+  "thresholdTemplate": "count_threshold_upward",
+  "countMode": "BOARD",
+  "countsHand": false,
+  "countsGoldenOnly": false,
+  "activeType": "BATTLE",
+  "isActiveInDeck": false,
+  "noStack": false,
+  "weight": 10,
+  "maxInactiveBondCount": -1,
+  "layerMilestones": [],
+  "desc": "【特殊】怪物羁绊 · 池内 4 只",
+  "monTier": "minor"
+ },
+ "mon_minor_carnival": {
+  "bondId": "mon_minor_carnival",
+  "name": "狂欢",
+  "identifier": 913,
+  "isCore": false,
+  "bondType": "SEASON",
+  "bondOrder": 913,
+  "powerIdList": [
+   "monpow_carnival"
+  ],
+  "iconId": "icon_minor_carnival",
+  "activeCount": 2,
+  "thresholds": [
+   2
+  ],
+  "maxCount": null,
+  "thresholdTemplate": "count_threshold_upward",
+  "countMode": "BOARD",
+  "countsHand": false,
+  "countsGoldenOnly": false,
+  "activeType": "BATTLE",
+  "isActiveInDeck": false,
+  "noStack": false,
+  "weight": 10,
+  "maxInactiveBondCount": -1,
+  "layerMilestones": [],
+  "desc": "【狂欢】怪物羁绊 · 池内 3 只",
+  "monTier": "minor"
+ },
+ "mon_minor_sankta": {
+  "bondId": "mon_minor_sankta",
+  "name": "萨科塔",
+  "identifier": 914,
+  "isCore": false,
+  "bondType": "SEASON",
+  "bondOrder": 914,
+  "powerIdList": [
+   "monpow_sankta"
+  ],
+  "iconId": "icon_minor_sankta",
+  "activeCount": 2,
+  "thresholds": [
+   2,
+   4
+  ],
+  "maxCount": null,
+  "thresholdTemplate": "count_threshold_upward",
+  "countMode": "BOARD",
+  "countsHand": false,
+  "countsGoldenOnly": false,
+  "activeType": "BATTLE",
+  "isActiveInDeck": false,
+  "noStack": false,
+  "weight": 10,
+  "maxInactiveBondCount": -1,
+  "layerMilestones": [],
+  "desc": "【萨科塔】怪物羁绊 · 池内 4 只",
+  "monTier": "minor"
+ },
+ "mon_minor_theater": {
+  "bondId": "mon_minor_theater",
+  "name": "剧场",
+  "identifier": 915,
+  "isCore": false,
+  "bondType": "SEASON",
+  "bondOrder": 915,
+  "powerIdList": [
+   "monpow_theater"
+  ],
+  "iconId": "icon_minor_theater",
+  "activeCount": 2,
+  "thresholds": [
+   2,
+   4
+  ],
+  "maxCount": null,
+  "thresholdTemplate": "count_threshold_upward",
+  "countMode": "BOARD",
+  "countsHand": false,
+  "countsGoldenOnly": false,
+  "activeType": "BATTLE",
+  "isActiveInDeck": false,
+  "noStack": false,
+  "weight": 10,
+  "maxInactiveBondCount": -1,
+  "layerMilestones": [],
+  "desc": "【剧场】怪物羁绊 · 池内 5 只",
+  "monTier": "minor"
+ },
+ "mon_minor_prisoner": {
+  "bondId": "mon_minor_prisoner",
+  "name": "囚犯",
+  "identifier": 916,
+  "isCore": false,
+  "bondType": "SEASON",
+  "bondOrder": 916,
+  "powerIdList": [
+   "monpow_prisoner"
+  ],
+  "iconId": "icon_minor_prisoner",
+  "activeCount": 2,
+  "thresholds": [
+   2,
+   4
+  ],
+  "maxCount": null,
+  "thresholdTemplate": "count_threshold_upward",
+  "countMode": "BOARD",
+  "countsHand": false,
+  "countsGoldenOnly": false,
+  "activeType": "BATTLE",
+  "isActiveInDeck": false,
+  "noStack": false,
+  "weight": 10,
+  "maxInactiveBondCount": -1,
+  "layerMilestones": [],
+  "desc": "【囚犯】怪物羁绊 · 池内 4 只",
+  "monTier": "minor"
+ },
+ "mon_minor_arc": {
+  "bondId": "mon_minor_arc",
+  "name": "弧光",
+  "identifier": 917,
+  "isCore": false,
+  "bondType": "SEASON",
+  "bondOrder": 917,
+  "powerIdList": [
+   "monpow_arc"
+  ],
+  "iconId": "icon_minor_arc",
+  "activeCount": 2,
+  "thresholds": [
+   2
+  ],
+  "maxCount": null,
+  "thresholdTemplate": "count_threshold_upward",
+  "countMode": "BOARD",
+  "countsHand": false,
+  "countsGoldenOnly": false,
+  "activeType": "BATTLE",
+  "isActiveInDeck": false,
+  "noStack": false,
+  "weight": 10,
+  "maxInactiveBondCount": -1,
+  "layerMilestones": [],
+  "desc": "【弧光】怪物羁绊 · 池内 2 只",
+  "monTier": "minor"
+ },
+ "mon_minor_visitor": {
+  "bondId": "mon_minor_visitor",
+  "name": "访问团",
+  "identifier": 918,
+  "isCore": false,
+  "bondType": "SEASON",
+  "bondOrder": 918,
+  "powerIdList": [
+   "monpow_visitor"
+  ],
+  "iconId": "icon_minor_visitor",
+  "activeCount": 2,
+  "thresholds": [
+   2,
+   4
+  ],
+  "maxCount": null,
+  "thresholdTemplate": "count_threshold_upward",
+  "countMode": "BOARD",
+  "countsHand": false,
+  "countsGoldenOnly": false,
+  "activeType": "BATTLE",
+  "isActiveInDeck": false,
+  "noStack": false,
+  "weight": 10,
+  "maxInactiveBondCount": -1,
+  "layerMilestones": [],
+  "desc": "【访问团】怪物羁绊 · 池内 4 只",
+  "monTier": "minor"
+ },
+ "mon_minor_rhine": {
+  "bondId": "mon_minor_rhine",
+  "name": "莱茵生命",
+  "identifier": 919,
+  "isCore": false,
+  "bondType": "SEASON",
+  "bondOrder": 919,
+  "powerIdList": [
+   "monpow_rhine"
+  ],
+  "iconId": "icon_minor_rhine",
+  "activeCount": 2,
+  "thresholds": [
+   2,
+   4
+  ],
+  "maxCount": null,
+  "thresholdTemplate": "count_threshold_upward",
+  "countMode": "BOARD",
+  "countsHand": false,
+  "countsGoldenOnly": false,
+  "activeType": "BATTLE",
+  "isActiveInDeck": false,
+  "noStack": false,
+  "weight": 10,
+  "maxInactiveBondCount": -1,
+  "layerMilestones": [],
+  "desc": "【莱茵生命】怪物羁绊 · 池内 4 只",
+  "monTier": "minor"
+ },
+ "mon_minor_knight": {
+  "bondId": "mon_minor_knight",
+  "name": "骑士团",
+  "identifier": 920,
+  "isCore": false,
+  "bondType": "SEASON",
+  "bondOrder": 920,
+  "powerIdList": [
+   "monpow_knight"
+  ],
+  "iconId": "icon_minor_knight",
+  "activeCount": 2,
+  "thresholds": [
+   2
+  ],
+  "maxCount": null,
+  "thresholdTemplate": "count_threshold_upward",
+  "countMode": "BOARD",
+  "countsHand": false,
+  "countsGoldenOnly": false,
+  "activeType": "BATTLE",
+  "isActiveInDeck": false,
+  "noStack": false,
+  "weight": 10,
+  "maxInactiveBondCount": -1,
+  "layerMilestones": [],
+  "desc": "【骑士团】怪物羁绊 · 池内 2 只",
+  "monTier": "minor"
+ },
+ "mon_minor_water": {
+  "bondId": "mon_minor_water",
+  "name": "水",
+  "identifier": 921,
+  "isCore": false,
+  "bondType": "SEASON",
+  "bondOrder": 921,
+  "powerIdList": [
+   "monpow_water"
+  ],
+  "iconId": "icon_minor_water",
+  "activeCount": 2,
+  "thresholds": [
+   2,
+   4
+  ],
+  "maxCount": null,
+  "thresholdTemplate": "count_threshold_upward",
+  "countMode": "BOARD",
+  "countsHand": false,
+  "countsGoldenOnly": false,
+  "activeType": "BATTLE",
+  "isActiveInDeck": false,
+  "noStack": false,
+  "weight": 10,
+  "maxInactiveBondCount": -1,
+  "layerMilestones": [],
+  "desc": "【水】怪物羁绊 · 池内 7 只",
+  "monTier": "minor"
+ },
+ "mon_minor_pathfinder": {
+  "bondId": "mon_minor_pathfinder",
+  "name": "寻路者",
+  "identifier": 922,
+  "isCore": false,
+  "bondType": "SEASON",
+  "bondOrder": 922,
+  "powerIdList": [
+   "monpow_pathfinder"
+  ],
+  "iconId": "icon_minor_pathfinder",
+  "activeCount": 2,
+  "thresholds": [
+   2,
+   4
+  ],
+  "maxCount": null,
+  "thresholdTemplate": "count_threshold_upward",
+  "countMode": "BOARD",
+  "countsHand": false,
+  "countsGoldenOnly": false,
+  "activeType": "BATTLE",
+  "isActiveInDeck": false,
+  "noStack": false,
+  "weight": 10,
+  "maxInactiveBondCount": -1,
+  "layerMilestones": [],
+  "desc": "【寻路者】怪物羁绊 · 池内 4 只",
+  "monTier": "minor"
+ },
+ "mon_sub_special": {
+  "bondId": "mon_sub_special",
+  "name": "特异",
+  "identifier": 923,
+  "isCore": false,
+  "bondType": "SEASON",
+  "bondOrder": 923,
+  "powerIdList": [
+   "monpow_special"
+  ],
+  "iconId": "icon_sub_special",
+  "activeCount": 3,
+  "thresholds": [
+   3,
+   6
+  ],
+  "maxCount": null,
+  "thresholdTemplate": "count_threshold_upward",
+  "countMode": "BOARD",
+  "countsHand": false,
+  "countsGoldenOnly": false,
+  "activeType": "BATTLE",
+  "isActiveInDeck": false,
+  "noStack": false,
+  "weight": 0,
+  "maxInactiveBondCount": -1,
+  "layerMilestones": [],
+  "desc": "【特异】怪物羁绊 · 池内 24 只",
+  "monTier": "sub"
+ },
+ "mon_sub_fly": {
+  "bondId": "mon_sub_fly",
+  "name": "飞行",
+  "identifier": 924,
+  "isCore": false,
+  "bondType": "SEASON",
+  "bondOrder": 924,
+  "powerIdList": [
+   "monpow_fly"
+  ],
+  "iconId": "icon_sub_fly",
+  "activeCount": 3,
+  "thresholds": [
+   3,
+   6
+  ],
+  "maxCount": null,
+  "thresholdTemplate": "count_threshold_upward",
+  "countMode": "BOARD",
+  "countsHand": false,
+  "countsGoldenOnly": false,
+  "activeType": "BATTLE",
+  "isActiveInDeck": false,
+  "noStack": false,
+  "weight": 0,
+  "maxInactiveBondCount": -1,
+  "layerMilestones": [],
+  "desc": "【飞行】怪物羁绊 · 池内 18 只",
+  "monTier": "sub"
+ },
+ "mon_sub_times": {
+  "bondId": "mon_sub_times",
+  "name": "频次",
+  "identifier": 925,
+  "isCore": false,
+  "bondType": "SEASON",
+  "bondOrder": 925,
+  "powerIdList": [
+   "monpow_times"
+  ],
+  "iconId": "icon_sub_times",
+  "activeCount": 3,
+  "thresholds": [
+   3,
+   6
+  ],
+  "maxCount": null,
+  "thresholdTemplate": "count_threshold_upward",
+  "countMode": "BOARD",
+  "countsHand": false,
+  "countsGoldenOnly": false,
+  "activeType": "BATTLE",
+  "isActiveInDeck": false,
+  "noStack": false,
+  "weight": 0,
+  "maxInactiveBondCount": -1,
+  "layerMilestones": [],
+  "desc": "【频次】怪物羁绊 · 池内 7 只",
+  "monTier": "sub"
+ },
+ "mon_sub_element": {
+  "bondId": "mon_sub_element",
+  "name": "元素",
+  "identifier": 926,
+  "isCore": false,
+  "bondType": "SEASON",
+  "bondOrder": 926,
+  "powerIdList": [
+   "monpow_element"
+  ],
+  "iconId": "icon_sub_element",
+  "activeCount": 3,
+  "thresholds": [
+   3,
+   6
+  ],
+  "maxCount": null,
+  "thresholdTemplate": "count_threshold_upward",
+  "countMode": "BOARD",
+  "countsHand": false,
+  "countsGoldenOnly": false,
+  "activeType": "BATTLE",
+  "isActiveInDeck": false,
+  "noStack": false,
+  "weight": 0,
+  "maxInactiveBondCount": -1,
+  "layerMilestones": [],
+  "desc": "【元素】怪物羁绊 · 池内 13 只",
+  "monTier": "sub"
+ },
+ "mon_sub_dot": {
+  "bondId": "mon_sub_dot",
+  "name": "持续",
+  "identifier": 927,
+  "isCore": false,
+  "bondType": "SEASON",
+  "bondOrder": 927,
+  "powerIdList": [
+   "monpow_dot"
+  ],
+  "iconId": "icon_sub_dot",
+  "activeCount": 3,
+  "thresholds": [
+   3,
+   6
+  ],
+  "maxCount": null,
+  "thresholdTemplate": "count_threshold_upward",
+  "countMode": "BOARD",
+  "countsHand": false,
+  "countsGoldenOnly": false,
+  "activeType": "BATTLE",
+  "isActiveInDeck": false,
+  "noStack": false,
+  "weight": 0,
+  "maxInactiveBondCount": -1,
+  "layerMilestones": [],
+  "desc": "【持续】怪物羁绊 · 池内 7 只",
+  "monTier": "sub"
+ },
+ "mon_sub_invisible": {
+  "bondId": "mon_sub_invisible",
+  "name": "隐匿",
+  "identifier": 928,
+  "isCore": false,
+  "bondType": "SEASON",
+  "bondOrder": 928,
+  "powerIdList": [
+   "monpow_invisible"
+  ],
+  "iconId": "icon_sub_invisible",
+  "activeCount": 3,
+  "thresholds": [
+   3,
+   6
+  ],
+  "maxCount": null,
+  "thresholdTemplate": "count_threshold_upward",
+  "countMode": "BOARD",
+  "countsHand": false,
+  "countsGoldenOnly": false,
+  "activeType": "BATTLE",
+  "isActiveInDeck": false,
+  "noStack": false,
+  "weight": 0,
+  "maxInactiveBondCount": -1,
+  "layerMilestones": [],
+  "desc": "【隐匿】怪物羁绊 · 池内 11 只",
+  "monTier": "sub"
+ },
+ "mon_sub_reflection": {
+  "bondId": "mon_sub_reflection",
+  "name": "折射",
+  "identifier": 929,
+  "isCore": false,
+  "bondType": "SEASON",
+  "bondOrder": 929,
+  "powerIdList": [
+   "monpow_reflection"
+  ],
+  "iconId": "icon_sub_reflection",
+  "activeCount": 3,
+  "thresholds": [
+   3,
+   6
+  ],
+  "maxCount": null,
+  "thresholdTemplate": "count_threshold_upward",
+  "countMode": "BOARD",
+  "countsHand": false,
+  "countsGoldenOnly": false,
+  "activeType": "BATTLE",
+  "isActiveInDeck": false,
+  "noStack": false,
+  "weight": 0,
+  "maxInactiveBondCount": -1,
+  "layerMilestones": [],
+  "desc": "【折射】怪物羁绊 · 池内 11 只",
+  "monTier": "sub"
+ },
+ "mon_sub_critic": {
+  "bondId": "mon_sub_critic",
+  "name": "致命",
+  "identifier": 930,
+  "isCore": false,
+  "bondType": "SEASON",
+  "bondOrder": 930,
+  "powerIdList": [
+   "monpow_critic"
+  ],
+  "iconId": "icon_sub_critic",
+  "activeCount": 3,
+  "thresholds": [
+   3,
+   6
+  ],
+  "maxCount": null,
+  "thresholdTemplate": "count_threshold_upward",
+  "countMode": "BOARD",
+  "countsHand": false,
+  "countsGoldenOnly": false,
+  "activeType": "BATTLE",
+  "isActiveInDeck": false,
+  "noStack": false,
+  "weight": 0,
+  "maxInactiveBondCount": -1,
+  "layerMilestones": [],
+  "desc": "【致命】怪物羁绊 · 池内 25 只",
+  "monTier": "sub"
+ },
+ "mon_sub_reborn": {
+  "bondId": "mon_sub_reborn",
+  "name": "复苏",
+  "identifier": 931,
+  "isCore": false,
+  "bondType": "SEASON",
+  "bondOrder": 931,
+  "powerIdList": [
+   "monpow_reborn"
+  ],
+  "iconId": "icon_sub_reborn",
+  "activeCount": 3,
+  "thresholds": [
+   3,
+   6
+  ],
+  "maxCount": null,
+  "thresholdTemplate": "count_threshold_upward",
+  "countMode": "BOARD",
+  "countsHand": false,
+  "countsGoldenOnly": false,
+  "activeType": "BATTLE",
+  "isActiveInDeck": false,
+  "noStack": false,
+  "weight": 0,
+  "maxInactiveBondCount": -1,
+  "layerMilestones": [],
+  "desc": "【复苏】怪物羁绊 · 池内 18 只",
+  "monTier": "sub"
+ }
+}

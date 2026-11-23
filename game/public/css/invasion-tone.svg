@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+  <filter id="brick" color-interpolation-filters="sRGB">
+    <feColorMatrix type="matrix" values="0.166 0.557 0.056 0 0
+                                       0.062 0.211 0.021 0 0
+                                       0.052 0.175 0.018 0 0
+                                       0 0 0 1 0"/>
+  </filter>
+</svg>

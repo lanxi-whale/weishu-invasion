@@ -1,0 +1,11 @@
+{
+ "baseCountByStar": { "1": 2, "2": 3 },
+ "baseCountByTier": { "6": { "1": 1, "2": 2 } },
+ "spawnInterval": 0.25,
+ "bonds": {
+  "mon_main_slug": [
+   { "distinctSpecies": 4, "extraPerUnit": 3 },
+   { "distinctSpecies": 7, "extraPerUnit": 6 }
+  ]
+ }
+}

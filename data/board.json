@@ -1,0 +1,254 @@
+{
+ "source": "act1autochess_m01",
+ "name": "战场#01",
+ "rect": {
+  "r0": 9,
+  "r1": 13,
+  "c0": 2,
+  "c1": 10
+ },
+ "cols": 9,
+ "rows": 5,
+ "glyphs": [
+  "Err###rrS",
+  "#brbbbrf#",
+  "#brbbbrf#",
+  "#brrrrrfS",
+  "XXXXXXXXX"
+ ],
+ "legend": {
+  "a": {
+   "tile": "tile_achand",
+   "height": "HIGH",
+   "buildable": "ALL"
+  },
+  "#": {
+   "tile": "tile_forbidden",
+   "height": "HIGH",
+   "buildable": "NONE"
+  },
+  "I": {
+   "tile": "tile_telin",
+   "height": "LOW",
+   "buildable": "NONE"
+  },
+  "A": {
+   "tile": "tile_achand",
+   "height": "HIGH",
+   "buildable": "ALL"
+  },
+  "E": {
+   "tile": "tile_end",
+   "height": "LOW",
+   "buildable": "NONE"
+  },
+  "r": {
+   "tile": "tile_road",
+   "height": "LOW",
+   "buildable": "ALL"
+  },
+  "O": {
+   "tile": "tile_telout",
+   "height": "LOW",
+   "buildable": "NONE"
+  },
+  "b": {
+   "tile": "tile_fence_bound",
+   "height": "LOW",
+   "buildable": "ALL"
+  },
+  "f": {
+   "tile": "tile_floor",
+   "height": "LOW",
+   "buildable": "NONE"
+  },
+  "X": {
+   "tile": "tile_forbidden",
+   "height": "HIGH",
+   "buildable": "NONE"
+  },
+  "S": {
+   "tile": "tile_start",
+   "height": "LOW",
+   "buildable": "NONE"
+  },
+  "p": {
+   "tile": "tile_floor",
+   "height": "LOW",
+   "buildable": "NONE"
+  }
+ },
+ "gates": [
+  {
+   "id": "A",
+   "r": 0,
+   "c": 8,
+   "stage": [
+    9,
+    10
+   ]
+  },
+  {
+   "id": "B",
+   "r": 3,
+   "c": 8,
+   "stage": [
+    12,
+    10
+   ]
+  }
+ ],
+ "ends": [
+  {
+   "r": 0,
+   "c": 0,
+   "stage": [
+    9,
+    2
+   ]
+  }
+ ],
+ "deploy": [
+  [
+   0,
+   1
+  ],
+  [
+   0,
+   2
+  ],
+  [
+   0,
+   6
+  ],
+  [
+   0,
+   7
+  ],
+  [
+   1,
+   1
+  ],
+  [
+   1,
+   2
+  ],
+  [
+   1,
+   5
+  ],
+  [
+   1,
+   6
+  ],
+  [
+   2,
+   1
+  ],
+  [
+   2,
+   2
+  ],
+  [
+   2,
+   4
+  ],
+  [
+   2,
+   5
+  ],
+  [
+   2,
+   6
+  ],
+  [
+   3,
+   1
+  ],
+  [
+   3,
+   2
+  ],
+  [
+   3,
+   3
+  ],
+  [
+   3,
+   4
+  ],
+  [
+   3,
+   5
+  ],
+  [
+   3,
+   6
+  ]
+ ],
+ "route": [
+  [
+   0,
+   8
+  ],
+  [
+   0,
+   7
+  ],
+  [
+   0,
+   6
+  ],
+  [
+   1,
+   6
+  ],
+  [
+   2,
+   6
+  ],
+  [
+   3,
+   6
+  ],
+  [
+   3,
+   5
+  ],
+  [
+   3,
+   4
+  ],
+  [
+   3,
+   3
+  ],
+  [
+   3,
+   2
+  ],
+  [
+   2,
+   2
+  ],
+  [
+   1,
+   2
+  ],
+  [
+   0,
+   2
+  ],
+  [
+   0,
+   1
+  ],
+  [
+   0,
+   0
+  ]
+ ],
+ "zoneRule": "每个可部署格就近分配到最近的红门（曼哈顿距离），不再按行对半",
+ "orderRule": "dist = min(|r-红门r| + |c-红门c|)；同距离同批，批内同时出怪",
+ "note": "整张地图直接取自 data/stages.json act1autochess_m01 的 rows/cols 9~13 × 2~10；红门=tile_start(S)，蓝门=tile_end(E)，可部署格=deployTiles.normal.melee"
+}

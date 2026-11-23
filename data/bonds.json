@@ -1,0 +1,1542 @@
+{
+ "bonds": [
+  {
+   "id": "main_yan",
+   "key": "yan",
+   "name": "炎",
+   "kind": "MAIN",
+   "members": [
+    "enemy_1195_sfyin",
+    "enemy_1197_sfshu",
+    "enemy_1199_sfjin",
+    "enemy_1203_sfhu",
+    "enemy_1207_sfji",
+    "enemy_1209_sfden",
+    "enemy_1299_ymkilr",
+    "enemy_10054_cjhot"
+   ],
+   "memberCount": 8,
+   "thresholds": [
+    4,
+    7
+   ],
+   "pending": false,
+   "note": "岁/炎国系列 12 个（含 3 个首领）"
+  },
+  {
+   "id": "main_seaborn",
+   "key": "seaborn",
+   "name": "海嗣",
+   "kind": "MAIN",
+   "members": [
+    "enemy_1148_dssbr",
+    "enemy_1234_dsubrl",
+    "enemy_1433_dsbasi",
+    "enemy_1435_dsflys",
+    "enemy_1436_dsdivi",
+    "enemy_1437_dsfull",
+    "enemy_1438_dspred",
+    "enemy_1439_dslntf",
+    "enemy_2021_syfish",
+    "enemy_2025_syufo"
+   ],
+   "memberCount": 10,
+   "thresholds": [
+    4,
+    7
+   ],
+   "pending": false,
+   "note": ""
+  },
+  {
+   "id": "main_slug",
+   "key": "slug",
+   "name": "源石虫",
+   "kind": "MAIN",
+   "members": [
+    "enemy_1007_slime",
+    "enemy_1021_bslime",
+    "enemy_1067_snslime",
+    "enemy_1305_mhslim",
+    "enemy_1424_lrboom",
+    "enemy_10001_trslim",
+    "enemy_1132_sarchn",
+    "enemy_1133_harchn"
+   ],
+   "memberCount": 8,
+   "thresholds": [
+    4,
+    7
+   ],
+   "pending": false,
+   "note": ""
+  },
+  {
+   "id": "main_court",
+   "key": "court",
+   "name": "萨卡兹",
+   "kind": "MAIN",
+   "members": [
+    "enemy_1010_demon",
+    "enemy_1071_dftman",
+    "enemy_1072_dlancer",
+    "enemy_1229_darmy",
+    "enemy_1275_dwlock_2",
+    "enemy_1320_wdrrl_2",
+    "enemy_1363_spnshd_2",
+    "enemy_1413_mmstck"
+   ],
+   "memberCount": 8,
+   "thresholds": [
+    4,
+    7
+   ],
+   "pending": false,
+   "note": "王庭军 / 雇佣兵 / 骑士等非枯朽系"
+  },
+  {
+   "id": "main_decay",
+   "key": "decay",
+   "name": "萨卡兹·枯朽",
+   "kind": "MAIN",
+   "members": [
+    "enemy_1222_dpvt",
+    "enemy_1223_dmech",
+    "enemy_1224_dsuply",
+    "enemy_1225_dkmage",
+    "enemy_1226_dklord",
+    "enemy_1267_nhpbr",
+    "enemy_1270_nhstlk",
+    "enemy_1272_nhtank",
+    "enemy_1321_wdarft",
+    "enemy_1361_dthrow",
+    "enemy_1362_dfat",
+    "enemy_1422_lrsldr",
+    "enemy_1425_lrcmra",
+    "enemy_1427_lrnazg",
+    "enemy_1428_lrsoul",
+    "enemy_1429_lrwzrd",
+    "enemy_1430_lrrook",
+    "enemy_1431_lrmzrd",
+    "enemy_9030_acpara"
+   ],
+   "memberCount": 19,
+   "thresholds": [
+    4,
+    7
+   ],
+   "pending": false,
+   "note": "枯朽 / 子裔 / 奇美拉 / 灵幛 / 魂灵"
+  },
+  {
+   "id": "main_reunion",
+   "key": "reunion",
+   "name": "整合运动",
+   "kind": "MAIN",
+   "members": [
+    "enemy_1006_shield",
+    "enemy_1009_lurker",
+    "enemy_1019_jshoot",
+    "enemy_1023_jmage",
+    "enemy_1025_reveng",
+    "enemy_1043_zomsbr",
+    "enemy_1045_hammer",
+    "enemy_1061_zomshd",
+    "enemy_1062_rager_2",
+    "enemy_1064_snsbr",
+    "enemy_1069_icebrk_2",
+    "enemy_1081_sotisd",
+    "enemy_1402_tgshd_2",
+    "enemy_1403_gunsho",
+    "enemy_10124_uashld_2"
+   ],
+   "memberCount": 15,
+   "thresholds": [
+    4,
+    7
+   ],
+   "pending": false,
+   "note": ""
+  },
+  {
+   "id": "main_drone",
+   "key": "drone",
+   "name": "无人机",
+   "kind": "MAIN",
+   "members": [
+    "enemy_1005_yokai",
+    "enemy_1017_defdrn",
+    "enemy_1040_bombd",
+    "enemy_1041_lazerd",
+    "enemy_1042_frostd",
+    "enemy_1112_emppnt",
+    "enemy_10084_hlegle"
+   ],
+   "memberCount": 7,
+   "thresholds": [
+    4,
+    7
+   ],
+   "pending": false,
+   "note": ""
+  },
+  {
+   "id": "main_witchking",
+   "key": "witchking",
+   "name": "巫王乐团",
+   "kind": "MAIN",
+   "members": [
+    "enemy_1373_ltnhor",
+    "enemy_1373_ltnhor_2",
+    "enemy_1375_ltnclr",
+    "enemy_1375_ltnclr_2",
+    "enemy_1376_ltndru",
+    "enemy_1376_ltndru_2"
+   ],
+   "memberCount": 6,
+   "thresholds": [
+    4,
+    7
+   ],
+   "pending": false,
+   "note": "含巫王乐团 / 残党乐团两支"
+  },
+  {
+   "id": "main_phantasm",
+   "key": "phantasm",
+   "name": "假想敌",
+   "kind": "MAIN",
+   "members": [
+    "enemy_9006_actoxi",
+    "enemy_9007_acelem",
+    "enemy_9008_acbunn",
+    "enemy_9009_acfort",
+    "enemy_9010_acpupp",
+    "enemy_9011_acrefr",
+    "enemy_9022_acdumm",
+    "enemy_9031_acrefd",
+    "enemy_9034_acblk",
+    "enemy_9039_acrefm",
+    "enemy_9040_accrit"
+   ],
+   "memberCount": 11,
+   "thresholds": [
+    4,
+    7
+   ],
+   "pending": false,
+   "note": "仅普通/精英级，BOSS 级仍是首领"
+  },
+  {
+   "id": "main_infection",
+   "key": "infection",
+   "name": "感染",
+   "kind": "MAIN",
+   "members": [
+    "enemy_1007_slime",
+    "enemy_1021_bslime",
+    "enemy_1067_snslime",
+    "enemy_1305_mhslim",
+    "enemy_1424_lrboom",
+    "enemy_10001_trslim",
+    "enemy_1131_sbeast",
+    "enemy_1132_sarchn",
+    "enemy_1133_harchn",
+    "enemy_10127_rkmbst_2"
+   ],
+   "memberCount": 10,
+   "thresholds": [
+    4,
+    7
+   ],
+   "pending": false,
+   "note": ""
+  },
+  {
+   "id": "main_abyss",
+   "key": "abyss",
+   "name": "深池",
+   "kind": "MAIN",
+   "members": [
+    "enemy_1165_duhond",
+    "enemy_1166_dusbr",
+    "enemy_1168_dumage",
+    "enemy_1169_duphlx",
+    "enemy_1170_dushld",
+    "enemy_1174_duholy",
+    "enemy_1175_dushdo_2",
+    "enemy_1288_duskls",
+    "enemy_1292_duskld"
+   ],
+   "memberCount": 9,
+   "thresholds": [
+    4,
+    7
+   ],
+   "pending": false,
+   "note": "正式主羁绊：名称以「深池」开头"
+  },
+  {
+   "id": "minor_snow",
+   "key": "snow",
+   "name": "雪怪",
+   "kind": "MINOR",
+   "members": [
+    "enemy_1064_snsbr",
+    "enemy_1069_icebrk_2"
+   ],
+   "memberCount": 2,
+   "thresholds": [
+    2
+   ],
+   "pending": false,
+   "note": ""
+  },
+  {
+   "id": "minor_special",
+   "key": "special",
+   "name": "特殊",
+   "kind": "MINOR",
+   "members": [
+    "enemy_2001_duckmi",
+    "enemy_2002_bearmi",
+    "enemy_2034_sythef",
+    "enemy_2085_skzjxd"
+   ],
+   "memberCount": 4,
+   "thresholds": [
+    2,
+    4
+   ],
+   "pending": false,
+   "note": "数据里没有对应成员，待指派"
+  },
+  {
+   "id": "minor_carnival",
+   "key": "carnival",
+   "name": "狂欢",
+   "kind": "MINOR",
+   "members": [
+    "enemy_10031_cnvsld",
+    "enemy_10034_cnvsax",
+    "enemy_10040_cnvbln"
+   ],
+   "memberCount": 3,
+   "thresholds": [
+    2
+   ],
+   "pending": false,
+   "note": ""
+  },
+  {
+   "id": "minor_sankta",
+   "key": "sankta",
+   "name": "萨科塔",
+   "kind": "MINOR",
+   "members": [
+    "enemy_10083_hlbird",
+    "enemy_10084_hlegle",
+    "enemy_10085_hllevi_2",
+    "enemy_10087_hlchgr"
+   ],
+   "memberCount": 4,
+   "thresholds": [
+    2,
+    4
+   ],
+   "pending": false,
+   "note": ""
+  },
+  {
+   "id": "minor_theater",
+   "key": "theater",
+   "name": "剧场",
+   "kind": "MINOR",
+   "members": [
+    "enemy_2009_csaudc",
+    "enemy_10094_crstf",
+    "enemy_10097_crshd",
+    "enemy_10098_crhro",
+    "enemy_10099_crvln"
+   ],
+   "memberCount": 5,
+   "thresholds": [
+    2,
+    4
+   ],
+   "pending": false,
+   "note": "数据里没有对应成员，待指派"
+  },
+  {
+   "id": "minor_prisoner",
+   "key": "prisoner",
+   "name": "囚犯",
+   "kind": "MINOR",
+   "members": [
+    "enemy_1116_liprr",
+    "enemy_1118_lidbox_2",
+    "enemy_1119_vofsd",
+    "enemy_1121_lifbos"
+   ],
+   "memberCount": 4,
+   "thresholds": [
+    2,
+    4
+   ],
+   "pending": false,
+   "note": ""
+  },
+  {
+   "id": "minor_arc",
+   "key": "arc",
+   "name": "弧光",
+   "kind": "MINOR",
+   "members": [
+    "enemy_1328_cbjedi",
+    "enemy_1329_cbshld"
+   ],
+   "memberCount": 2,
+   "thresholds": [
+    2
+   ],
+   "pending": false,
+   "note": ""
+  },
+  {
+   "id": "minor_visitor",
+   "key": "visitor",
+   "name": "访问团",
+   "kind": "MINOR",
+   "members": [
+    "enemy_1381_winman",
+    "enemy_1385_winbom",
+    "enemy_1387_winshd",
+    "enemy_1389_winbab_2"
+   ],
+   "memberCount": 4,
+   "thresholds": [
+    2,
+    4
+   ],
+   "pending": false,
+   "note": ""
+  },
+  {
+   "id": "minor_rhine",
+   "key": "rhine",
+   "name": "莱茵生命",
+   "kind": "MINOR",
+   "members": [
+    "enemy_1249_lysdb_2",
+    "enemy_1251_lysyta",
+    "enemy_1252_lysytb_2",
+    "enemy_1254_lypa_2"
+   ],
+   "memberCount": 4,
+   "thresholds": [
+    2,
+    4
+   ],
+   "pending": false,
+   "note": ""
+  },
+  {
+   "id": "minor_knight",
+   "key": "knight",
+   "name": "骑士团",
+   "kind": "MINOR",
+   "members": [
+    "enemy_1103_wdkght_2",
+    "enemy_1104_lfkght"
+   ],
+   "memberCount": 2,
+   "thresholds": [
+    2
+   ],
+   "pending": false,
+   "note": ""
+  },
+  {
+   "id": "minor_water",
+   "key": "water",
+   "name": "水",
+   "kind": "MINOR",
+   "members": [
+    "enemy_1158_divman",
+    "enemy_1160_hvyslr",
+    "enemy_1161_tidmag",
+    "enemy_1162_magmot",
+    "enemy_10042_prtrop",
+    "enemy_10043_sailor",
+    "enemy_10044_wintun"
+   ],
+   "memberCount": 7,
+   "thresholds": [
+    2,
+    4
+   ],
+   "pending": false,
+   "note": ""
+  },
+  {
+   "id": "minor_pathfinder",
+   "key": "pathfinder",
+   "name": "寻路者",
+   "kind": "MINOR",
+   "members": [
+    "enemy_1213_mtrsnp",
+    "enemy_1216_cansld",
+    "enemy_1219_mtrbty",
+    "enemy_1406_chghmr"
+   ],
+   "memberCount": 4,
+   "thresholds": [
+    2,
+    4
+   ],
+   "pending": false,
+   "note": ""
+  },
+  {
+   "id": "sub_special",
+   "key": "SPECIAL",
+   "name": "特异",
+   "kind": "SUB",
+   "members": [
+    "enemy_1010_demon",
+    "enemy_1071_dftman",
+    "enemy_1072_dlancer",
+    "enemy_1320_wdrrl_2",
+    "enemy_1043_zomsbr",
+    "enemy_1045_hammer",
+    "enemy_1061_zomshd",
+    "enemy_1402_tgshd_2",
+    "enemy_10124_uashld_2",
+    "enemy_1000_gopro_2",
+    "enemy_1325_cbgpro",
+    "enemy_1116_liprr",
+    "enemy_1118_lidbox_2",
+    "enemy_1119_vofsd",
+    "enemy_1121_lifbos",
+    "enemy_1328_cbjedi",
+    "enemy_1329_cbshld",
+    "enemy_1381_winman",
+    "enemy_1387_winshd",
+    "enemy_1249_lysdb_2",
+    "enemy_1251_lysyta",
+    "enemy_1252_lysytb_2",
+    "enemy_1254_lypa_2",
+    "enemy_1046_agent"
+   ],
+   "memberCount": 24,
+   "thresholds": [
+    3,
+    6
+   ],
+   "pending": false,
+   "note": ""
+  },
+  {
+   "id": "sub_fly",
+   "key": "FLY",
+   "name": "飞行",
+   "kind": "SUB",
+   "members": [
+    "enemy_1435_dsflys",
+    "enemy_1321_wdarft",
+    "enemy_1430_lrrook",
+    "enemy_1005_yokai",
+    "enemy_1017_defdrn",
+    "enemy_1040_bombd",
+    "enemy_1041_lazerd",
+    "enemy_1042_frostd",
+    "enemy_1112_emppnt",
+    "enemy_9009_acfort",
+    "enemy_10040_cnvbln",
+    "enemy_10083_hlbird",
+    "enemy_10084_hlegle",
+    "enemy_10085_hllevi_2",
+    "enemy_9012_acloon",
+    "enemy_10147_nsbomb",
+    "enemy_10146_nscola",
+    "enemy_1407_hummbd"
+   ],
+   "memberCount": 18,
+   "thresholds": [
+    3,
+    6
+   ],
+   "pending": false,
+   "note": ""
+  },
+  {
+   "id": "sub_times",
+   "key": "TIMES",
+   "name": "频次",
+   "kind": "SUB",
+   "members": [
+    "enemy_1195_sfyin",
+    "enemy_1197_sfshu",
+    "enemy_1199_sfjin",
+    "enemy_1207_sfji",
+    "enemy_9010_acpupp",
+    "enemy_1288_duskls",
+    "enemy_1292_duskld"
+   ],
+   "memberCount": 7,
+   "thresholds": [
+    3,
+    6
+   ],
+   "pending": false,
+   "note": ""
+  },
+  {
+   "id": "sub_element",
+   "key": "ELEMENT",
+   "name": "元素",
+   "kind": "SUB",
+   "members": [
+    "enemy_1148_dssbr",
+    "enemy_1439_dslntf",
+    "enemy_2021_syfish",
+    "enemy_2025_syufo",
+    "enemy_1305_mhslim",
+    "enemy_1229_darmy",
+    "enemy_1275_dwlock_2",
+    "enemy_9007_acelem",
+    "enemy_1158_divman",
+    "enemy_1160_hvyslr",
+    "enemy_1161_tidmag",
+    "enemy_10067_ftsjc",
+    "enemy_10065_ftzlc"
+   ],
+   "memberCount": 13,
+   "thresholds": [
+    3,
+    6
+   ],
+   "pending": false,
+   "note": ""
+  },
+  {
+   "id": "sub_dot",
+   "key": "DOT",
+   "name": "持续",
+   "kind": "SUB",
+   "members": [
+    "enemy_1234_dsubrl",
+    "enemy_1433_dsbasi",
+    "enemy_1267_nhpbr",
+    "enemy_1272_nhtank",
+    "enemy_9006_actoxi",
+    "enemy_1270_nhstlk",
+    "enemy_10122_uacann_2"
+   ],
+   "memberCount": 7,
+   "thresholds": [
+    3,
+    6
+   ],
+   "pending": false,
+   "note": ""
+  },
+  {
+   "id": "sub_invisible",
+   "key": "INVISIBLE",
+   "name": "隐匿",
+   "kind": "SUB",
+   "members": [
+    "enemy_1299_ymkilr",
+    "enemy_1009_lurker",
+    "enemy_1019_jshoot",
+    "enemy_1023_jmage",
+    "enemy_9008_acbunn",
+    "enemy_9034_acblk",
+    "enemy_10031_cnvsld",
+    "enemy_10034_cnvsax",
+    "enemy_1389_winbab_2",
+    "enemy_1283_sgkill",
+    "enemy_1404_msnip"
+   ],
+   "memberCount": 11,
+   "thresholds": [
+    3,
+    6
+   ],
+   "pending": false,
+   "note": ""
+  },
+  {
+   "id": "sub_reflection",
+   "key": "REFLECTION",
+   "name": "折射",
+   "kind": "SUB",
+   "members": [
+    "enemy_9011_acrefr",
+    "enemy_9031_acrefd",
+    "enemy_9039_acrefm",
+    "enemy_1165_duhond",
+    "enemy_1166_dusbr",
+    "enemy_1168_dumage",
+    "enemy_1169_duphlx",
+    "enemy_1170_dushld",
+    "enemy_1174_duholy",
+    "enemy_1175_dushdo_2",
+    "enemy_1172_dugago"
+   ],
+   "memberCount": 11,
+   "thresholds": [
+    3,
+    6
+   ],
+   "pending": false,
+   "note": ""
+  },
+  {
+   "id": "sub_critic",
+   "key": "CRITIC",
+   "name": "致命",
+   "kind": "SUB",
+   "members": [
+    "enemy_1428_lrsoul",
+    "enemy_1429_lrwzrd",
+    "enemy_1431_lrmzrd",
+    "enemy_1064_snsbr",
+    "enemy_1403_gunsho",
+    "enemy_1373_ltnhor",
+    "enemy_1373_ltnhor_2",
+    "enemy_1375_ltnclr",
+    "enemy_1375_ltnclr_2",
+    "enemy_1376_ltndru",
+    "enemy_1376_ltndru_2",
+    "enemy_9040_accrit",
+    "enemy_1381_winman",
+    "enemy_1385_winbom",
+    "enemy_1213_mtrsnp",
+    "enemy_1216_cansld",
+    "enemy_1219_mtrbty",
+    "enemy_1406_chghmr",
+    "enemy_1404_msnip",
+    "enemy_10163_mnctur_2",
+    "enemy_1409_bdguad_2",
+    "enemy_1309_mhboar_2",
+    "enemy_1388_wingnt",
+    "enemy_1405_boomer_2",
+    "enemy_1191_krgrg"
+   ],
+   "memberCount": 25,
+   "thresholds": [
+    3,
+    6
+   ],
+   "pending": false,
+   "note": ""
+  },
+  {
+   "id": "sub_reborn",
+   "key": "REBORN",
+   "name": "复苏",
+   "kind": "SUB",
+   "members": [
+    "enemy_1433_dsbasi",
+    "enemy_1436_dsdivi",
+    "enemy_1437_dsfull",
+    "enemy_1363_spnshd_2",
+    "enemy_1222_dpvt",
+    "enemy_1223_dmech",
+    "enemy_1224_dsuply",
+    "enemy_1225_dkmage",
+    "enemy_1226_dklord",
+    "enemy_1361_dthrow",
+    "enemy_1362_dfat",
+    "enemy_9030_acpara",
+    "enemy_1131_sbeast",
+    "enemy_1132_sarchn",
+    "enemy_1133_harchn",
+    "enemy_1103_wdkght_2",
+    "enemy_1104_lfkght",
+    "enemy_1360_dfello"
+   ],
+   "memberCount": 18,
+   "thresholds": [
+    3,
+    6
+   ],
+   "pending": false,
+   "note": ""
+  }
+ ],
+ "main": [
+  {
+   "id": "main_yan",
+   "key": "yan",
+   "name": "炎",
+   "kind": "MAIN",
+   "members": [
+    "enemy_1195_sfyin",
+    "enemy_1197_sfshu",
+    "enemy_1199_sfjin",
+    "enemy_1203_sfhu",
+    "enemy_1207_sfji",
+    "enemy_1209_sfden",
+    "enemy_1299_ymkilr",
+    "enemy_10054_cjhot"
+   ],
+   "memberCount": 8,
+   "thresholds": [
+    4,
+    7
+   ],
+   "pending": false,
+   "note": "岁/炎国系列 12 个（含 3 个首领）"
+  },
+  {
+   "id": "main_seaborn",
+   "key": "seaborn",
+   "name": "海嗣",
+   "kind": "MAIN",
+   "members": [
+    "enemy_1148_dssbr",
+    "enemy_1234_dsubrl",
+    "enemy_1433_dsbasi",
+    "enemy_1435_dsflys",
+    "enemy_1436_dsdivi",
+    "enemy_1437_dsfull",
+    "enemy_1438_dspred",
+    "enemy_1439_dslntf",
+    "enemy_2021_syfish",
+    "enemy_2025_syufo"
+   ],
+   "memberCount": 10,
+   "thresholds": [
+    4,
+    7
+   ],
+   "pending": false,
+   "note": ""
+  },
+  {
+   "id": "main_slug",
+   "key": "slug",
+   "name": "源石虫",
+   "kind": "MAIN",
+   "members": [
+    "enemy_1007_slime",
+    "enemy_1021_bslime",
+    "enemy_1067_snslime",
+    "enemy_1305_mhslim",
+    "enemy_1424_lrboom",
+    "enemy_10001_trslim",
+    "enemy_1132_sarchn",
+    "enemy_1133_harchn"
+   ],
+   "memberCount": 8,
+   "thresholds": [
+    4,
+    7
+   ],
+   "pending": false,
+   "note": ""
+  },
+  {
+   "id": "main_court",
+   "key": "court",
+   "name": "萨卡兹",
+   "kind": "MAIN",
+   "members": [
+    "enemy_1010_demon",
+    "enemy_1071_dftman",
+    "enemy_1072_dlancer",
+    "enemy_1229_darmy",
+    "enemy_1275_dwlock_2",
+    "enemy_1320_wdrrl_2",
+    "enemy_1363_spnshd_2",
+    "enemy_1413_mmstck"
+   ],
+   "memberCount": 8,
+   "thresholds": [
+    4,
+    7
+   ],
+   "pending": false,
+   "note": "王庭军 / 雇佣兵 / 骑士等非枯朽系"
+  },
+  {
+   "id": "main_decay",
+   "key": "decay",
+   "name": "萨卡兹·枯朽",
+   "kind": "MAIN",
+   "members": [
+    "enemy_1222_dpvt",
+    "enemy_1223_dmech",
+    "enemy_1224_dsuply",
+    "enemy_1225_dkmage",
+    "enemy_1226_dklord",
+    "enemy_1267_nhpbr",
+    "enemy_1270_nhstlk",
+    "enemy_1272_nhtank",
+    "enemy_1321_wdarft",
+    "enemy_1361_dthrow",
+    "enemy_1362_dfat",
+    "enemy_1422_lrsldr",
+    "enemy_1425_lrcmra",
+    "enemy_1427_lrnazg",
+    "enemy_1428_lrsoul",
+    "enemy_1429_lrwzrd",
+    "enemy_1430_lrrook",
+    "enemy_1431_lrmzrd",
+    "enemy_9030_acpara"
+   ],
+   "memberCount": 19,
+   "thresholds": [
+    4,
+    7
+   ],
+   "pending": false,
+   "note": "枯朽 / 子裔 / 奇美拉 / 灵幛 / 魂灵"
+  },
+  {
+   "id": "main_reunion",
+   "key": "reunion",
+   "name": "整合运动",
+   "kind": "MAIN",
+   "members": [
+    "enemy_1006_shield",
+    "enemy_1009_lurker",
+    "enemy_1019_jshoot",
+    "enemy_1023_jmage",
+    "enemy_1025_reveng",
+    "enemy_1043_zomsbr",
+    "enemy_1045_hammer",
+    "enemy_1061_zomshd",
+    "enemy_1062_rager_2",
+    "enemy_1064_snsbr",
+    "enemy_1069_icebrk_2",
+    "enemy_1081_sotisd",
+    "enemy_1402_tgshd_2",
+    "enemy_1403_gunsho",
+    "enemy_10124_uashld_2"
+   ],
+   "memberCount": 15,
+   "thresholds": [
+    4,
+    7
+   ],
+   "pending": false,
+   "note": ""
+  },
+  {
+   "id": "main_drone",
+   "key": "drone",
+   "name": "无人机",
+   "kind": "MAIN",
+   "members": [
+    "enemy_1005_yokai",
+    "enemy_1017_defdrn",
+    "enemy_1040_bombd",
+    "enemy_1041_lazerd",
+    "enemy_1042_frostd",
+    "enemy_1112_emppnt",
+    "enemy_10084_hlegle"
+   ],
+   "memberCount": 7,
+   "thresholds": [
+    4,
+    7
+   ],
+   "pending": false,
+   "note": ""
+  },
+  {
+   "id": "main_witchking",
+   "key": "witchking",
+   "name": "巫王乐团",
+   "kind": "MAIN",
+   "members": [
+    "enemy_1373_ltnhor",
+    "enemy_1373_ltnhor_2",
+    "enemy_1375_ltnclr",
+    "enemy_1375_ltnclr_2",
+    "enemy_1376_ltndru",
+    "enemy_1376_ltndru_2"
+   ],
+   "memberCount": 6,
+   "thresholds": [
+    4,
+    7
+   ],
+   "pending": false,
+   "note": "含巫王乐团 / 残党乐团两支"
+  },
+  {
+   "id": "main_phantasm",
+   "key": "phantasm",
+   "name": "假想敌",
+   "kind": "MAIN",
+   "members": [
+    "enemy_9006_actoxi",
+    "enemy_9007_acelem",
+    "enemy_9008_acbunn",
+    "enemy_9009_acfort",
+    "enemy_9010_acpupp",
+    "enemy_9011_acrefr",
+    "enemy_9022_acdumm",
+    "enemy_9031_acrefd",
+    "enemy_9034_acblk",
+    "enemy_9039_acrefm",
+    "enemy_9040_accrit"
+   ],
+   "memberCount": 11,
+   "thresholds": [
+    4,
+    7
+   ],
+   "pending": false,
+   "note": "仅普通/精英级，BOSS 级仍是首领"
+  },
+  {
+   "id": "main_infection",
+   "key": "infection",
+   "name": "感染",
+   "kind": "MAIN",
+   "members": [
+    "enemy_1007_slime",
+    "enemy_1021_bslime",
+    "enemy_1067_snslime",
+    "enemy_1305_mhslim",
+    "enemy_1424_lrboom",
+    "enemy_10001_trslim",
+    "enemy_1131_sbeast",
+    "enemy_1132_sarchn",
+    "enemy_1133_harchn",
+    "enemy_10127_rkmbst_2"
+   ],
+   "memberCount": 10,
+   "thresholds": [
+    4,
+    7
+   ],
+   "pending": false,
+   "note": ""
+  },
+  {
+   "id": "main_abyss",
+   "key": "abyss",
+   "name": "深池",
+   "kind": "MAIN",
+   "members": [
+    "enemy_1165_duhond",
+    "enemy_1166_dusbr",
+    "enemy_1168_dumage",
+    "enemy_1169_duphlx",
+    "enemy_1170_dushld",
+    "enemy_1174_duholy",
+    "enemy_1175_dushdo_2",
+    "enemy_1288_duskls",
+    "enemy_1292_duskld"
+   ],
+   "memberCount": 9,
+   "thresholds": [
+    4,
+    7
+   ],
+   "pending": false,
+   "note": "正式主羁绊：名称以「深池」开头"
+  }
+ ],
+ "minor": [
+  {
+   "id": "minor_snow",
+   "key": "snow",
+   "name": "雪怪",
+   "kind": "MINOR",
+   "members": [
+    "enemy_1064_snsbr",
+    "enemy_1069_icebrk_2"
+   ],
+   "memberCount": 2,
+   "thresholds": [
+    2
+   ],
+   "pending": false,
+   "note": ""
+  },
+  {
+   "id": "minor_special",
+   "key": "special",
+   "name": "特殊",
+   "kind": "MINOR",
+   "members": [
+    "enemy_2001_duckmi",
+    "enemy_2002_bearmi",
+    "enemy_2034_sythef",
+    "enemy_2085_skzjxd"
+   ],
+   "memberCount": 4,
+   "thresholds": [
+    2,
+    4
+   ],
+   "pending": false,
+   "note": "数据里没有对应成员，待指派"
+  },
+  {
+   "id": "minor_carnival",
+   "key": "carnival",
+   "name": "狂欢",
+   "kind": "MINOR",
+   "members": [
+    "enemy_10031_cnvsld",
+    "enemy_10034_cnvsax",
+    "enemy_10040_cnvbln"
+   ],
+   "memberCount": 3,
+   "thresholds": [
+    2
+   ],
+   "pending": false,
+   "note": ""
+  },
+  {
+   "id": "minor_sankta",
+   "key": "sankta",
+   "name": "萨科塔",
+   "kind": "MINOR",
+   "members": [
+    "enemy_10083_hlbird",
+    "enemy_10084_hlegle",
+    "enemy_10085_hllevi_2",
+    "enemy_10087_hlchgr"
+   ],
+   "memberCount": 4,
+   "thresholds": [
+    2,
+    4
+   ],
+   "pending": false,
+   "note": ""
+  },
+  {
+   "id": "minor_theater",
+   "key": "theater",
+   "name": "剧场",
+   "kind": "MINOR",
+   "members": [
+    "enemy_2009_csaudc",
+    "enemy_10094_crstf",
+    "enemy_10097_crshd",
+    "enemy_10098_crhro",
+    "enemy_10099_crvln"
+   ],
+   "memberCount": 5,
+   "thresholds": [
+    2,
+    4
+   ],
+   "pending": false,
+   "note": "数据里没有对应成员，待指派"
+  },
+  {
+   "id": "minor_prisoner",
+   "key": "prisoner",
+   "name": "囚犯",
+   "kind": "MINOR",
+   "members": [
+    "enemy_1116_liprr",
+    "enemy_1118_lidbox_2",
+    "enemy_1119_vofsd",
+    "enemy_1121_lifbos"
+   ],
+   "memberCount": 4,
+   "thresholds": [
+    2,
+    4
+   ],
+   "pending": false,
+   "note": ""
+  },
+  {
+   "id": "minor_arc",
+   "key": "arc",
+   "name": "弧光",
+   "kind": "MINOR",
+   "members": [
+    "enemy_1328_cbjedi",
+    "enemy_1329_cbshld"
+   ],
+   "memberCount": 2,
+   "thresholds": [
+    2
+   ],
+   "pending": false,
+   "note": ""
+  },
+  {
+   "id": "minor_visitor",
+   "key": "visitor",
+   "name": "访问团",
+   "kind": "MINOR",
+   "members": [
+    "enemy_1381_winman",
+    "enemy_1385_winbom",
+    "enemy_1387_winshd",
+    "enemy_1389_winbab_2"
+   ],
+   "memberCount": 4,
+   "thresholds": [
+    2,
+    4
+   ],
+   "pending": false,
+   "note": ""
+  },
+  {
+   "id": "minor_rhine",
+   "key": "rhine",
+   "name": "莱茵生命",
+   "kind": "MINOR",
+   "members": [
+    "enemy_1249_lysdb_2",
+    "enemy_1251_lysyta",
+    "enemy_1252_lysytb_2",
+    "enemy_1254_lypa_2"
+   ],
+   "memberCount": 4,
+   "thresholds": [
+    2,
+    4
+   ],
+   "pending": false,
+   "note": ""
+  },
+  {
+   "id": "minor_knight",
+   "key": "knight",
+   "name": "骑士团",
+   "kind": "MINOR",
+   "members": [
+    "enemy_1103_wdkght_2",
+    "enemy_1104_lfkght"
+   ],
+   "memberCount": 2,
+   "thresholds": [
+    2
+   ],
+   "pending": false,
+   "note": ""
+  },
+  {
+   "id": "minor_water",
+   "key": "water",
+   "name": "水",
+   "kind": "MINOR",
+   "members": [
+    "enemy_1158_divman",
+    "enemy_1160_hvyslr",
+    "enemy_1161_tidmag",
+    "enemy_1162_magmot",
+    "enemy_10042_prtrop",
+    "enemy_10043_sailor",
+    "enemy_10044_wintun"
+   ],
+   "memberCount": 7,
+   "thresholds": [
+    2,
+    4
+   ],
+   "pending": false,
+   "note": ""
+  },
+  {
+   "id": "minor_pathfinder",
+   "key": "pathfinder",
+   "name": "寻路者",
+   "kind": "MINOR",
+   "members": [
+    "enemy_1213_mtrsnp",
+    "enemy_1216_cansld",
+    "enemy_1219_mtrbty",
+    "enemy_1406_chghmr"
+   ],
+   "memberCount": 4,
+   "thresholds": [
+    2,
+    4
+   ],
+   "pending": false,
+   "note": ""
+  }
+ ],
+ "sub": [
+  {
+   "id": "sub_special",
+   "key": "SPECIAL",
+   "name": "特异",
+   "kind": "SUB",
+   "members": [
+    "enemy_1010_demon",
+    "enemy_1071_dftman",
+    "enemy_1072_dlancer",
+    "enemy_1320_wdrrl_2",
+    "enemy_1043_zomsbr",
+    "enemy_1045_hammer",
+    "enemy_1061_zomshd",
+    "enemy_1402_tgshd_2",
+    "enemy_10124_uashld_2",
+    "enemy_1000_gopro_2",
+    "enemy_1325_cbgpro",
+    "enemy_1116_liprr",
+    "enemy_1118_lidbox_2",
+    "enemy_1119_vofsd",
+    "enemy_1121_lifbos",
+    "enemy_1328_cbjedi",
+    "enemy_1329_cbshld",
+    "enemy_1381_winman",
+    "enemy_1387_winshd",
+    "enemy_1249_lysdb_2",
+    "enemy_1251_lysyta",
+    "enemy_1252_lysytb_2",
+    "enemy_1254_lypa_2",
+    "enemy_1046_agent"
+   ],
+   "memberCount": 24,
+   "thresholds": [
+    3,
+    6
+   ],
+   "pending": false,
+   "note": ""
+  },
+  {
+   "id": "sub_fly",
+   "key": "FLY",
+   "name": "飞行",
+   "kind": "SUB",
+   "members": [
+    "enemy_1435_dsflys",
+    "enemy_1321_wdarft",
+    "enemy_1430_lrrook",
+    "enemy_1005_yokai",
+    "enemy_1017_defdrn",
+    "enemy_1040_bombd",
+    "enemy_1041_lazerd",
+    "enemy_1042_frostd",
+    "enemy_1112_emppnt",
+    "enemy_9009_acfort",
+    "enemy_10040_cnvbln",
+    "enemy_10083_hlbird",
+    "enemy_10084_hlegle",
+    "enemy_10085_hllevi_2",
+    "enemy_9012_acloon",
+    "enemy_10147_nsbomb",
+    "enemy_10146_nscola",
+    "enemy_1407_hummbd"
+   ],
+   "memberCount": 18,
+   "thresholds": [
+    3,
+    6
+   ],
+   "pending": false,
+   "note": ""
+  },
+  {
+   "id": "sub_times",
+   "key": "TIMES",
+   "name": "频次",
+   "kind": "SUB",
+   "members": [
+    "enemy_1195_sfyin",
+    "enemy_1197_sfshu",
+    "enemy_1199_sfjin",
+    "enemy_1207_sfji",
+    "enemy_9010_acpupp",
+    "enemy_1288_duskls",
+    "enemy_1292_duskld"
+   ],
+   "memberCount": 7,
+   "thresholds": [
+    3,
+    6
+   ],
+   "pending": false,
+   "note": ""
+  },
+  {
+   "id": "sub_element",
+   "key": "ELEMENT",
+   "name": "元素",
+   "kind": "SUB",
+   "members": [
+    "enemy_1148_dssbr",
+    "enemy_1439_dslntf",
+    "enemy_2021_syfish",
+    "enemy_2025_syufo",
+    "enemy_1305_mhslim",
+    "enemy_1229_darmy",
+    "enemy_1275_dwlock_2",
+    "enemy_9007_acelem",
+    "enemy_1158_divman",
+    "enemy_1160_hvyslr",
+    "enemy_1161_tidmag",
+    "enemy_10067_ftsjc",
+    "enemy_10065_ftzlc"
+   ],
+   "memberCount": 13,
+   "thresholds": [
+    3,
+    6
+   ],
+   "pending": false,
+   "note": ""
+  },
+  {
+   "id": "sub_dot",
+   "key": "DOT",
+   "name": "持续",
+   "kind": "SUB",
+   "members": [
+    "enemy_1234_dsubrl",
+    "enemy_1433_dsbasi",
+    "enemy_1267_nhpbr",
+    "enemy_1272_nhtank",
+    "enemy_9006_actoxi",
+    "enemy_1270_nhstlk",
+    "enemy_10122_uacann_2"
+   ],
+   "memberCount": 7,
+   "thresholds": [
+    3,
+    6
+   ],
+   "pending": false,
+   "note": ""
+  },
+  {
+   "id": "sub_invisible",
+   "key": "INVISIBLE",
+   "name": "隐匿",
+   "kind": "SUB",
+   "members": [
+    "enemy_1299_ymkilr",
+    "enemy_1009_lurker",
+    "enemy_1019_jshoot",
+    "enemy_1023_jmage",
+    "enemy_9008_acbunn",
+    "enemy_9034_acblk",
+    "enemy_10031_cnvsld",
+    "enemy_10034_cnvsax",
+    "enemy_1389_winbab_2",
+    "enemy_1283_sgkill",
+    "enemy_1404_msnip"
+   ],
+   "memberCount": 11,
+   "thresholds": [
+    3,
+    6
+   ],
+   "pending": false,
+   "note": ""
+  },
+  {
+   "id": "sub_reflection",
+   "key": "REFLECTION",
+   "name": "折射",
+   "kind": "SUB",
+   "members": [
+    "enemy_9011_acrefr",
+    "enemy_9031_acrefd",
+    "enemy_9039_acrefm",
+    "enemy_1165_duhond",
+    "enemy_1166_dusbr",
+    "enemy_1168_dumage",
+    "enemy_1169_duphlx",
+    "enemy_1170_dushld",
+    "enemy_1174_duholy",
+    "enemy_1175_dushdo_2",
+    "enemy_1172_dugago"
+   ],
+   "memberCount": 11,
+   "thresholds": [
+    3,
+    6
+   ],
+   "pending": false,
+   "note": ""
+  },
+  {
+   "id": "sub_critic",
+   "key": "CRITIC",
+   "name": "致命",
+   "kind": "SUB",
+   "members": [
+    "enemy_1428_lrsoul",
+    "enemy_1429_lrwzrd",
+    "enemy_1431_lrmzrd",
+    "enemy_1064_snsbr",
+    "enemy_1403_gunsho",
+    "enemy_1373_ltnhor",
+    "enemy_1373_ltnhor_2",
+    "enemy_1375_ltnclr",
+    "enemy_1375_ltnclr_2",
+    "enemy_1376_ltndru",
+    "enemy_1376_ltndru_2",
+    "enemy_9040_accrit",
+    "enemy_1381_winman",
+    "enemy_1385_winbom",
+    "enemy_1213_mtrsnp",
+    "enemy_1216_cansld",
+    "enemy_1219_mtrbty",
+    "enemy_1406_chghmr",
+    "enemy_1404_msnip",
+    "enemy_10163_mnctur_2",
+    "enemy_1409_bdguad_2",
+    "enemy_1309_mhboar_2",
+    "enemy_1388_wingnt",
+    "enemy_1405_boomer_2",
+    "enemy_1191_krgrg"
+   ],
+   "memberCount": 25,
+   "thresholds": [
+    3,
+    6
+   ],
+   "pending": false,
+   "note": ""
+  },
+  {
+   "id": "sub_reborn",
+   "key": "REBORN",
+   "name": "复苏",
+   "kind": "SUB",
+   "members": [
+    "enemy_1433_dsbasi",
+    "enemy_1436_dsdivi",
+    "enemy_1437_dsfull",
+    "enemy_1363_spnshd_2",
+    "enemy_1222_dpvt",
+    "enemy_1223_dmech",
+    "enemy_1224_dsuply",
+    "enemy_1225_dkmage",
+    "enemy_1226_dklord",
+    "enemy_1361_dthrow",
+    "enemy_1362_dfat",
+    "enemy_9030_acpara",
+    "enemy_1131_sbeast",
+    "enemy_1132_sarchn",
+    "enemy_1133_harchn",
+    "enemy_1103_wdkght_2",
+    "enemy_1104_lfkght",
+    "enemy_1360_dfello"
+   ],
+   "memberCount": 18,
+   "thresholds": [
+    3,
+    6
+   ],
+   "pending": false,
+   "note": ""
+  }
+ ]
+}
