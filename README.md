@@ -45,7 +45,12 @@ npm run dev
 
 ## 素材
 
-美术与音频素材（`game/public/assets/`，约 1.5 GB）**不在本仓库**，见 [Releases](../../releases) 页面的素材包。
+美术与音频素材（`game/public/assets/`，约 1.5 GB）**不在本仓库**，单独发在 Release：
+
+- **下载**：<https://github.com/lanxi-whale/weishu-invasion/releases/download/v0.1.0-assets/weishu-assets.tar>（`v0.1.0-assets`，1.4 GB）
+- **解压**：`tar -xf weishu-assets.tar -C game/public/`，解完应当是 `game/public/assets/...`
+
+素材版权归 **Ausevay**（<https://github.com/sganggs/Stronghold-Protocol>）与原作方所有，仅供同人交流使用。
 
 ## 授权
 
