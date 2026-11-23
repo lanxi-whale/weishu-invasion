@@ -1,11 +1,18 @@
 # 卫戍协议：侵略 · Stronghold Protocol: Invasion
 
+> 本项目以 B 站 UP 主 **Ausevay** 的作品《卫戍协议：盟约》为基础二次创作。
+>
+> - 原视频：<https://www.bilibili.com/video/BV1QoaU6gEF2>
+> - 原作者仓库：<https://github.com/sganggs/Stronghold-Protocol>
+>
+> 「盟约」的代码、玩法设计与美术资产版权归原作者 Ausevay 所有；本仓库只做**非官方同人延伸**，不是原作，也不代表原作者立场。请先看上面的原视频和原仓库。
+
 《明日方舟》季节性自走棋塔防玩法「卫戍协议」的**非官方同人二次创作**。
 
 本仓库包含两部分：
 
-- `game/` —— 「卫戍协议：盟约」的浏览器端实现（单人或 1–4 人联机合作），GPL-3.0。
-- 仓库根目录 —— 「**侵略**」这一改造版的工作脚本与数据：敌方阵营、怪物图鉴生成、入侵玩法相关的构建脚本，以及解码出来的官方数据表。
+- `game/` —— **Ausevay《卫戍协议：盟约》的浏览器端实现**（单人或 1–4 人联机合作），GPL-3.0，来自原作者仓库的版本。
+- 仓库根目录 —— 我们在它基础上做的「**侵略**」改造：敌方阵营、怪物图鉴生成、入侵玩法相关的构建脚本，以及解码出来的官方数据表。
 
 > [!IMPORTANT]
 > 本项目是玩家自制的**非官方同人作品**，与上海鹰角网络科技有限公司（Hypergryph）、Yostar 及其关联方没有任何关系，未获其授权或认可。
@@ -14,7 +21,7 @@
 
 | 路径 | 内容 |
 |---|---|
-| `game/` | 游戏本体（前端 `public/`、服务端 `server/`、工具 `tools/`、测试 `test/`、文档 `docs/`） |
+| `game/` | 游戏本体（来自 Ausevay 的《卫戍协议：盟约》：前端 `public/`、服务端 `server/`、工具 `tools/`、测试 `test/`、文档 `docs/`） |
 | `data/` | 玩法数据 |
 | `bridge/` | 与客户端桥接的工具 |
 | `怪物图鉴/`、`怪物总表/` | 「侵略」用的怪物阵营资料 |
@@ -42,6 +49,7 @@ npm run dev
 
 ## 授权
 
-游戏本体代码沿用 **GPL-3.0-or-later**（见 `game/LICENSE`），第三方库与素材的授权见 `game/THIRD-PARTY-NOTICES.md` 与 `game/NOTICE.md`。
-
-同人作品，仅供学习与玩家交流，不做商业用途。
+- **原作**《卫戍协议：盟约》的代码与素材版权归 **Ausevay**（<https://github.com/sganggs/Stronghold-Protocol>），沿用 **GPL-3.0-or-later**（见 `game/LICENSE`）。
+- 本仓库新增的「侵略」相关脚本与数据同样以 **GPL-3.0-or-later** 发布。
+- 第三方库与素材的授权见 `game/THIRD-PARTY-NOTICES.md` 与 `game/NOTICE.md`。
+- 同人作品，仅供学习与玩家交流，不做商业用途；如需使用原作素材，请遵守原作者仓库的授权与说明。
