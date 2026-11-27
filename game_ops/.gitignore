@@ -1,0 +1,15 @@
+# 盟约端（game_ops）自己的忽略规则
+# 只把代码放进仓库，依赖和大素材不进
+
+# 依赖与构建产物
+node_modules/
+__pycache__/
+*.pyc
+.cache/
+
+# 大素材（走 Releases / 单独下）
+public/
+
+# 本地运行数据
+data/
+*.log
