@@ -150,7 +150,11 @@ function resolveBurst(battle, source, target, el, credit) {
   // the cooldown's end restores every element of the unit ("随后单位所有种类的元素值恢复至最大值")
   const reset = () => { for (const k of ELEMENT_ORDER) if (k in target.elem) target.elem[k] = 0; };
   battle.fx('burst', { x: target.x, y: target.y, id: target.id, element: el });
-  if (battle._hooks.elementBurst) battle.emit('elementBurst', { source, credit, target, element: el });
+  let neuralMultiplier = 1;
+  if (battle._hooks.elementBurst) {
+    const burst = battle.emit('elementBurst', { source, credit, target, element: el, neuralMultiplier });
+    neuralMultiplier = burst.neuralMultiplier;
+  }
   if (!target.alive) { reset(); return; }
   const tags = ['burst', el];
   // Burst damage is source-less; its statistics/kill credit is inherited independently.
@@ -182,8 +186,8 @@ function resolveBurst(battle, source, target, el, credit) {
       battle.applyStatus(target, 'palsy', { value: c.palsy, source });
       if (target.alive) hit(c.elemDamage, 'elemental');
     } else {
-      battle.applyStatus(target, 'stun', { duration: c.stun, source, force: true });
-      if (target.alive) hit(c.damage, c.type);
+      battle.applyStatus(target, 'stun', { duration: c.stun * neuralMultiplier, source, force: true });
+      if (target.alive) hit(c.damage * neuralMultiplier, c.type);
     }
   } else if (el === 'apoptosis') {
     if (enemy) {

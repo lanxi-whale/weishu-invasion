@@ -11,6 +11,8 @@ import { ERR } from '../game_ops/shared/constants.js';
 import { validateC2S } from '../game_ops/shared/protocol.js';
 import { connectCampLobbies } from '../bridge/camp-lobby.js';
 import { roomFacts } from '../game_ops/public/js/screens/room.js';
+import { phaseTotalSeconds as alliancePhaseSeconds } from '../game_ops/public/js/ui/gameLogic/phases.js';
+import { phaseTotalSeconds as invasionPhaseSeconds } from '../game/public/js/ui/gameLogic/phases.js';
 import { createDuel, duelRound, duelSource, monsterSeatFor, opsSeatFor, readDuel, removeDuel, writeDuel } from '../bridge/duel.js';
 import { MatchCombat as OpsCombat } from '../game_ops/server/match/match/combat.js';
 import { MatchCombat as InvasionCombat } from '../game/server/match/match/combat.js';
@@ -417,6 +419,65 @@ test('four submitted lanes stay distinct, rotate, and end from the same round re
   invasion._duelResult = result;
   InvasionSettle.prototype.afterSettle.call(invasion);
   assert.equal(invasion.outcome.victory, false);
+});
+
+test('4v4 camps with one human each get the same full prep time when the second camp enters', (t) => {
+  const duel = createDuel();
+  const ops = makeAlliance({ humans: 1, fake: true });
+  const monster = makeInvasion({ humans: 1, fake: true });
+  t.after(() => { ops.m.dispose(); monster.m.dispose(); removeDuel(duel); });
+  ops.m.opts.duel = monster.m.opts.duel = duel;
+  const secondsByRound = [40, 45, 51, 56, 62, 67, 72, 78, 83, 88, 94, 99, 105, 110];
+  for (const [index, seconds] of secondsByRound.entries()) {
+    const round = index + 1;
+    const [first, second] = round % 2 ? [ops, monster] : [monster, ops];
+    first.m.round = second.m.round = round;
+    first.m.enterPrep();
+    first.sched.advance(200);
+    assert.equal(first.m.publicView().deadline, 0);
+    second.sched.advance(first.sched.now() - second.sched.now() + 1_800);
+    const deadline = second.sched.now() + seconds * 1_000;
+    second.m.enterPrep();
+    first.sched.advance(second.sched.now() - first.sched.now());
+    assert.equal(first.m.publicView().deadline, deadline);
+    assert.equal(second.m.publicView().deadline, deadline);
+    for (const [camp, hudSeconds] of [[ops, alliancePhaseSeconds], [monster, invasionPhaseSeconds]]) {
+      assert.equal(hudSeconds(camp.m.publicView(), camp.m.gd.config), seconds);
+    }
+  }
+});
+
+test('the 4v4 prep deadline launches combat with unfinished players and remains visible to a ready camp', (t) => {
+  const duel = createDuel();
+  const ops = makeAlliance({ humans: 1, fake: true, instant: false });
+  const monster = makeInvasion({ humans: 1, fake: true, instant: false });
+  t.after(() => { ops.m.dispose(); monster.m.dispose(); removeDuel(duel); });
+  for (const side of [ops, monster]) {
+    side.m.opts.duel = duel;
+    side.m._startRoundAfterOffers(1);
+    side.runToPhase('PREP', 1);
+  }
+  ops.sched.advance(200);
+  const deadline = monster.m.deadline;
+  assert.equal(deadline - monster.sched.now(), 40_000);
+  assert.equal(ops.m.alivePlayers()[0].setReady(true).ok, true);
+  ops.sched.advance(200);
+  assert.equal(ops.m.publicView().duelWaiting, true);
+  assert.equal(ops.m.publicView().deadline, deadline);
+
+  for (const side of [ops, monster]) side.sched.advance(deadline - side.sched.now() - 1);
+  assert.equal(monster.m.alivePlayers()[0].ready, false);
+  assert.equal(ops.m.phase, 'PREP');
+  assert.equal(readDuel(duel, 'round-1-start'), null);
+
+  monster.sched.advance(1);
+  assert.equal(monster.m.alivePlayers()[0].ready, true);
+  assert.ok(readDuel(duel, 'round-1-lineups'));
+  ops.runToPhase('COMBAT', 1, { maxTime: 100 });
+  monster.runToPhase('COMBAT', 1, { maxTime: 100 });
+  assert.ok(readDuel(duel, 'round-1-start'));
+  assert.deepEqual(ops.logs.error, []);
+  assert.deepEqual(monster.logs.error, []);
 });
 
 test('both camps see current preparations and the same rotating attack and defense pairings', (t) => {

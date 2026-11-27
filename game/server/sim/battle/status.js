@@ -9,15 +9,20 @@ import { palsyBuff } from '../attack.js';
 import { evadesGround } from '../targeting.js';
 import { stampFear } from '../fear.js';
 
+const affectsStealth = (flags) => flags?.stealth || flags?.stealthOff || flags?.reveal;
+
 export class BattleStatus {
-  addBuff(unit, b) {
+  addBuff(unit, b, observeStealth = true) {
     if (!unit || (!unit.alive && !b.allowDead)) return null;
     const buff = makeBuff(b);
     const list = unit.buffs;
+    const observedEnemy = observeStealth && unit._lastStealth !== undefined;
+    let checkStealth = observedEnemy && affectsStealth(buff.flags);
     let idx = -1;
     for (let i = 0; i < list.length; i++) if (list[i].key === buff.key) { idx = i; break; }
     if (idx >= 0 && buff.refresh !== 'independent') {
       const old = list[idx];
+      checkStealth ||= observedEnemy && affectsStealth(old.flags);
       switch (buff.refresh) {
         case 'keep':
           return old;
@@ -29,6 +34,7 @@ export class BattleStatus {
           if (buff.mods) old.mods = buff.mods;
           if (buff.flags) old.flags = buff.flags;
           unit.markDirty();
+          if (checkStealth) this._observeEnemyStealth(unit);
           return old;
         case 'extend':
           old.timeLeft = Math.max(old.timeLeft, buff.duration);
@@ -38,10 +44,12 @@ export class BattleStatus {
           if (buff.shield > old.shield) old.shield = buff.shield;
           if (buff.shieldHits > old.shieldHits) old.shieldHits = buff.shieldHits;
           unit.markDirty();
+          if (checkStealth) this._observeEnemyStealth(unit);
           return old;
         default:
           list[idx] = buff;
           unit.markDirty();
+          if (checkStealth) this._observeEnemyStealth(unit);
           return buff;
       }
     }
@@ -49,7 +57,8 @@ export class BattleStatus {
       const same = list.filter((x) => x.key === buff.key);
       if (same.length >= buff.maxStacks) {
         const oldest = same.reduce((a, c) => (a.seq < c.seq ? a : c));
-        this._removeBuffAt(unit, list.indexOf(oldest), true);
+        checkStealth ||= observedEnemy && affectsStealth(oldest.flags);
+        this._removeBuffAt(unit, list.indexOf(oldest), true, false);
       }
     }
     list.push(buff);
@@ -58,6 +67,7 @@ export class BattleStatus {
       const key = buff.status ?? buff.key;
       if (list.filter((x) => (x.status ?? x.key) === key).length === 1) this._ev(['status', unit.id, key, 1]);
     }
+    if (checkStealth) this._observeEnemyStealth(unit);
     return buff;
   }
 
@@ -74,7 +84,7 @@ export class BattleStatus {
     return n;
   }
 
-  _removeBuffAt(unit, i, callRemove = true) {
+  _removeBuffAt(unit, i, callRemove = true, observeStealth = true) {
     const b = unit.buffs[i];
     if (!b) return;
     unit.buffs.splice(i, 1);
@@ -83,6 +93,7 @@ export class BattleStatus {
       const key = b.status ?? b.key;
       if (!unit.buffs.some((x) => (x.status ?? x.key) === key)) this._ev(['status', unit.id, key, 0]);
     }
+    if (observeStealth && unit._lastStealth !== undefined && affectsStealth(b.flags)) this._observeEnemyStealth(unit);
     if (callRemove && b.onRemove) this._safe(() => b.onRemove({ battle: this, unit, buff: b }), 'buff.onRemove', unit);
   }
 

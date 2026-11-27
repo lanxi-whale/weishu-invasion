@@ -8,6 +8,7 @@ import { testSlice } from '../testTrace.js';
 import { DELAYS } from './common.js';
 import { beginCommandPrep } from '../bandCommands.js';
 import { publishDuelFormations, startDuelFormationSync } from '../../../../bridge/duelFormations.js';
+import { startDuelPrepClock } from '../../../../bridge/duel.js';
 
 /**
  * §37.72 [ASSUMED] Wall-clock ms the built-in bot's prep may still need once an external plan seat's decision ends (its
@@ -43,9 +44,13 @@ export class MatchPrep {
       this.dispatch(ps, 'onPrepStart', { round: this.round });
       ps.recompute();
     }
-    // solo / single-human matches: untimed (soloUntimed); co-op: the round's prepTime
-    const secs = this.soloUntimed ? null : this.gd.prepTime(this.round);
-    this.setDeadline(secs, () => this.prepDeadline());
+    if (this.opts?.duel) {
+      this.setDeadline(0);
+      startDuelPrepClock(this, 'monster');
+    } else {
+      const seconds = this.soloUntimed ? null : this.gd.prepTime(this.round);
+      this.setDeadline(seconds, () => this.prepDeadline());
+    }
     let i = 0;
     for (const ps of alive) if (ps.botControlled) this.scheduleBotPrep(ps, i++);
     if (this.opts?.duel) startDuelFormationSync(this, 'monster', GEO.NORMAL_RECT);

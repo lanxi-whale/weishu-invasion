@@ -15,6 +15,7 @@ import { timelineAt } from '../fields.js';
 import { bossFieldPlacement } from '../finalAssault.js';
 import { battleProgress } from '../../sim/spec.js';
 import { duelFormationMaps, duelMatchups } from '../../../../bridge/duelFormations.js';
+import { duelPrepView } from '../../../../bridge/duel.js';
 
 /** Milliseconds since the match started. A stamp before the start, or a bad stamp, is 0. The stored log keeps the epoch. */
 function auditClock(at, startedAt) {
@@ -184,7 +185,7 @@ export class MatchViews {
     if (this.opts?.duel) {
       v.duel = true;
       if (this.round > 0) v.duelFormationMaps = duelFormationMaps(this, 'monster');
-      if (this.phase === PHASE.PREP && this._duelSealedRound === this.round) v.duelWaiting = true;
+      Object.assign(v, duelPrepView(this));
       if (this.round > 0) v.duelMatchups = duelMatchups(this, 'monster', seat => {
         if (this.phase !== PHASE.COMBAT && this.phase !== PHASE.UNITE && !settlingDuel) return null;
         const packet = this._duelLive?.get(seat);

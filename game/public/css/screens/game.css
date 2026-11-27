@@ -111,6 +111,8 @@
 }
 .gtop > * { pointer-events: auto; }
 .gtop__left { display: flex; align-items: center; gap: .16rem; }
+.gtop__left:has(> .gtop__prep-clock) { display: grid; grid-template-columns: max-content minmax(0, 1fr); row-gap: .08rem; }
+.gtop__prep-clock { grid-column: 1 / -1; width: max-content; pointer-events: none; }
 .gtop__meta { display: flex; flex-direction: column; align-items: flex-start; gap: .06rem; }
 /* a match with gameplay plugins (DESIGN §32.6): the HUD corner's MOD mark */
 .gtop__mod { pointer-events: auto; }
@@ -204,7 +206,7 @@
 .gtop__iconbtn.is-on:not(.has-sprite) { opacity: .6; }
 .gtop__iconbtn .enemybtn__chev { color: #fff; }
 .gtop__right { display: flex; flex-direction: column; align-items: flex-end; gap: .1rem; justify-self: end; }
-.gtop__right .countdown { --cd-h: .7rem; filter: drop-shadow(0 0 .12rem rgba(0, 0, 0, .8)); }
+.gtop__clock .countdown { --cd-h: .7rem; filter: drop-shadow(0 0 .12rem rgba(0, 0, 0, .8)); }
 .gtop__clock { display: flex; align-items: flex-start; gap: .14rem; }
 
 /* solo pause / resume (ui/hud.js PauseButton, official battle pause: two bars on a dark square) */

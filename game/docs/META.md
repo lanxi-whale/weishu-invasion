@@ -2,6 +2,8 @@
 
 In 4v4, both camps receive `m.public.duelMatchups`. Each row contains the current attacker and defender seats, their deployed formations and bonds, the individual battlefield ID and its blue-gate count. A sidebar avatar opens the camp roster. During preparation, a roster avatar uses `m.public.duelFormationMaps` to show terrain and bounds with the selected camp's preparation camera. During combat, a roster avatar uses `g.watch` with the current field ID. The selected player supplies the bond strip's owner and palette even when both paired players share the field. Live counts come from the individual battle, and the joint count comes from its own field.
 
+The 4v4 bridge agrees on one preparation deadline per round. Both camps publish that timestamp in `m.public.deadline` and the duration in `m.public.prepSeconds` for the gauge. A camp that locks its board early still shows the clock while waiting for the opponent. Each server uses its existing prep expiry handler to finish pending selections and lock that camp's lineup.
+
 The 4v4 round result's `successfulInvasion` flag queues one fund for each invasion player. It records whether a creature that entered a blue gate contributed to the final LP charge. Independent invasion reads the same condition from the AI defence. Rewards enter the next round through `pendingFunds`.
 
 Invasion's `scaleInvasionRound` in `server/match/monsterBonuses.js` applies each round's HP, ATK and DEF multipliers to the prepared stats. Both `m.unitStats` and the outgoing wave use this function. The panel rounds the displayed values and the wave retains the calculation's precision.

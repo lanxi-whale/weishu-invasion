@@ -1,6 +1,7 @@
 // server/sim/content/enemies/dot.js — DOT 持续 kits (pulses, 污染秽蚀 / burning zones, bleeding) and their part of KITS
 // (split from content/enemies.js).
 
+import { invasionDotMultiplier } from '../../battle/invasionBondsSub.js';
 import { SHELL_SPLASH_RADIUS, num, T, elem, hurt, areaAllies, castSlot } from './helpers.js';
 import { splashAttack, noAirTargets, resist, immuneTo, bleed, pollution, dmgZone, kitPolluted } from './archetypes.js';
 
@@ -48,7 +49,7 @@ function kitDsubrl(ab, e) {
       const l = areaAllies(b, e2, e2.x, e2.y, r);
       if (!l.length) return;
       b.fx('pulse', { x: e2.x, y: e2.y, r, id: e2.id, element: 'neural' });
-      for (const u of l) hurt(b, e2, u, e2.s.atk, 'arts', { canDodge: true, tags: [NEST_PULSE_TAG] });
+      for (const u of l) hurt(b, e2, u, e2.s.atk, 'arts', { canDodge: true, tags: [NEST_PULSE_TAG], mul: invasionDotMultiplier(e2) });
     },
   }];
 }
@@ -110,7 +111,12 @@ export const DOT_KITS = Object.freeze({
       const atk = e.s.atk;
       // a sourceless zone (`src` null): its ticks skip a 隐匿 / untargetable / sleeping operator (PRTS 假想敌：蚀裂: no 无视
       // 可选性 note — PRTS 作战机制's "无来源的毒雾" that reaches 隐匿 units is the stage hazard), not an airborne 起飞 one
-      const cloud = (x, y) => dmgZone(b, null, x, y, T(ab, '1.projectile_range') ?? 0.8, T(ab, '1.projectile_life_time') ?? 0, T(ab, '1.interval') ?? 1, atk * (T(ab, '1.damage_atk_scale') ?? 0), 'arts', 'poison');
+      const cloud = (x, y) => {
+        const radius = T(ab, '1.projectile_range') ?? 0.8;
+        const duration = T(ab, '1.projectile_life_time') ?? 0;
+        if (b.hasHook('enemyZoneSpawn')) b.emit('enemyZoneSpawn', { source: e, x, y, radius, duration, kind: 'poison' });
+        dmgZone(b, null, x, y, radius, duration, T(ab, '1.interval') ?? 1, atk * (T(ab, '1.damage_atk_scale') ?? 0), 'arts', 'poison', null, 0, { dotOwner: e });
+      };
       if (k) b.addProjectile({ from: e, target: k, speed: 8, visual: 'lob', source: null, hitDead: true, onHit: (h) => cloud(h.x ?? k.x, h.y ?? k.y) });
       else cloud(e.x, e.y);
     },
@@ -133,7 +139,7 @@ export const DOT_KITS = Object.freeze({
       // until 0.2.1 it burned)
       for (const u of areaAllies(b, e2, e2.x, e2.y, r)) {
         if (u.isFlying) continue;
-        hurt(b, e2, u, e2.s.atk * (T(ab, 'aoe.atk_scale') ?? 1), 'arts');
+        hurt(b, e2, u, e2.s.atk * (T(ab, 'aoe.atk_scale') ?? 1), 'arts', { mul: invasionDotMultiplier(e2) });
         elem(b, e2, u, 'burn', e2.s.atk * (T(ab, 'aoe.ep_damage_ratio') ?? 0));
       }
     },

@@ -222,6 +222,7 @@ export function sortEnemyTargets(battle, attacker, cands, priority) {
   }));
   keyed.sort((a, b) => (airFirst ? a.p - b.p : 0) || a.b - b.b || a.p - b.p || a.t - b.t || a.d - b.d || a.s - b.s);
   for (let i = 0; i < keyed.length; i++) cands[i] = keyed[i].e;
+  if (battle.hasHook?.('enemyTargetOrder')) battle.emit('enemyTargetOrder', { attacker, candidates: cands });
   return cands;
 }
 

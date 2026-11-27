@@ -1,7 +1,7 @@
 /* ==========================================================================================
    screens/sweep.css — S.W.E.E.P.报告 (js/screens/sweep.js): the event's report screen (the event video 2:17 – 3:03) as a
    full-screen Modal over the lobby — a misty light-grey field, the top bar (back · ⓘ at the left, three tabs at the
-   right; 规程 adds 装备报告, .sw-tabs--4), a detail column at the left and sections of dark tiles at the right; the
+   right), a detail column at the left and sections of dark tiles at the right; the
    enemy codex is a second full-screen Modal over it. Read-only: nothing here changes a setting or the loadout. Every
    font size follows 设置 → 文字大小 (`--t`, css/theme.css), floored in px for phones.
    ========================================================================================== */
@@ -57,8 +57,9 @@
 .sw-tab.is-on { color: #fff; background: linear-gradient(180deg, #2c3231, #151918); box-shadow: 0 .03rem .1rem rgba(0, 0, 0, .4); }
 .sw-tab__icon { display: grid; place-items: center; }
 .sw-tab__icon .icon { width: max(.28rem, 16px); height: max(.28rem, 16px); }
-/* 规程's fourth tab only — 盟约's three keep the widths above. [ASSUMED] the bar shrinks so four labels fit a phone. */
-.sw-tabs--4 .sw-tab { min-width: max(1.7rem, 32px, calc(76px * var(--sp-ui, 1))); padding: 0 .14rem; }
+/* Keep the report tabs reachable when the locale or viewport needs more space. */
+.sw-tabs--compact { overflow-x: auto; scrollbar-width: thin; }
+.sw-tabs--compact .sw-tab { flex: 0 0 auto; min-width: max(1.7rem, 32px, calc(76px * var(--sp-ui, 1))); padding: 0 .14rem; }
 /* ---- body ---- */
 .sw-body { flex: 1 1 auto; min-height: 0; display: grid; grid-template-columns: minmax(0, 4.3fr) minmax(0, 5.7fr); gap: .5rem; padding: .1rem .34rem .26rem .3rem; }
 .sw-left { min-height: 0; display: flex; flex-direction: column; }
@@ -127,7 +128,9 @@
   color: #eef2f1; background: rgba(0, 0, 0, .5); border: 1px solid rgba(255, 255, 255, .22); border-radius: 999px; cursor: pointer; }
 .sw-look:hover { border-color: var(--mint-500); color: var(--mint-300, #8ff0d2); }
 .sw-look .icon { width: max(.2rem, 12px); height: max(.2rem, 12px); }
-.sw-ops { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: .1rem; }
+/* Full-height rows keep portraits and tier badges clear in the scrolling roster. */
+.sw-ops { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-auto-rows: max-content; align-content: start; gap: .1rem; }
 .sw-op { --tc: var(--tier-1); position: relative; aspect-ratio: 1; padding: 0; overflow: hidden;
   background: linear-gradient(180deg, #d7dcda, #a9b1ae); border: 1px solid rgba(255, 255, 255, .5); }
 .sw-op--t2 { --tc: var(--tier-2); }
@@ -184,6 +187,12 @@ button.sw-eth:hover { border-color: #fff; }
 .sw-disc { display: grid; place-items: center; width: 64%; aspect-ratio: 1; margin-bottom: 10%; border-radius: 50%;
   background: radial-gradient(circle, #f6faf9 0 42%, #d3dddb 64%, #9fb1ae 100%); box-shadow: 0 0 .16rem rgba(220, 240, 236, .45), inset 0 0 .06rem rgba(0, 0, 0, .25); }
 .sw-disc img { width: 70%; height: 70%; object-fit: contain; filter: brightness(0); opacity: .82; }
+.sw-body[data-tab="invasion"] .sw-hero__box { background: linear-gradient(145deg, #58312d, #201919); }
+.sw-body[data-tab="invasion"] .sw-disc { background: radial-gradient(circle, #ad6055, #653833 72%, #4a2a27); color: #fff3ec; }
+.sw-body[data-tab="invasion"] .sw-disc img { filter: none; opacity: 1; }
+.sw-body[data-tab="invasion"] .sw-pill:not(.sw-pill--ghost) b { color: #ffc0ac; }
+.sw-body[data-tab="invasion"] .sw-box { max-height: 46%; }
+.sw-body[data-tab="invasion"] .sw-ops { min-height: 0; overflow-y: auto; scrollbar-width: thin; }
 .sw-disc__txt { font-size: max(calc(.3 * var(--t)), 15px); font-weight: 900; color: var(--sw-ink); }
 /* 策略: the portrait (its own ring is part of the icon) */
 .sw-face { display: grid; place-items: center; width: 92%; aspect-ratio: 1; margin-bottom: 4%; overflow: hidden; }
@@ -279,9 +288,7 @@ button.sw-eth:hover { border-color: #fff; }
   .sw-hero__box { height: 64px; } .sw-hero__box.is-art { width: 64px; }
   .sw-hero__box.is-item { width: 64px; height: 64px; }
   .sw-hero__img { width: 50px; height: 50px; }
-  /* a landscape phone is short: four tabs scroll instead of covering the back button */
-  .sw-tabs--4 { overflow-x: auto; scrollbar-width: none; }
-  .sw-tabs--4 .sw-tab { min-width: 0; }
+  .sw-tabs--compact .sw-tab { min-width: 0; }
   .sw-hero__name { font-size: max(calc(0.375 * var(--t)), 15px); }
   .sw-sec__grid { gap: 8px; padding: 10px 10px 0; }
   .sw-tile__cap { display: none; }
@@ -298,6 +305,8 @@ button.sw-eth:hover { border-color: #fff; }
 @media (max-width: 640px) {
   .sw-back__mark { display: none; }
   .sw-tab { padding: 0 .12rem; font-size: max(calc(0.3 * var(--t)), 12px); }
+  .sw-top:has(.sw-tabs--compact) { height: auto; padding-block: .08rem; }
+  .sw-tabs--compact { flex-wrap: wrap; }
   .sw-tab__icon { display: none; }
   .sw-sec__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }

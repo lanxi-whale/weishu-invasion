@@ -9,6 +9,7 @@
 // 同时仍然写 bridge/wave.json —— 两台分开起的时候也能用。
 
 import fs from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import { OPERATOR_GATES } from '../../../bridge/gates.js';
 import { MOVE_SCALE } from '../sim/constants.js';
 import { COMBAT_TIME_SCALE } from './gamedata.js';
@@ -37,7 +38,7 @@ export function allianceSpawnSchedule(entries, combatTimeScale = COMBAT_TIME_SCA
 }
 
 /** 跨阵营的波次文件（分开起服务器时的通道） */
-export const BRIDGE_FILE = 'E:/明日方舟卫戍协议/4v4/bridge/wave.json';
+export const BRIDGE_FILE = fileURLToPath(new URL('../../../bridge/wave.json', import.meta.url));
 /** 进程内的波次总线：两个阵营在同一个 node 进程里时用它，比文件快且没有时序问题 */
 export const WAVE_BUS_KEY = '__SP_WAVE__';
 
@@ -45,7 +46,6 @@ export const WAVE_BUS_KEY = '__SP_WAVE__';
 export function publishWave(payload) {
   try { globalThis[WAVE_BUS_KEY] = payload; } catch { /* ignore */ }
   try {
-    fs.mkdirSync('E:/明日方舟卫戍协议/4v4/bridge', { recursive: true });
     fs.writeFileSync(BRIDGE_FILE, JSON.stringify(payload), 'utf8');
   } catch { /* ignore */ }
   return payload;
@@ -132,6 +132,7 @@ export function waveFromLineup(base, lineup, gd = null, disabledBonds = []) {
       count: p.count,
       interval: monsterSpawnInterval,
       sourcePlayerId: p.sourcePlayerId ?? null,
+      invasionBonds: p.invasionBonds,
       mods: { hpMul: 1, atkMul: 1, speedMul: 1, slot: 'N' },
       actionIndex: 0,
       preview: { gate: gi === 0 ? 'upper' : 'lower', start: [g.r, g.c], fly: false, elite: false, boss: false },

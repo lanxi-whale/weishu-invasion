@@ -66,6 +66,39 @@ export function waitForDuel(match, key, receive, timeoutMs = 240_000) {
   poll();
 }
 
+export function startDuelPrepClock(match, camp) {
+  const { round } = match;
+  const duel = match.opts.duel;
+  const other = camp === 'ops' ? 'monster' : 'ops';
+  const seconds = Math.round(40 + 70 * (round - 1) / (DUEL_ROUNDS - 1));
+  const arrived = { at: match.sched.now(), durationMs: match.scaled(seconds * 1000) };
+
+  writeDuel(duel, `round-${round}-prep-${camp}`, arrived);
+  waitForDuel(match, `round-${round}-prep-${other}`, (opponent) => {
+    if (match.phase !== 'PREP') return;
+    // Start when both camps have reached prep. Both use the defending host's duration.
+    const durationMs = camp === 'ops' ? arrived.durationMs : opponent.durationMs;
+    const deadline = Math.max(arrived.at, opponent.at) + durationMs;
+    match._duelPrepClock = { round, deadline, seconds: durationMs / 1000 };
+    if (match._duelSealedRound !== round) {
+      match.setDeadline(seconds, () => match.prepDeadline(), { at: deadline });
+    }
+    match.markPublic();
+  });
+}
+
+export function duelPrepView(match) {
+  if (match.phase !== 'PREP') return {};
+  const clock = match._duelPrepClock?.round === match.round ? match._duelPrepClock : null;
+  const waiting = match._duelSealedRound === match.round;
+  const deadline = waiting ? clock?.deadline ?? 0 : match.deadline;
+  return {
+    deadline,
+    ...(waiting ? { duelWaiting: true } : {}),
+    ...(deadline > 0 && clock ? { prepSeconds: clock.seconds } : {}),
+  };
+}
+
 export function defenseLife(players) {
   return players.reduce((sum, player) => sum + Math.max(0, player.lp), 0);
 }

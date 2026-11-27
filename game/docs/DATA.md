@@ -13,6 +13,11 @@ each original tier. The score weights median-normalized max HP (45%), basic atta
 editing the list to regenerate each version's tier and recruitment price for both star forms. Tiers 1–2 cost 2 funds,
 tiers 3–4 cost 3, and tiers 5–6 cost 4. `python gen_bestiary_data.py` updates the catalogue's displayed recruitment prices.
 
+The Left Hand is a separate six-tier recruit with the 骑士团 and 复苏 bonds. From `4v4`, run `python gen_monster_faction.py --refresh-independent-variants`
+to generate its roster entry, `python gen_game_monsters.py --refresh-independent-variants` to install its cards and
+battle definition, then `python gen_bestiary_data.py` for the catalogue. The two stars share the existing enemy model
+and use the standard synthetic upgrade ratio of 1.6 for HP, ATK, and DEF.
+
 4v4 covenant presentation: merged resource tables may contain both camps. Browser `data.list('bonds')` filters
 to `mon_` ids under `config.monsterOnly`, just as server `GameData.bondIds` does. Direct lookup and raw JSON keep
 all records for opponent inspection. The filter follows the current content config, not a cached camp selection.
@@ -25,8 +30,8 @@ from 感染, including upgrades. Apply the membership overrides to the catalogue
 `gen_monster_faction.py --apply-bond-overrides`, then use `gen_game_monsters.py --refresh-bond` for each changed covenant
 and rebuild the catalogue with `gen_bestiary_data.py`.
 
-`4v4/data/monster_bond_effects.json` supplies the invasion spawn rules and the Originium Slug covenant description.
-Run `python gen_game_monsters.py --refresh-bond main_slug` from `4v4` after adjusting its thresholds or bonus counts.
+`4v4/data/monster_bond_effects.json` supplies the invasion spawn rules and covenant descriptions.
+Run `python gen_game_monsters.py --refresh-bond-effects` from `4v4` after editing the descriptions or thresholds.
 
 4v4 local-client input: `tools/build-data.mjs --version act3autochess@V3_1 --offline --client-data <decoded-gamedata-dir>`
 reads the decoded installed client's files instead of the profile's remote pins. It rejects non-regulation versions and

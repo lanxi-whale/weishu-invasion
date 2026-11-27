@@ -3,7 +3,7 @@
 // Installed on Battle.prototype by server/sim/Battle.js (a method container: never instantiated; `this` is the battle).
 
 import { ROWS, COLS, BLOCK_RADIUS_SQ, STEALTH_RESTORE } from '../constants.js';
-import { canTargetEnemy, stealthOffKey } from '../targeting.js';
+import { canTargetEnemy, enemyStealthed, stealthOffKey } from '../targeting.js';
 
 export class BattleBlocking {
   /**
@@ -124,6 +124,16 @@ export class BattleBlocking {
     for (const e of was) if (e.blockedBy === u) { e.blockedBy = null; this._stealthSwitch(e); }
   }
 
+  /** Observe stealth only after the new enemy has initialized its abilities and spawn effects. */
+  _observeEnemyStealth(enemy, initial = false) {
+    if (!this._hooks.enemyStealthChanged || !enemy?.invasionBonds || !enemy.alive || !enemy.deployed) return;
+    const previous = enemy._lastStealth;
+    if (previous === undefined && !initial) return;
+    const stealthed = enemyStealthed(enemy);
+    enemy._lastStealth = stealthed;
+    if (stealthed !== (previous ?? false)) this.emit('enemyStealthChanged', { enemy, stealthed });
+  }
+
   /**
    * A block on enemy `e` just ended (every release goes through here: `_unblock`, `releaseBlocked`, ai.js
    * enforceBlockCapacity). Each 隐匿 source it holds stays switched off for its restore time — PRTS 作战机制 §隐匿 "对于
@@ -135,10 +145,12 @@ export class BattleBlocking {
    */
   _stealthSwitch(e) {
     if (!e || e.side !== 'enemy' || !e.alive || !e.s.flags.stealth) return;
+    // Observe once after all stealth sources have received their post-block restore timers.
     for (const b of e.buffs.slice()) {
       if (!b.flags || !b.flags.stealth) continue;
       const t = Number.isFinite(b.data?.stealthRestore) ? b.data.stealthRestore : STEALTH_RESTORE;
-      if (t > 0) this.addBuff(e, { key: stealthOffKey(b.key), duration: t, flags: { stealthOff: true } });
+      if (t > 0) this.addBuff(e, { key: stealthOffKey(b.key), duration: t, flags: { stealthOff: true } }, false);
     }
+    this._observeEnemyStealth(e);
   }
 }

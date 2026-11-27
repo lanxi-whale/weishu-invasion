@@ -241,6 +241,9 @@ export class BattleLifecycle {
       // Actual enemy deaths credited to this player's operators / summons, independent of the enemy's wave owner.
       // Sum the full unit list before compactBattleResult caps unitStats (long fights may spawn many summons).
       pp.creditedKills = ps.units.reduce((n, u) => n + u.stats.kills, 0);
+      if (this.kind === 'normal' && this._invasionBondUses?.size) {
+        pp.invasionBondUses = Object.fromEntries(this._invasionBondUses);
+      }
       // the operators and the board's summon pieces (a board uid): 联防 carries an operator's HP ratio and SP, a summon's
       // SP only (match/unite.js). `sp` is the official 技力 — stored charges included (PRTS 技能 "可充能X次…当前技力上限等于该
       // 技能技力需求的X倍"); a running skill spent its SP at activation, so it reports what was left (0 for one charge).

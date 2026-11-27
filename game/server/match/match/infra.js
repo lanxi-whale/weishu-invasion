@@ -46,8 +46,9 @@ export class MatchInfra {
   /**
    * Set the phase deadline (seconds; null/0 ⇒ untimed) and its timeout callback. `silent`: the timer runs but no
    * deadline is published (m.public.deadline 0 ⇒ no countdown) — the fixed presentation steps of a solo match.
+   * With an absolute timestamp in `at`, use the deadline already agreed with the other camp.
    */
-  setDeadline(seconds, fn, { silent = false } = {}) {
+  setDeadline(seconds, fn, { silent = false, at = null } = {}) {
     this.cancel(this._phaseTimer);
     this._phaseTimer = null;
     if (this.test === true) { this._testHeld = null; this._testArmed = null; }
@@ -67,8 +68,9 @@ export class MatchInfra {
       if (this.test === true) { this._testHeld = null; this._testArmed = null; }
       return;
     }
-    const ms = this.scaled(seconds * 1000);
-    this.deadline = silent ? 0 : this.sched.now() + ms;
+    const now = this.sched.now();
+    const ms = at == null ? this.scaled(seconds * 1000) : Math.max(0, at - now);
+    this.deadline = silent ? 0 : at ?? now + ms;
     this._phaseTimer = this.later(ms, () => { this._phaseTimer = null; if (this.test === true) { this._testArmed = null; this._testHeld = null; } fn(); });
     if (this.test === true) this._testArmed = { seconds, fn, silent: !!silent };
   }

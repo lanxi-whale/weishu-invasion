@@ -24,9 +24,9 @@ import { Img, RichText, GIcon } from '../ui/gameComponents.js';
 import { bondIconUrl, bandIconUrl, enemyIconUrl, factionIconUrl, chessAvatarUrl, itemIconUrl } from '../ui/assetUrls.js';
 import { attackInterval, fmtNum } from '../ui/gameLogic.js';
 import { abilityRows } from '../ui/abilityLines.js';
-import { data, useData } from '../data.js';
+import { buildIndex, data, useData } from '../data.js';
 import { contentSet, pageVersion, retryContentSet } from '../content.js';
-import { DEFAULT_VERSION, shownVersion, versionById } from '../versions.js';
+import { DEFAULT_VERSION, shownVersion, versionById, versionSlug } from '../versions.js';
 import { useStore, loadPref, savePref } from '../store.js';
 import { loadoutStore } from '../ui/loadoutSync.js';
 import { openGuide, guidePages } from '../ui/guide.js';
@@ -41,7 +41,13 @@ const REPORT_TABS = [
 ];
 // [ASSUMED] the official tab's equipment glyph is not in this icon set; shield is the glyph equipment offers already use.
 const EQUIP_TAB = { id: 'equip', name: N_('装备报告'), icon: () => html`<${Icon} name="shield" />` };
-const TAB_IDS = new Set([...REPORT_TABS.map((x) => x.id), EQUIP_TAB.id]);
+const INVASION_TAB = { id: 'invasion', name: N_('侵略报告'), icon: () => html`<${Icon} name="sword" />` };
+const TAB_IDS = new Set([...REPORT_TABS.map((x) => x.id), EQUIP_TAB.id, INVASION_TAB.id]);
+const INVASION_SECTIONS = [
+  { id: 'main', name: N_('主羁绊'), glyph: () => html`<${GIcon} name="flag" />` },
+  { id: 'minor', name: N_('小羁绊'), glyph: () => html`<${GIcon} name="skull" />` },
+  { id: 'sub', name: N_('附加羁绊'), glyph: () => html`<${Icon} name="link" />` },
+];
 const EQUIP_TIERS = [1, 2, 3, 4, 5, 6];
 const MODE_NAME = { SINGLE: N_('独立模拟'), MULTI: N_('同盟模拟') };
 const RANK = { NORMAL: N_('普通'), ELITE: N_('精英'), BOSS: N_('领袖') };
@@ -183,30 +189,33 @@ function EnemyThumb({ e, m, on = false, onClick = null, size = 'sm' }) {
 
 // ---- 盟约报告 ----------------------------------------------------------------------------------------------------------
 
-function BondPanel({ bond, m, notOwned }) {
+function BondPanel({ bond, m, notOwned, invasion = false }) {
   const off = new Set(Array.isArray(notOwned) ? notOwned : []);
   const ids = Array.isArray(bond.visibleMembers) && bond.visibleMembers.length ? bond.visibleMembers : (bond.members || []);
-  const members = ids.map((id) => data.lookup('chess', id)).filter(Boolean)
-    .sort((a, b) => (b.tier - a.tier) || ((a.shopSortId ?? 0) - (b.shopSortId ?? 0)));
+  const members = invasion ? [...bond.monsters] : ids.map((id) => data.lookup('chess', id)).filter(Boolean);
+  members.sort((a, b) => (b.tier - a.tier) || ((a.shopSortId ?? 0) - (b.shopSortId ?? 0)));
   const anyOff = members.some((c) => off.has(c.chessId));
   const steps = Array.isArray(bond.thresholds) ? bond.thresholds.filter((n) => Number.isFinite(n)) : [];
+  const section = invasion ? INVASION_SECTIONS.find(s => s.id === bond.kind)?.name
+    : (bond.isCore ? N_('核心盟约') : N_('附加盟约'));
   return html`<div class="sw-detail">
     <${Hero} src=${bondIconUrl(m, bond.bondId)} glyph=${true} name=${bond.name}
       fallback=${html`<span class="sw-hero__txt">${[...(bond.name || '?')][0]}</span>`} />
     <div class="sw-facts">
-      <span class="sw-pill">${t('激活所需人数')}<b class="num">${bond.activeCount ?? steps[0] ?? '—'}</b></span>
-      ${steps.length > 1 ? html`<span class="sw-pill sw-pill--ghost" title=${t('达到这些人数时效果增强')}>${t('档位')}<b class="num">${steps.join(' / ')}</b></span>` : null}
-      <span class="sw-kind">${bond.isCore ? t('核心盟约') : t('附加盟约')}</span>
+      <span class="sw-pill">${invasion ? t('激活所需种类') : t('激活所需人数')}<b class="num">${bond.activeCount ?? steps[0] ?? '—'}</b></span>
+      ${steps.length > 1 ? html`<span class="sw-pill sw-pill--ghost" title=${invasion ? undefined : t('达到这些人数时效果增强')}>${t('档位')}<b class="num">${steps.join(' / ')}</b></span>` : null}
+      ${section ? html`<span class="sw-kind">${t(section)}</span>` : null}
     </div>
     <div class="sw-text"><${RichText} as="p" text=${bond.descRaw || bond.desc || ''} /></div>
     ${members.length ? html`<div class="sw-box">
       <div class="sw-box__head">
-        <span class="sw-box__k"><${Icon} name="user" />${t('对应干员')}<small class="num">${members.length}</small></span>
+        <span class="sw-box__k">${invasion ? html`<${GIcon} name="skull" />` : html`<${Icon} name="user" />`}
+          ${invasion ? t('对应怪物') : t('对应干员')}<small class="num">${members.length}</small></span>
         ${anyOff ? html`<span class="sw-box__note"><span class="sw-box__swap" aria-hidden="true">⇄</span>${t('未持有的干员由替补干员上场')}</span>` : null}
       </div>
       <div class="sw-ops">${members.map((c) => html`<span key=${c.chessId} class=${cx('sw-op', `sw-op--t${c.tier}`, off.has(c.chessId) && 'is-standin')}
           title=${c.name}>
-        <${Img} src=${chessAvatarUrl(m, c)} fallback=${html`<span class="sw-op__txt">${[...(c.name || '?')][0]}</span>`} />
+        <${Img} src=${invasion ? enemyIconUrl(m, c.iconKey) : chessAvatarUrl(m, c)} fallback=${html`<span class="sw-op__txt">${[...(c.name || '?')][0]}</span>`} />
         <span class="sw-op__tier">${roman(c.tier)}</span>
         ${off.has(c.chessId) ? html`<span class="sw-op__sub">${t('替补')}</span>` : null}
       </span>`)}</div>
@@ -214,11 +223,12 @@ function BondPanel({ bond, m, notOwned }) {
   </div>`;
 }
 
-function BondsTab({ m, sel, onSel }) {
-  const all = (data.list('bonds') || []).filter((b) => b && b.bondId).sort((a, b) => (a.identifier ?? 99) - (b.identifier ?? 99));
-  const sections = [
-    { id: 'core', name: t('核心盟约'), glyph: html`<${GIcon} name="flag" />`, items: all.filter((b) => b.isCore) },
-    { id: 'extra', name: t('附加盟约'), glyph: html`<${Icon} name="link" />`, items: all.filter((b) => !b.isCore) },
+function BondsTab({ m, sel, onSel, bonds, invasion = false }) {
+  const sections = invasion ? INVASION_SECTIONS.map(s => ({
+    id: s.id, name: t(s.name), glyph: s.glyph(), items: bonds.filter(b => b.kind === s.id),
+  })) : [
+    { id: 'core', name: t('核心盟约'), glyph: html`<${GIcon} name="flag" />`, items: bonds.filter((b) => b.isCore) },
+    { id: 'extra', name: t('附加盟约'), glyph: html`<${Icon} name="link" />`, items: bonds.filter((b) => !b.isCore) },
   ];
   return sections.map((s) => s.items.length ? html`<${Section} key=${s.id} name=${s.name} glyph=${s.glyph} count=${s.items.length}>
     ${s.items.map((b) => html`<${Tile} key=${b.bondId} kind="bond" on=${sel === b.bondId} onClick=${() => onSel(b.bondId)} title=${b.name}>
@@ -490,22 +500,33 @@ export function SweepReport({ onClose }) {
   // 规程's fourth tab. While its data is still loading, the registry is enough to show the tab; once the set is on
   // the page, config.version.family has to agree. A remembered 装备 stays remembered on a covenant version (the bar
   // falls back to 盟约报告) and comes back when 规程 is shown again.
-  const askedRegulation = versionById(version)?.family === 'regulation';
+  const versionEntry = versionById(version);
+  const askedRegulation = versionEntry?.family === 'regulation';
   const equipOn = askedRegulation && (!ready || equipReportOn(data.get('config')));
-  const tabs = equipOn ? [...REPORT_TABS, EQUIP_TAB] : REPORT_TABS;
+  const invasionOn = !!versionEntry && globalThis.window?.__SP_CAMP__?.invasionReport === true;
+  const baseTabs = equipOn ? [...REPORT_TABS, EQUIP_TAB] : REPORT_TABS;
+  const tabs = invasionOn ? [...baseTabs, INVASION_TAB] : baseTabs;
   const [tab, setTabState] = useState(() => { const v = loadPref(TAB_PREF, 'bonds'); return TAB_IDS.has(v) ? v : 'bonds'; });
   const setTab = (v) => { setTabState(v); savePref(TAB_PREF, v); };
   const tabOn = tabs.some((x) => x.id === tab) ? tab : 'bonds';
   const [bondSel, setBondSel] = useState(null);
+  const [invasionSel, setInvasionSel] = useState(null);
   const [bandSel, setBandSel] = useState(null);
   const [enemySel, setEnemySel] = useState(null);
   const [itemSel, setItemSel] = useState(null);
   const [codex, setCodex] = useState(null);
 
+  const invasionFile = invasionOn ? `invasion-report-${versionSlug(versionEntry)}` : '';
+  const invasionReady = useData(...(tabOn === 'invasion' ? [invasionFile] : []));
   // defaults once the data is there: the first tile of each tab
-  const bonds = ready ? (data.list('bonds') || []).filter((b) => b && b.bondId).sort((a, b) => (a.identifier ?? 99) - (b.identifier ?? 99)) : [];
+  const bondRecords = ready && tabOn === 'bonds'
+    ? (invasionOn ? [...buildIndex('bonds', data.get('bonds')).values()] : data.list('bonds')) : [];
+  const bonds = bondRecords.filter(b => b.bondId && (!invasionOn || !b.bondId.startsWith('mon_')))
+    .sort((a, b) => (a.identifier ?? 99) - (b.identifier ?? 99));
+  const invasionBonds = tabOn === 'invasion' && invasionReady ? data.list(invasionFile) : [];
   const bands = ready ? (data.list('bands') || []).filter((b) => b && b.bandId).sort((a, b) => (a.sortId ?? 99) - (b.sortId ?? 99)) : [];
-  const bond = data.lookup('bonds', bondSel) || bonds[0] || null;
+  const bond = bonds.find(b => b.bondId === bondSel) || bonds[0] || null;
+  const invasionBond = invasionBonds.find(b => b.bondId === invasionSel) || invasionBonds[0] || null;
   const band = data.lookup('bands', bandSel) || bands[0] || null;
   const firstBoss = ready ? bossList()[0] : null;
   const eSel = enemySel || (firstBoss ? { kind: 'boss', id: firstBoss.bossId } : null);
@@ -524,7 +545,17 @@ export function SweepReport({ onClose }) {
     right = html`<p class="sw-loading">${t('正在读取报告…')}</p>`;
   } else if (tabOn === 'bonds') {
     left = bond ? html`<${BondPanel} key=${bond.bondId} bond=${bond} m=${m} notOwned=${notOwned} />` : null;
-    right = html`<${BondsTab} m=${m} sel=${bond?.bondId} onSel=${setBondSel} />`;
+    right = html`<${BondsTab} m=${m} bonds=${bonds} sel=${bond?.bondId} onSel=${setBondSel} />`;
+  } else if (tabOn === 'invasion') {
+    if (invasionBond) {
+      left = html`<${BondPanel} key=${invasionBond.bondId} bond=${invasionBond} m=${m} invasion=${true} />`;
+      right = html`<${BondsTab} m=${m} bonds=${invasionBonds} sel=${invasionBond.bondId} onSel=${setInvasionSel} invasion=${true} />`;
+    } else if (!invasionReady) {
+      right = html`<p class="sw-loading">${t('正在读取报告…')}</p>`;
+    } else {
+      right = html`<div class="sw-loading" role="alert"><p>${t('侵略报告读取失败')}</p>
+        <${Button} onClick=${() => data.invalidate(invasionFile)}>${t('重试')}<//></div>`;
+    }
   } else if (tabOn === 'bands') {
     left = band ? html`<${BandPanel} key=${band.bandId} band=${band} m=${m} />` : null;
     right = html`<${BandsTab} m=${m} sel=${band?.bandId} onSel=${setBandSel} />`;
@@ -547,7 +578,7 @@ export function SweepReport({ onClose }) {
         </button>
         <button type="button" class="sw-info" onClick=${() => openGuide(handbookPage())} aria-label=${t('进阶图鉴')} title=${t('进阶图鉴：敌人类型、盟约、策略与轮选')}><${Icon} name="info" /></button>
       </div>
-      <nav class=${cx('sw-tabs', tabs.length > 3 && 'sw-tabs--4')} role="tablist" aria-label=${t('S.W.E.E.P.报告')}>
+      <nav class=${cx('sw-tabs', tabs.length > 3 && 'sw-tabs--compact')} role="tablist" aria-label=${t('S.W.E.E.P.报告')}>
         ${tabs.map((x) => html`<button key=${x.id} type="button" role="tab" aria-selected=${tabOn === x.id ? 'true' : 'false'} class=${cx('sw-tab', tabOn === x.id && 'is-on')}
           onClick=${() => setTab(x.id)}><span class="sw-tab__icon">${x.icon()}</span><span>${t(x.name)}</span></button>`)}
       </nav>

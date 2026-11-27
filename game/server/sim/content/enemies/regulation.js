@@ -6,11 +6,12 @@
 // Official numbers are read from the enemy record. Points with no blackboard are marked [ASSUMED].
 
 import { hypot, sin, cos } from '../../detmath.js';
-import { COLS, MAX_BATTLE_TIME } from '../../constants.js';
+import { ALLY_COLLIDER_RADIUS, COLS, MAX_BATTLE_TIME } from '../../constants.js';
 import { periodicDamage } from '../../attack.js';
+import { tryWitchkingStun, witchkingVariation } from '../../battle/invasionBondsMain.js';
 import {
   hurt, elem, areaAllies, auraAllies, remainingRoute, spawnChildren, nthOf, canCast, BOOM_RADIUS, auraBuff, watchDeaths,
-  unbalancedNow,
+  unbalancedNow, castSlot, targetsNear, byPriority,
 } from './helpers.js';
 import { skill, stealth, ep, refraction, reborn, deathBoom } from './archetypes.js';
 import { summonAfterDeath } from './invasionSummons.js';
@@ -77,8 +78,7 @@ function kitChghmr(ab) {
   }];
 }
 
-/** 管乐家: +atk per second while unblocked; the next attack spends the stacks and stuns.
- *  switchMode (沉郁 / 热情) has no field-wide variation signal — left unused. */
+/** 管乐家 stores ATK while unblocked. The invasion variation uses its native stun duration. */
 function kitLtnclr(ab) {
   const flat = tv(ab, 'atkboostCore.atk', 30);
   const cap = tv(ab, 'atkboostCore.max_stack_count', 30);
@@ -93,10 +93,37 @@ function kitLtnclr(ab) {
       b.addBuff(e, { key: 'reg:boost', persist: true, refresh: 'replace', mods: { atkFlat: flat * a.stacks } });
     },
     dealt(c, b, e, a) {
-      if (!(a.stacks > 0)) return;
-      if (stun > 0 && c.target && c.target.alive) b.applyStatus(c.target, 'stun', { duration: stun, source: e });
-      a.stacks = 0;
-      b.removeBuff(e, 'reg:boost');
+      const variation = witchkingVariation(e);
+      const mayStun = variation ? c.target?.hp > 0 : a.stacks > 0;
+      if (stun > 0 && c.target?.alive && mayStun) {
+        tryWitchkingStun(b, e, c.target, stun);
+      }
+      if (a.stacks > 0) {
+        a.stacks = 0;
+        b.removeBuff(e, 'reg:boost');
+      }
+    },
+  }];
+}
+
+function kitWitchkingAttack(ab, role = 'horn') {
+  const drum = role === 'drum';
+  const slot = drum ? ab.sk.aoeAttack_enthu : ab.sk.attackTwoTarget_enthu;
+  if (!slot) return [];
+  return [{
+    hitOut(c, b, e) {
+      if (!drum && c.dmg.isAttack && witchkingVariation(e)?.mode === 'enthu') c.dmg.type = 'arts';
+    },
+    before(c, b, e, a) {
+      const variation = witchkingVariation(e);
+      const target = c.targets[0];
+      if (variation?.mode !== 'enthu' || !target?.alive) return;
+      if (a.variation !== variation) { a.variation = variation; a.turns = 0; }
+      if (++a.turns < nthOf(slot)) return;
+      a.turns = 0;
+      castSlot(b, e, slot);
+      const others = byPriority(e, targetsNear(b, e, e.base.rangeRadius + ALLY_COLLIDER_RADIUS).filter(unit => unit !== target));
+      c.targets = [target, ...(drum ? others : others.slice(0, 1))];
     },
   }];
 }
@@ -147,12 +174,57 @@ function kitKrgrg(ab) {
   ];
 }
 
-/** 寻路者信使: one headshot (handbook ammo cap; no ammo key), then melee. */
-function kitMtrbty(ab) {
+// Invasion reloads the existing magazine on the committed attack frame, including a missed projectile.
+function stockedPathfinder(enemy, scale, headshot = null) {
+  const stock = enemy.def.raw?.sp;
+  if (!(stock?.maxSp > 0)) return [];
+  const switchMelee = enemy.def.applyWay === 'ALL';
+  const loadedAttacks = new Set();
+  const headshots = new WeakSet();
+  let left = Math.min(stock.maxSp, stock.initSp ?? stock.maxSp);
+  return [{
+    spawn(b, e) {
+      if (switchMelee) e.profile.melee = left <= 0;
+      b.on('enemyAttackCommitted', ({ enemy: attacker, attackId }) => {
+        if (attacker !== e || left <= 0) return;
+        loadedAttacks.add(attackId);
+        if (--left === 0 && switchMelee) e.profile.melee = true;
+        const refill = () => {
+          left = Math.min(stock.maxSp, left + 1);
+          if (switchMelee) e.profile.melee = left <= 0;
+        };
+        if (b.hasHook('enemyAmmoUsed')) b.emit('enemyAmmoUsed', { enemy: e, left, refill });
+      }, { owner: e });
+    },
+    hitOut(c) {
+      if (!c.dmg.isAttack || !loadedAttacks.delete(c.dmg.attackId)) return;
+      c.dmg.mul *= scale;
+      headshots.add(c.dmg);
+    },
+    dealt(c, b, e) {
+      if (headshot && headshots.has(c.dmg)) headshot(c, b, e);
+    },
+  }];
+}
+
+function kitPathfinderMagazine(ab, e) {
+  if (!e.invasionBonds?.tiers?.mon_minor_pathfinder) return [];
+  return stockedPathfinder(e, tv(ab, 'shotbuff.attack@headshot_atk_scale', 1));
+}
+
+/** 寻路者信使: one headshot, then melee. */
+function kitMtrbty(ab, enemy) {
   const scale = tv(ab, 'shotbuff.attack@headshot_atk_scale', 1.5);
   const disarm = tv(ab, 'shotbuff.attack@headshot_disarmed_duration', 15);
   const sp = tv(ab, 'shotbuff.attack@headshot_sp', -1);
   const trap = tv(ab, 'shotbuff.attack@headshot_trapdamage', 5000);
+  function headshot(c, b, e) {
+    const u = c.target;
+    if (disarm > 0 && u.alive) b.applyStatus(u, 'disarm', { duration: disarm, source: e });
+    if (u.skill && sp !== 0) u.skill.sp = Math.max(0, (u.skill.sp ?? 0) + sp);
+    if (trap > 0 && u.kind === 'device' && u.alive) hurt(b, e, u, trap, 'arts');
+  }
+  if (enemy.invasionBonds?.tiers?.mon_minor_pathfinder) return stockedPathfinder(enemy, scale, headshot);
   return [{
     hitOut(c, b, e, a) {
       if (a.spent || !c.dmg || !c.dmg.isAttack) return;
@@ -163,10 +235,7 @@ function kitMtrbty(ab) {
     dealt(c, b, e, a) {
       if (a.paid || !c.target) return;
       a.paid = true;
-      const u = c.target;
-      if (disarm > 0 && u.alive) b.applyStatus(u, 'disarm', { duration: disarm, source: e });
-      if (u.skill && sp !== 0) u.skill.sp = Math.max(0, (u.skill.sp ?? 0) + sp);
-      if (trap > 0 && u.kind === 'device' && u.alive) hurt(b, e, u, trap, 'arts');
+      headshot(c, b, e);
     },
   }];
 }
@@ -263,7 +332,7 @@ function kitAccrit(ab) {
       if (!t || !c.dmg || a.seen[t.id]) return;
       a.seen[t.id] = true;
       c.dmg.mul *= scale;
-      if (dur > 0) b.addBuff(t, { key: 'reg:crit', duration: dur, flags: { healFree: true, noHeal: true } });
+      if (dur > 0) applyPhantasmDebuff(b, e, t, { key: 'reg:crit', duration: dur, flags: { healFree: true, noHeal: true } });
     },
   }];
 }
@@ -417,12 +486,30 @@ function kitAcpara(ab) {
       if (c.reason !== 'killed' || !v || v === e || v.side !== 'enemy' || !key) return;
       if (v.defId === key) return;
       if (hypot(v.x - e.x, v.y - e.y) > radius + 1e-9) return;
-      spawnChildren(b, e, key, 1, { countInTotal: false, pos: [v.y, v.x], route: remainingRoute(e) });
+      spawnChildren(b, e, key, 1, { countInTotal: false, pos: [v.y, v.x], route: remainingRoute(e), offspringKind: 'death' });
     },
   }];
 }
 
 // --- the other new draws --------------------------------------------------------------------------------
+
+function phantasmDebuffSources(battle, source, target, key, duration) {
+  const prior = target.findBuff(key)?.data?.invasionSources;
+  if (!source.invasionBonds && !prior) return null;
+  const sources = prior ?? new Map();
+  for (const [seat, entry] of sources) if (entry.until <= battle.time + 1e-9) sources.delete(seat);
+  if (source.invasionBonds) {
+    const seat = source.invasionBonds.seat ?? source.sourcePlayerId;
+    sources.set(seat, { source, until: battle.time + duration });
+  }
+  return sources;
+}
+
+function applyPhantasmDebuff(battle, source, target, buff) {
+  const sources = phantasmDebuffSources(battle, source, target, buff.key, buff.duration);
+  if (sources) buff.data = { invasionSources: sources };
+  battle.addBuff(target, buff);
+}
 
 /** 假想敌：影役: stealth, and block count −1 on allies in range (one shared buff, so it does not stack). */
 function kitAcblk(ab) {
@@ -434,7 +521,7 @@ function kitAcblk(ab) {
       tick(b, e) {
         for (const u of auraAllies(b, e, e.x, e.y, radius)) {
           if (u.kind !== 'op') continue;
-          auraBuff(b, u, 'reg:blockdown', 0.25, { blockCnt: block }, null, true);
+          applyPhantasmDebuff(b, e, u, { key: 'reg:blockdown', duration: 0.35, mods: { blockCnt: block }, visible: true });
         }
       },
     },
@@ -450,10 +537,14 @@ function kitAcrefm(ab) {
     refraction(res),
     {
       sil: true,
-      taken(c, b) {
+      taken(c, b, e) {
         if (!c.dmg || c.dmg.type !== 'arts' || !c.source || !c.source.alive) return;
         if (!(dur > 0)) return;
-        b.addBuff(c.source, { key: 'reg:refslow', duration: dur, refresh: 'replace', mods: { aspd } });
+        const key = 'reg:refslow';
+        const sources = phantasmDebuffSources(b, e, c.source, key, dur);
+        b.applyStrongest(c.source, key, { source: e, duration: dur, value: aspd, mods: value => ({ aspd: value }) });
+        const buff = sources && c.source.findBuff(key);
+        if (buff) buff.data.invasionSources = sources;
       },
     },
   ];
@@ -508,6 +599,9 @@ function polluteDeathTile(battle, enemy) {
   tiles.add(key);
   const life = Math.min(battle.timeLimit, MAX_BATTLE_TIME) - battle.time;
   battle.fx('zone', { x: col, y: row, r: 0.5, dur: life, kind: 'originiumPollution' });
+  if (battle.hasHook('enemyZoneSpawn')) {
+    battle.emit('enemyZoneSpawn', { source: enemy, x: col, y: row, radius: 0.5, duration: life, kind: 'originiumPollution' });
+  }
 
   // [ASSUMED] The death tile lasts for this battle and deals 50 true damage per second, with 20% natural SP recovery.
   let nextDamage = battle.time + 1;
@@ -532,12 +626,18 @@ function kitLrboom(ab) {
 export const REGULATION_KITS = Object.freeze({
   enemy_1424_lrboom: kitLrboom,
   enemy_1406_chghmr: kitChghmr,
+  enemy_1373_ltnhor: (ab) => kitWitchkingAttack(ab),
+  enemy_1373_ltnhor_2: (ab) => kitWitchkingAttack(ab),
   enemy_1375_ltnclr: kitLtnclr,
   enemy_1375_ltnclr_2: same(kitLtnclr),
+  enemy_1376_ltndru: (ab) => kitWitchkingAttack(ab, 'drum'),
+  enemy_1376_ltndru_2: (ab) => kitWitchkingAttack(ab, 'drum'),
   enemy_1388_wingnt: kitWingnt,
   enemy_1388_wingnt_2: same(kitWingnt),
   enemy_1191_krgrg: kitKrgrg,
   enemy_1191_krgrg_2: same(kitKrgrg),
+  enemy_1213_mtrsnp: kitPathfinderMagazine,
+  enemy_1216_cansld: kitPathfinderMagazine,
   enemy_1219_mtrbty: kitMtrbty,
   enemy_1409_bdguad_2: kitBdguad,
   enemy_1431_lrmzrd: kitLrmzrd,

@@ -196,7 +196,7 @@
    "memberCount": 6,
    "thresholds": [
     4,
-    7
+    6
    ],
    "pending": false,
    "note": "含巫王乐团 / 残党乐团两支"
@@ -447,9 +447,10 @@
    "kind": "MINOR",
    "members": [
     "enemy_1103_wdkght_2",
-    "enemy_1104_lfkght"
+    "enemy_1104_lfkght",
+    "enemy_1104_lfkght_3"
    ],
-   "memberCount": 2,
+   "memberCount": 3,
    "thresholds": [
     2
    ],
@@ -756,9 +757,10 @@
     "enemy_1133_harchn",
     "enemy_1103_wdkght_2",
     "enemy_1104_lfkght",
-    "enemy_1360_dfello"
+    "enemy_1360_dfello",
+    "enemy_1104_lfkght_3"
    ],
-   "memberCount": 18,
+   "memberCount": 19,
    "thresholds": [
     3,
     6
@@ -964,7 +966,7 @@
    "memberCount": 6,
    "thresholds": [
     4,
-    7
+    6
    ],
    "pending": false,
    "note": "含巫王乐团 / 残党乐团两支"
@@ -1217,9 +1219,10 @@
    "kind": "MINOR",
    "members": [
     "enemy_1103_wdkght_2",
-    "enemy_1104_lfkght"
+    "enemy_1104_lfkght",
+    "enemy_1104_lfkght_3"
    ],
-   "memberCount": 2,
+   "memberCount": 3,
    "thresholds": [
     2
    ],
@@ -1528,9 +1531,10 @@
     "enemy_1133_harchn",
     "enemy_1103_wdkght_2",
     "enemy_1104_lfkght",
-    "enemy_1360_dfello"
+    "enemy_1360_dfello",
+    "enemy_1104_lfkght_3"
    ],
-   "memberCount": 18,
+   "memberCount": 19,
    "thresholds": [
     3,
     6

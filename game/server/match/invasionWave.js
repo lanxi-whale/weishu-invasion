@@ -19,7 +19,9 @@ function firstMembers(spawns, limit, matches, selected) {
 
 function moveGate(spawn) {
   const index = upper(spawn) ? 1 : 0;
-  return { ...spawn, preview: { ...spawn.preview, gate: index === 0 ? 'upper' : 'lower', start: [...MONSTER_GATES[index]] } };
+  const gate = index === 0 ? 'upper' : 'lower';
+  return { ...spawn, preview: { ...spawn.preview, gate, start: [...MONSTER_GATES[index]] },
+    ...(spawn.invasionBonds ? { invasionBonds: { ...spawn.invasionBonds, gate } } : {}) };
 }
 
 function advanceBatch(spawns, target) {

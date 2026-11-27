@@ -12,6 +12,7 @@ import { normalizeRoute, normalizeEnemy } from '../simdata.js';
 import { fin } from './util.js';
 import { spawnStats } from '../spawnStats.js';
 import { applyInvasionSpawn } from './invasionEffects.js';
+import { installInvasionBonds } from './invasionBonds.js';
 
 const FALLBACK_ENEMY = Object.freeze({
   type: 'enemy', id: 'enemy_unknown', key: 'enemy_unknown', name: '未知敌人', rank: 'NORMAL', maxHp: 2000, atk: 200, def: 100, res: 0,
@@ -32,6 +33,7 @@ export class BattleSpawns {
         time: Math.max(0, fin(s.time, 0)) + i * interval, enemyKey: s.enemyKey, routeIndex: s.routeIndex ?? 0, route: s.route ?? null,
         mods: s.mods ?? null, stats: s.stats ? { ...s.stats } : null,
         sourcePlayerId: s.sourcePlayerId ?? null, invasion: s.invasion ?? null, bounty: s.bounty ?? null, tag: s.tag ?? null,
+        invasionBonds: s.invasionBonds ?? null,
         ownerPlayerId: s.ownerPlayerId ?? null, pos: s.pos ?? null, seq: ++this._spawnSeq, countInTotal: s.countInTotal,
       };
       p.counted = p.countInTotal ?? (!(def && def.notCountInTotal) && p.tag !== 'boss' && p.tag !== 'part');
@@ -141,6 +143,7 @@ export class BattleSpawns {
     e.bounty = opts.bounty ?? null;
     e.sourcePlayerId = opts.sourcePlayerId ?? null;
     e.invasion = opts.invasion ?? null;
+    if (opts.invasionBonds) e.invasionBonds = opts.invasionBonds;
     e.ownerId = opts.ownerPlayerId ?? this._ownerForTile(start);
     e.spawnX = e.x; e.spawnY = e.y;
     e.spawnSeq = ++this._spawnSeq;
@@ -187,11 +190,13 @@ export class BattleSpawns {
     e.hp = e.bossPool ? e.hp : e.s.maxHp;
     this.units.push(e);
     this.enemies.push(e);
+    installInvasionBonds(this, e);
     this._armInvasionCarrion(e);
     this._ev(['spawn', unitInfo(e)]);
     if (this._hooks.deploy) this.emit('deploy', { unit: e, initial: false });
-    if (this._hooks.enemySpawn) this.emit('enemySpawn', { enemy: e });
+    if (this._hooks.enemySpawn) this.emit('enemySpawn', { enemy: e, parent: opts.parent, offspringKind: opts.offspringKind });
     applyInvasionSpawn(this, e);
+    this._observeEnemyStealth(e, true);
     return e;
   }
 

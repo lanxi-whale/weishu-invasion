@@ -48467,6 +48467,14 @@
   "enemy_9025_aclts@s2": {
    "avatar": "/assets/enemy/icon/enemy_9025_aclts.png",
    "portrait": "/assets/enemy/icon/enemy_9025_aclts.png"
+  },
+  "enemy_1104_lfkght_3": {
+   "avatar": "/assets/enemy/icon/enemy_1104_lfkght_3.png",
+   "portrait": "/assets/enemy/icon/enemy_1104_lfkght_3.png"
+  },
+  "enemy_1104_lfkght_3@s2": {
+   "avatar": "/assets/enemy/icon/enemy_1104_lfkght_3.png",
+   "portrait": "/assets/enemy/icon/enemy_1104_lfkght_3.png"
   }
  },
  "enemies": {

@@ -5,14 +5,15 @@
 - bonds.json   → data/bonds.json   （主/小/副 三档羁绊）
 - 立绘         → data/assets.json  （chars[<enemyId>] = 怪物图标的 URL）
 
-用法： python gen_game_monsters.py [--dry | --refresh-bond main_slug | --refresh-tiers | --refresh-star-stats]
+用法： python gen_game_monsters.py [--dry | --refresh-bond main_slug | --refresh-bond-effects | --refresh-tiers | --refresh-star-stats | --refresh-independent-variants]
 """
 import json, os, sys, shutil
-from rules import REVERSED_STAR_STATS, invasion_star_stats
+from rules import INDEPENDENT_ENEMY_VARIANTS, REVERSED_STAR_STATS, invasion_star_stats
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 GAME = os.path.join(ROOT, "game")
 DATA = os.path.join(GAME, "data")
+REGULATION_ENEMIES = os.path.join(DATA, "versions", "act3autochess-v3_1", "enemies.json")
 
 MON = "mon_"          # 羁绊 id 前缀，避免和干员羁绊撞名
 POW = "monpow_"       # nationId 前缀
@@ -32,6 +33,11 @@ def load(p):
 def dump(p, obj):
     with open(p, "w", encoding="utf-8") as f:
         json.dump(obj, f, ensure_ascii=False, indent=1)
+
+
+def dump_compact(p, obj):
+    with open(p, "w", encoding="utf-8") as f:
+        json.dump(obj, f, ensure_ascii=False, separators=(",", ":"))
 
 def ensure_backup(p):
     b = p + ".orig"
@@ -118,8 +124,12 @@ if "--refresh-tiers" in sys.argv:
     sys.exit(0)
 
 bonds = load(os.path.join(ROOT, "data", "bonds.json"))
-count_rules = load(os.path.join(ROOT, "data", "monster_bond_effects.json"))["bonds"]
+effect_rules = load(os.path.join(ROOT, "data", "monster_bond_effects.json"))
+count_rules = effect_rules["bonds"]
 official_enemies = load(sys.argv[sys.argv.index("--official-enemies") + 1]) if "--official-enemies" in sys.argv else None
+refresh_independent = "--refresh-independent-variants" in sys.argv
+if refresh_independent and official_enemies is None:
+    official_enemies = load(REGULATION_ENEMIES)
 
 # ---- 羁绊 ----------------------------------------------------------------
 bond_add, bond_meta = {}, {}
@@ -141,6 +151,12 @@ for kind, core in (("main", True), ("minor", False), ("sub", False)):
                 f'在场 {tier["distinctSpecies"]} 种不同的【{name}】时，每个【{name}】单位增加 {tier["extraPerUnit"]} 只怪物。'
                 for tier in bonus_tiers
             ) + "\n只生效最高档，不叠加。"
+        elif effects := effect_rules["descriptions"].get(bid):
+            if len(effects) != len(thr):
+                raise ValueError("inconsistent bond effect descriptions: " + bid)
+            description += "\n" + "\n".join(
+                f"【{count} 种】{effect}" for count, effect in zip(thr, effects)
+            )
         bond_add[bid] = {
             "bondId": bid,
             "name": name,
@@ -168,6 +184,17 @@ for kind, core in (("main", True), ("minor", False), ("sub", False)):
         bond_meta[b["id"]] = bid
         seq += 1
 
+if "--refresh-bond-effects" in sys.argv:
+    for target in targets:
+        bond_path = os.path.join(target, "bonds.json")
+        records = load(bond_path)
+        for bond_id, generated in bond_add.items():
+            if bond_id in records:
+                records[bond_id].update({key: generated[key] for key in ("desc", "thresholds", "activeCount")})
+        dump(bond_path, records)
+        print(os.path.relpath(bond_path, ROOT))
+    sys.exit(0)
+
 # ---- 棋子 ----------------------------------------------------------------
 def range_grid(r):
     if not r:
@@ -188,7 +215,7 @@ chess_add, char_add = {}, {}
 sid = 9000
 for u in units:
     uid = u["id"]
-    if uid in EXCLUDED_UNITS:
+    if uid in EXCLUDED_UNITS or (refresh_independent and uid not in INDEPENDENT_ENEMY_VARIANTS):
         continue
     s1 = u["stars"][0]
     s2 = u["stars"][1] if len(u["stars"]) > 1 else None
@@ -329,6 +356,47 @@ if "--refresh-bond" in sys.argv:
         dump(chess_path, chess_obj)
         dump(bond_path, bond_obj)
         print(os.path.relpath(target, ROOT))
+    sys.exit(0)
+
+
+if refresh_independent:
+    affected_bonds = {bond for card in chess_add.values() for bond in card["bonds"]}
+    for target in targets:
+        chess_path = os.path.join(target, "chess.json")
+        bonds_path = os.path.join(target, "bonds.json")
+        chess_obj, bond_obj = load(chess_path), load(bonds_path)
+        next_id = max(rec.get("identifier") or 0 for rec in chess_obj.values()) + 1
+        next_sort = max(rec.get("shopSortId") or 0 for rec in chess_obj.values()) + 1
+        for index, (chess_id, generated) in enumerate(chess_add.items()):
+            existing = chess_obj.get(chess_id, {})
+            record = {key: value for key, value in generated.items() if key != "_cat"}
+            record["identifier"] = existing.get("identifier", next_id + index)
+            record["shopSortId"] = existing.get("shopSortId", next_sort + index)
+            chess_obj[chess_id] = record
+        for bond_id in affected_bonds:
+            bond_obj[bond_id]["desc"] = bond_add[bond_id]["desc"]
+        dump(chess_path, chess_obj)
+        dump(bonds_path, bond_obj)
+        print(os.path.relpath(target, ROOT))
+
+        if os.path.commonpath([target, DATA]) != DATA:
+            continue
+        # Older 4v4 versions share the recruited monster's battle definition.
+        alliance_dir = os.path.join(ROOT, "game_ops", "data", os.path.relpath(target, DATA))
+        for directory in (target, alliance_dir):
+            enemy_path = os.path.join(directory, "enemies.json")
+            enemies = load(enemy_path)
+            missing = INDEPENDENT_ENEMY_VARIANTS - enemies.keys()
+            if missing:
+                enemies.update({key: official_enemies[key] for key in sorted(missing)})
+                dump_compact(enemy_path, enemies)
+
+    assets_path = os.path.join(DATA, "assets.json")
+    assets_obj = load(assets_path)
+    chars = assets_obj.setdefault("chars", {})
+    for key, value in char_add.items():
+        chars[key] = {**chars.get(key, {}), **value}
+    dump(assets_path, assets_obj)
     sys.exit(0)
 
 report = []

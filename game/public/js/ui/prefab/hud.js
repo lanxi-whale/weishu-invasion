@@ -146,7 +146,7 @@ export function RegCountdown({ pack, remain, total = null, ready = false, still 
     const fills = new Map();
     const active = new Map();
     const text = ref(prefab, '_textCountDown');
-    if (Number.isInteger(text)) texts.set(text, remain == null ? '' : String(Math.min(99, Math.max(0, remain))).padStart(2, '0'));
+    if (Number.isInteger(text)) texts.set(text, remain == null ? '' : String(Math.min(999, Math.max(0, remain))).padStart(2, '0'));
     const bar = ref(prefab, '_progressBar');
     if (Number.isInteger(bar)) sliders.set(bar, frac);
     for (const n of prefab.scripts || []) for (const id of (Array.isArray(n?.refs?._progressImgsFill) ? n.refs._progressImgsFill : [])) fills.set(id, frac);

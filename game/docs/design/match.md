@@ -17,11 +17,19 @@ deployed, distinct species before sending the wave. The enabled Originium Slug c
 for eight species and thresholds of four (+3 enemies per unit) and seven (+6). Rules live in `4v4/data/monster_bond_effects.json`.
 Inactive covenants and bench pieces do not add enemies.
 
+Invasion battle covenants are activated from the distinct deployed species at each attacking seat. The wave carries
+each creature's active covenants and its original seat. The orchestra has thresholds of four and six distinct species.
+
 The invasion board's red-gate entry schedule uses walking distance, current movement speed and the leader's orders. The
 readiness animation follows the schedule. In individual combat the first creature spawns on the Alliance side at
 1.2 real seconds. Each following spawn preserves the invasion entry order and uses three times the entry gap.
 
 4v4 invasion summons run on the defending battlefield using the enemy record selected by the wave. Active summons, death spawns and splits inherit the invasion player's attribution. Their own enemy records supply their base attributes. Runtime spawns stay outside the scheduled wave's HUD count.
+
+4v4 Seaborn empowers the attacking seat at four or seven distinct species. Each damaging hit from an empowered
+Seaborn adds neural buildup equal to 10% of its ATK. Neural bursts triggered by these enemies gain 20% damage and
+stun duration at tier one, or 50% at tier two. At tier two, a killed Seaborn splits into one child with the same
+remaining route. Ground enemies produce 单核掠食者 and flyers produce 纤核漂游者. The child cannot split again.
 
 4v4 monster attributes (2026-11-17): every deployed chess carries its unrounded start-of-battle maxHp, ATK, DEF, RES, attack speed/interval, movement speed and HP regeneration, from the same preview used by preparation details. Native enemy identities still provide behaviour; synthetic two-star attributes and preparation bonuses are not reconstructed from enemyKey. The bridge and BattleSpec retain per-spawn stats; scheduled spawns apply them after scripted template overrides. Same-type pieces can differ, and attribute-only changes invalidate the publication signature. This covers prepared numeric attributes, not transporting timed skill/aura logic.
 
@@ -46,6 +54,8 @@ and all other covenant memberships remain unchanged.
 4v4 invasion leaders (2026-11-23). `shared/monsterLeaders.js` defines 17 invasion strategies and their older draft aliases. `server/match/invasionCommands.js` validates preparation orders. `server/match/invasionWave.js` applies orders and assigns each player's combat quotas to actual spawns. The resulting schedule drives the preparation preview and the defending battlefield. Pompeii adds one creature to each deployed Originium Slug unit alongside its star and covenant bonuses.
 
 4v4 fork (2026-11-16): OPS_MODE or monsterOnly disables Final Assault and Hidden Core. All 14 rounds use normal battlefields; settlement after round 14 ends the run, with elimination taking precedence. Boss ids and boss round markers are null in public views and leader previews are hidden. Standalone original modes keep their boss rules. Cross-camp victory arbitration is a separate pending feature.
+
+In 4v4, the preparation clock starts once both camps enter PREP. Its duration rises evenly from 40 seconds in round 1 to 110 in round 14, rounded to whole seconds. Players can ready early. At zero the server readies any remaining seats and starts combat.
 
 ## 6. Match & meta (server/match)
 

@@ -3286,7 +3286,7 @@
   "weight": 10,
   "maxInactiveBondCount": -1,
   "layerMilestones": [],
-  "desc": "【炎】怪物羁绊 · 池内 8 只"
+  "desc": "【炎】怪物羁绊 · 池内 8 只\n【4 种】每回合前 6 个由本席炎怪倒下后产生的器物获得移速 +30%，持续 6 秒。生成时使附近 2 格内同席炎怪造成的伤害 +15%，持续 4 秒。\n【7 种】器物上限提高到 10 个，移速 +45%，持续 8 秒。附近炎怪造成的伤害 +25%，持续 6 秒。重复获得增伤时刷新持续时间。"
  },
  "mon_main_seaborn": {
   "bondId": "mon_main_seaborn",
@@ -3315,7 +3315,7 @@
   "weight": 10,
   "maxInactiveBondCount": -1,
   "layerMilestones": [],
-  "desc": "【海嗣】怪物羁绊 · 池内 10 只"
+  "desc": "【海嗣】怪物羁绊 · 池内 10 只\n【4 种】本席所有海嗣造成伤害时，附加相当于自身攻击力 10% 的神经损伤。海嗣引发神经爆发时，真实伤害和眩晕时长各提高 20%。\n【7 种】海嗣被击倒时分裂出 1 个沿原路线行进的子体。子体无法再次分裂。神经爆发伤害和眩晕时长的加成提高至 50%，附加的神经损伤仍为攻击力的 10%。"
  },
  "mon_main_slug": {
   "bondId": "mon_main_slug",
@@ -3373,7 +3373,7 @@
   "weight": 10,
   "maxInactiveBondCount": -1,
   "layerMilestones": [],
-  "desc": "【萨卡兹】怪物羁绊 · 池内 8 只"
+  "desc": "【萨卡兹】怪物羁绊 · 池内 8 只\n【4 种】本席萨卡兹首次命中每名干员时标记该干员 5 秒。受到本席萨卡兹的物理和法术伤害 +12%。每名干员每回合触发一次。\n【7 种】标记期间受到的伤害加成提高到 22%。"
  },
  "mon_main_decay": {
   "bondId": "mon_main_decay",
@@ -3402,7 +3402,7 @@
   "weight": 10,
   "maxInactiveBondCount": -1,
   "layerMilestones": [],
-  "desc": "【萨卡兹·枯朽】怪物羁绊 · 池内 19 只"
+  "desc": "【萨卡兹·枯朽】怪物羁绊 · 池内 19 只\n【4 种】本席枯朽怪及其重生造物身处源石污染区或邻近另一只同席大君之触、大君之赐时，普攻附带攻击力 12% 的凋亡损伤。\n【7 种】附加凋亡损伤提高到攻击力的 22%。"
  },
  "mon_main_reunion": {
   "bondId": "mon_main_reunion",
@@ -3431,7 +3431,7 @@
   "weight": 10,
   "maxInactiveBondCount": -1,
   "layerMilestones": [],
-  "desc": "【整合运动】怪物羁绊 · 池内 15 只"
+  "desc": "【整合运动】怪物羁绊 · 池内 15 只\n【4 种】同席整合运动的近战怪与远程怪相距 2 格以内时，近战怪受到的伤害 −12%，远程怪攻击力 +12%。\n【7 种】近战怪受到的伤害 −20%，远程怪攻击力 +20%。"
  },
  "mon_main_drone": {
   "bondId": "mon_main_drone",
@@ -3460,7 +3460,7 @@
   "weight": 10,
   "maxInactiveBondCount": -1,
   "layerMilestones": [],
-  "desc": "【无人机】怪物羁绊 · 池内 7 只"
+  "desc": "【无人机】怪物羁绊 · 池内 7 只\n【4 种】本席每个红门每回合首架无人机获得 20% 最大生命的护盾，持续 6 秒。有护盾时，能选中它的远程干员在无人机中优先攻击它。\n【7 种】护盾提高到 35% 最大生命。"
  },
  "mon_main_witchking": {
   "bondId": "mon_main_witchking",
@@ -3476,7 +3476,7 @@
   "activeCount": 4,
   "thresholds": [
    4,
-   7
+   6
   ],
   "maxCount": null,
   "thresholdTemplate": "count_threshold_upward",
@@ -3489,7 +3489,7 @@
   "weight": 10,
   "maxInactiveBondCount": -1,
   "layerMilestones": [],
-  "desc": "【巫王乐团】怪物羁绊 · 池内 6 只"
+  "desc": "【巫王乐团】怪物羁绊 · 池内 6 只\n【4 种】本席首只乐团怪入场 4 秒后，圆号手和鼓手进入激昂变奏，管乐家进入沉郁变奏，持续 5 秒。每席每回合最多发动一次，每次变奏中同一干员最多受到一次变奏眩晕。\n【6 种】变奏持续 7 秒，每席每回合最多发动两次。同一场战斗内，第二次变奏在首次开始 12 秒后发动。"
  },
  "mon_main_phantasm": {
   "bondId": "mon_main_phantasm",
@@ -3518,7 +3518,7 @@
   "weight": 10,
   "maxInactiveBondCount": -1,
   "layerMilestones": [],
-  "desc": "【假想敌】怪物羁绊 · 池内 11 只"
+  "desc": "【假想敌】怪物羁绊 · 池内 11 只\n【4 种】干员受到某种本席假想敌的寄生、毒雾、降攻速、减阻挡或禁疗影响时，另一种本席假想敌命中该干员额外造成攻击力 25% 的法术伤害。每名干员每 6 秒触发一次。\n【7 种】附加法术伤害提高到攻击力的 45%。"
  },
  "mon_main_infection": {
   "bondId": "mon_main_infection",
@@ -3547,7 +3547,7 @@
   "weight": 10,
   "maxInactiveBondCount": -1,
   "layerMilestones": [],
-  "desc": "【感染】怪物羁绊 · 池内 10 只"
+  "desc": "【感染】怪物羁绊 · 池内 10 只\n【4 种】感染怪倒下时，在所在格及上下左右留下 4 秒污染，每秒造成死者攻击力 12% 的法术伤害。每名干员每次只结算伤害最高的一处。\n【7 种】每秒伤害提高到死者攻击力的 22%。"
  },
  "mon_main_abyss": {
   "bondId": "mon_main_abyss",
@@ -3576,7 +3576,7 @@
   "weight": 10,
   "maxInactiveBondCount": -1,
   "layerMilestones": [],
-  "desc": "【深池】怪物羁绊 · 池内 9 只"
+  "desc": "【深池】怪物羁绊 · 池内 9 只\n【4 种】1 格内每有一种其他同席深池怪，自身防御力 +12%，最多计算两种。\n【7 种】每种提供的防御力提高到 +20%。"
  },
  "mon_minor_snow": {
   "bondId": "mon_minor_snow",
@@ -3604,7 +3604,7 @@
   "weight": 10,
   "maxInactiveBondCount": -1,
   "layerMilestones": [],
-  "desc": "【雪怪】怪物羁绊 · 池内 2 只"
+  "desc": "【雪怪】怪物羁绊 · 池内 2 只\n【2 种】本席每种雪怪首次命中每名干员时，施加持续 3 秒的寒冷。两种雪怪连续命中可触发冻结。"
  },
  "mon_minor_special": {
   "bondId": "mon_minor_special",
@@ -3633,7 +3633,7 @@
   "weight": 10,
   "maxInactiveBondCount": -1,
   "layerMilestones": [],
-  "desc": "【特殊】怪物羁绊 · 池内 4 只"
+  "desc": "【特殊】怪物羁绊 · 池内 4 只\n【2 种】每只特殊怪首次降到半血以下时，移速 +20%，持续 4 秒。\n【4 种】移速加成提高到 +35%。"
  },
  "mon_minor_carnival": {
   "bondId": "mon_minor_carnival",
@@ -3661,7 +3661,7 @@
   "weight": 10,
   "maxInactiveBondCount": -1,
   "layerMilestones": [],
-  "desc": "【狂欢】怪物羁绊 · 池内 3 只"
+  "desc": "【狂欢】怪物羁绊 · 池内 3 只\n【2 种】狂欢怪首次退出隐匿或节日气球被击倒时，附近 2 格内同席怪物攻速 +20，持续 4 秒。每席每 8 秒触发一次。"
  },
  "mon_minor_sankta": {
   "bondId": "mon_minor_sankta",
@@ -3690,7 +3690,7 @@
   "weight": 10,
   "maxInactiveBondCount": -1,
   "layerMilestones": [],
-  "desc": "【萨科塔】怪物羁绊 · 池内 4 只"
+  "desc": "【萨科塔】怪物羁绊 · 池内 4 只\n【2 种】自身首次解除恐惧或首次消耗弹药时，移速 +15%，攻速 +15，持续 4 秒。\n【4 种】移速加成提高到 +25%，攻速加成提高到 +25。"
  },
  "mon_minor_theater": {
   "bondId": "mon_minor_theater",
@@ -3719,7 +3719,7 @@
   "weight": 10,
   "maxInactiveBondCount": -1,
   "layerMilestones": [],
-  "desc": "【剧场】怪物羁绊 · 池内 5 只"
+  "desc": "【剧场】怪物羁绊 · 池内 5 只\n【2 种】本席首只剧场怪命中干员或被其阻挡时，在干员所在格及上下左右生成摄影区，持续 5 秒。区内干员受到本席剧场怪的神经损伤 +15%。\n【4 种】摄影区持续 8 秒，区内神经损伤加成提高到 +25%。"
  },
  "mon_minor_prisoner": {
   "bondId": "mon_minor_prisoner",
@@ -3748,7 +3748,7 @@
   "weight": 10,
   "maxInactiveBondCount": -1,
   "layerMilestones": [],
-  "desc": "【囚犯】怪物羁绊 · 池内 4 只"
+  "desc": "【囚犯】怪物羁绊 · 池内 4 只\n【2 种】囚犯解放所需的攻击次数 −1，最少 1 次。\n【4 种】所需次数 −2，最少 1 次。解放时回复 25% 已损失生命。"
  },
  "mon_minor_arc": {
   "bondId": "mon_minor_arc",
@@ -3776,7 +3776,7 @@
   "weight": 10,
   "maxInactiveBondCount": -1,
   "layerMilestones": [],
-  "desc": "【弧光】怪物羁绊 · 池内 2 只"
+  "desc": "【弧光】怪物羁绊 · 池内 2 只\n【2 种】入场后前 3 次受击时受到的伤害 −20%，这些攻击附带的推拉距离 −25%。"
  },
  "mon_minor_visitor": {
   "bondId": "mon_minor_visitor",
@@ -3805,7 +3805,7 @@
   "weight": 10,
   "maxInactiveBondCount": -1,
   "layerMilestones": [],
-  "desc": "【访问团】怪物羁绊 · 池内 4 只"
+  "desc": "【访问团】怪物羁绊 · 池内 4 只\n【2 种】本席首只访问团怪倒下时，在其所在格及上下左右留下封冻区，持续 4 秒。本席访问团在区内防御力 +15%。\n【4 种】封冻区持续 6 秒，区内防御力 +25%，法术抗性 +8。"
  },
  "mon_minor_rhine": {
   "bondId": "mon_minor_rhine",
@@ -3834,7 +3834,7 @@
   "weight": 10,
   "maxInactiveBondCount": -1,
   "layerMilestones": [],
-  "desc": "【莱茵生命】怪物羁绊 · 池内 4 只"
+  "desc": "【莱茵生命】怪物羁绊 · 池内 4 只\n【2 种】每只莱茵生命怪首次实际受到物理或法术伤害后，对该类伤害获得 20% 减伤，持续 6 秒。\n【4 种】减伤提高到 35%，持续 8 秒。"
  },
  "mon_minor_knight": {
   "bondId": "mon_minor_knight",
@@ -3862,7 +3862,7 @@
   "weight": 10,
   "maxInactiveBondCount": -1,
   "layerMilestones": [],
-  "desc": "【骑士团】怪物羁绊 · 池内 2 只"
+  "desc": "【骑士团】怪物羁绊 · 池内 3 只\n【2 种】本席首只骑士团怪倒下时，其余在场骑士回复 15% 最大生命，并在 4 秒内优先攻击可选目标中攻击力最高的干员。"
  },
  "mon_minor_water": {
   "bondId": "mon_minor_water",
@@ -3891,7 +3891,7 @@
   "weight": 10,
   "maxInactiveBondCount": -1,
   "layerMilestones": [],
-  "desc": "【水】怪物羁绊 · 池内 7 只"
+  "desc": "【水】怪物羁绊 · 池内 7 只\n【2 种】水羁绊成员的普攻附带攻击力 8% 的侵蚀损伤。\n【4 种】侵蚀损伤提高到攻击力的 15%。本席水怪触发侵蚀爆发时，目标附近 2 格内同席水怪移速 +20%，持续 4 秒。"
  },
  "mon_minor_pathfinder": {
   "bondId": "mon_minor_pathfinder",
@@ -3920,7 +3920,7 @@
   "weight": 10,
   "maxInactiveBondCount": -1,
   "layerMilestones": [],
-  "desc": "【寻路者】怪物羁绊 · 池内 4 只"
+  "desc": "【寻路者】怪物羁绊 · 池内 4 只\n【2 种】每只寻路者首次耗尽弹药后，4 秒后补 1 发。战线推进者首次被阻挡后的首击伤害 +15%。\n【4 种】弹药补充缩短到 2 秒，战线推进者首击伤害提高到 +25%。"
  },
  "mon_sub_special": {
   "bondId": "mon_sub_special",
@@ -3949,7 +3949,7 @@
   "weight": 0,
   "maxInactiveBondCount": -1,
   "layerMilestones": [],
-  "desc": "【特异】怪物羁绊 · 池内 24 只"
+  "desc": "【特异】怪物羁绊 · 池内 24 只\n【3 种】首次受到眩晕、冻结或束缚时，控制持续时间 −25%。\n【6 种】控制持续时间 −45%。"
  },
  "mon_sub_fly": {
   "bondId": "mon_sub_fly",
@@ -3978,7 +3978,7 @@
   "weight": 0,
   "maxInactiveBondCount": -1,
   "layerMilestones": [],
-  "desc": "【飞行】怪物羁绊 · 池内 18 只"
+  "desc": "【飞行】怪物羁绊 · 池内 18 只\n【3 种】连续 3 秒未受击时获得移速 +15%，受击后重新计时。\n【6 种】移速加成提高到 +25%。"
  },
  "mon_sub_times": {
   "bondId": "mon_sub_times",
@@ -4007,7 +4007,7 @@
   "weight": 0,
   "maxInactiveBondCount": -1,
   "layerMilestones": [],
-  "desc": "【频次】怪物羁绊 · 池内 7 只"
+  "desc": "【频次】怪物羁绊 · 池内 7 只\n【3 种】自身及原生的器物或傀儡按受击次数结算时，需要多承受 1 次有效伤害。\n【6 种】需要多承受 2 次有效伤害。"
  },
  "mon_sub_element": {
   "bondId": "mon_sub_element",
@@ -4036,7 +4036,7 @@
   "weight": 0,
   "maxInactiveBondCount": -1,
   "layerMilestones": [],
-  "desc": "【元素】怪物羁绊 · 池内 13 只"
+  "desc": "【元素】怪物羁绊 · 池内 13 只\n【3 种】原生能力施加的元素损伤 +15%。\n【6 种】元素损伤加成提高到 +25%。"
  },
  "mon_sub_dot": {
   "bondId": "mon_sub_dot",
@@ -4065,7 +4065,7 @@
   "weight": 0,
   "maxInactiveBondCount": -1,
   "layerMilestones": [],
-  "desc": "【持续】怪物羁绊 · 池内 7 只"
+  "desc": "【持续】怪物羁绊 · 池内 7 只\n【3 种】原生持续伤害每次结算的伤害 +15%。\n【6 种】持续伤害加成提高到 +30%。"
  },
  "mon_sub_invisible": {
   "bondId": "mon_sub_invisible",
@@ -4094,7 +4094,7 @@
   "weight": 0,
   "maxInactiveBondCount": -1,
   "layerMilestones": [],
-  "desc": "【隐匿】怪物羁绊 · 池内 11 只"
+  "desc": "【隐匿】怪物羁绊 · 池内 11 只\n【3 种】每次进入或退出隐匿时，对周围八格内的所有敌方单位各造成攻击力 100% 的伤害。入场时自带隐匿也触发，伤害类型沿用普攻。\n【6 种】每次触发的伤害提高到攻击力的 150%。"
  },
  "mon_sub_reflection": {
   "bondId": "mon_sub_reflection",
@@ -4123,7 +4123,7 @@
   "weight": 0,
   "maxInactiveBondCount": -1,
   "layerMilestones": [],
-  "desc": "【折射】怪物羁绊 · 池内 11 只"
+  "desc": "【折射】怪物羁绊 · 池内 11 只\n【3 种】折射生效期间，首次受到法术伤害会使攻击者攻速 −15，持续 3 秒。同一干员每 6 秒最多触发一次，攻速降低效果取最高值。\n【6 种】攻速降低幅度提高到 −25。"
  },
  "mon_sub_critic": {
   "bondId": "mon_sub_critic",
@@ -4152,7 +4152,7 @@
   "weight": 0,
   "maxInactiveBondCount": -1,
   "layerMilestones": [],
-  "desc": "【致命】怪物羁绊 · 池内 25 只"
+  "desc": "【致命】怪物羁绊 · 池内 25 只\n【3 种】对生命低于 35% 的干员造成的物理和法术伤害 +15%。\n【6 种】伤害加成提高到 +25%。"
  },
  "mon_sub_reborn": {
   "bondId": "mon_sub_reborn",
@@ -4181,6 +4181,6 @@
   "weight": 0,
   "maxInactiveBondCount": -1,
   "layerMilestones": [],
-  "desc": "【复苏】怪物羁绊 · 池内 18 只"
+  "desc": "【复苏】怪物羁绊 · 池内 19 只\n【3 种】原生重生的单位和分裂、死亡召唤产生的子怪，每秒回复 4% 最大生命，持续 5 秒。\n【6 种】每秒回复量提高到 7% 最大生命。"
  }
 }

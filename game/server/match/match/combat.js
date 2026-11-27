@@ -134,7 +134,7 @@ export class MatchCombat {
         uid: p.uid, tier: rec?.tier ?? 0, attackType: enemy?.applyWay,
         // Per-piece stats include synthetic stars and preparation attribute bonuses.
         // Keep enemyKey for the official behaviour; never rederive stats from that key.
-        stats, sourcePlayerId: p.sourcePlayerId ?? null,
+        stats, sourcePlayerId: p.sourcePlayerId ?? null, invasionBonds: p.invasionBonds,
         preview: { gate: p.gateIndex === 0 ? 'upper' : 'lower', start: [gate.r, gate.c], fly, elite: enemy?.rank === 'ELITE', boss: false },
         mods,
       });
@@ -177,7 +177,7 @@ export class MatchCombat {
    * 同时把同一批怪放进自己的战斗里当观战（只走不打，因为没有己方单位）。
    */
   _monsterWaveFromBoards() {
-    const LOG = 'E:/明日方舟卫戍协议/4v4/game/monster-wave.log';
+    const LOG = new URL('../../../monster-wave.log', import.meta.url);
     try {
       const lineup = this._monsterLineup();
       const payload = publishWave(this._monsterWavePayload(lineup));

@@ -14,6 +14,21 @@ BOND_EXCLUSIONS = {
     "infection": {"enemy_1325_cbgpro", "enemy_1325_cbgpro_2", "enemy_1000_gopro_2"},
 }
 
+# These variants are independent recruits despite their native suffixes.
+INDEPENDENT_ENEMY_VARIANTS = {"enemy_1104_lfkght_3"}
+
+
+def native_star_base(key, enemies):
+    base, _, suffix = key.rpartition("_")
+    if suffix not in ("2", "3") or base not in enemies or key in INDEPENDENT_ENEMY_VARIANTS:
+        return None
+    base_name = nm(enemies[base])
+    variant_name = nm(enemies[key])
+    if ("残党" in base_name and "巫王" in variant_name) or ("巫王" in base_name and "残党" in variant_name):
+        return None
+    return base, int(suffix)
+
+
 # These strategy variants have lower HP (and, for Gopnik, lower ATK).
 # Swap the invasion card stats while retaining each form's original enemy ID.
 REVERSED_STAR_STATS = {
@@ -141,7 +156,7 @@ MANUAL_NAMES = {
     "弧光": ("弧光镜卫", "弧光锋卫"),
     "访问团": ("访问团持盾者", "“喷射罐”", "访问团强攻冠军", "访问团新兵"),
     "莱茵生命": ("莱茵生命防卫科高级成员", "Dor-β号复制体", "测试用动力装甲", "Dor-1号失败品"),
-    "骑士团": ("沸血骑士团精锐", "锋盔骑士团学徒"),
+    "骑士团": ("沸血骑士团精锐", "锋盔骑士团学徒", "“左手”泰特斯·白杨"),
     "水": ("码头水手", "咸鳞汁推荐者", "寻险水手", "架桥船工", "控潮术师", "潜水员", "术师快艇"),
     "寻路者": ("寻路者狙击手", "寻路者阵地破坏者", "战线推进者", "寻路者信使"),
 }

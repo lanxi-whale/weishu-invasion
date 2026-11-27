@@ -7,6 +7,7 @@ import { ELEMENT } from '../../constants.js';
 import { canTargetAlly, sortAllyTargets, areaSelectable, auraSelectable } from '../../targeting.js';
 import { hypot } from '../../detmath.js';
 import { applyInvasionOffspring } from '../../battle/invasionEffects.js';
+import { invasionOffspringBonds } from '../../battle/invasionBonds.js';
 
 // ---------------------------------------------------------------------------------------------------------------
 // constants (numbers that exist nowhere in the data)
@@ -237,9 +238,9 @@ export function elem(b, src, tgt, el, amount, { ignoreSelect = false, tags = [] 
  * (abilities that "无视无法选择", direct picks, a flying unit's blast credited to a ground leader): it also reaches an
  * airborne 起飞 ally, which a ground enemy's damage otherwise skips (attack/helpers.js liftoffEvades, targeting.js evadesGround).
  */
-export function hurt(b, src, tgt, amount, type = 'phys', { canDodge = false, tags = [], isSkill = true, ignoreSelect = false } = {}) {
+export function hurt(b, src, tgt, amount, type = 'phys', { canDodge = false, tags = [], isSkill = true, ignoreSelect = false, mul = 1 } = {}) {
   if (!tgt || !tgt.alive || !(amount > 0)) return 0;
-  return b.dealDamage(src, tgt, { amount, type, canDodge, isSkill, ignoreSelect, tags: ['enemyAbility', ...tags] });
+  return b.dealDamage(src, tgt, { amount, type, canDodge, isSkill, ignoreSelect, mul, tags: ['enemyAbility', ...tags] });
 }
 
 /** Allies whose tile is within `n` of (r, c): 'plus' = Manhattan (周围四格), 'box' = Chebyshev (周围8格). */
@@ -369,12 +370,15 @@ export function spawnChildren(b, parent, key, n, opts = {}) {
   const route = opts.route ?? remainingRoute(parent);
   const cnt = Math.max(0, Math.min(20, Math.floor(n)));
   const mods = modsWithoutBounty(opts.mods ?? parent.mods ?? null);
+  const offspringKind = opts.offspringKind ?? (parent.removeReason === 'killed' ? 'death' : null);
+  const invasionBonds = invasionOffspringBonds(parent, offspringKind);
   for (let i = 0; i < cnt; i++) {
     const off = cnt > 1 ? (i - (cnt - 1) / 2) * 0.2 : 0;
     const pos = opts.pos ?? [parent.y, parent.x + off];
     const c = b.spawnEnemy(key, {
       pos, route, mods, tag: opts.tag ?? null, countInTotal: opts.countInTotal,
       ownerPlayerId: parent.ownerId ?? null, sourcePlayerId: parent.sourcePlayerId ?? null,
+      parent, invasionBonds, offspringKind,
       invasion: ['cocoon', 'vineRelay'].includes(parent.invasion?.kind) ? parent.invasion : null,
     });
     if (c) {
@@ -398,7 +402,7 @@ export function stepToward(u, tx, ty, dist) {
 
 /** Set a 频次 unit's hits (maxHp := hits, full): `n` rounded to a whole count, at least 1. */
 export function setHits(e, n) {
-  const h = Math.max(1, Math.round(n));
+  const h = Math.max(1, Math.round(n)) + (e.invasionBonds?.tiers?.mon_sub_times ?? 0);
   e.base.maxHp = h;
   e.markDirty();
   void e.s;

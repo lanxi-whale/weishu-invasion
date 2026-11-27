@@ -455,10 +455,11 @@ function showDetail(id) {
   if (!item) return;
   const base = item.variantOf ? byId[item.variantOf] : item;
   const adv = ALL.find(i => i.variantOf === base.id);
-  const cost = base.cost ? `可招募 · ${base.cost} 费` : (base.recruit ? "可招募" : "");
+  const recruit = [base.tier ? `${base.tier} 阶` : "", base.cost ? `可招募 · ${base.cost} 费` : (base.recruit ? "可招募" : "")]
+    .filter(Boolean).join(" · ");
 
   document.getElementById("detail").innerHTML =
-    formHtml(base, cost ? `初 始 形 态　${cost}` : "初 始 形 态", "#5fd6bb") +
+    formHtml(base, recruit ? `初 始 形 态　${recruit}` : "初 始 形 态", "#5fd6bb") +
     (adv ? `
       <div style="margin:16px 0 0;border-top:1px dashed #24403a;padding-top:4px"></div>
       <div style="margin-top:14px">

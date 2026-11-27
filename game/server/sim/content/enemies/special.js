@@ -5,6 +5,7 @@ import { ALLY_COLLIDER_RADIUS } from '../../constants.js';
 import { canTargetAlly, areaSelectable } from '../../targeting.js';
 import { periodicDamage } from '../../attack.js';
 import { invasionHighGroundMultiplier, usesInvasionHighGround } from '../../battle/invasionEffects.js';
+import { inInvasionCamera } from '../../battle/invasionBondsMinor.js';
 import {
   BOOM_RADIUS, nthOf, stOf, T, elem, hurt, targetsNear, allTargets, areaAllies, areaAlliesInTiles, byPriority,
   stayRoute, spawnChildren, expose, auraBuff, watchDeaths, onTerrain, castSlot, grantHitShield, attackSkillOf,
@@ -41,6 +42,24 @@ const BARREL_RADIUS = 1.5;
 
 // ---------------------------------------------------------------------------------------------------------------
 // kits
+
+function theaterCameraActor(ab, { longRange = false, doubleHit = false } = {}) {
+  const neural = ep('neural', T(ab, 'inside.attack@ep_damage_ratio') ?? 0);
+  const extraRange = T(ab, 'inside.ability_range_forward_extend') ?? 0;
+  return {
+    spawn(b, e) {
+      if (longRange && e.invasionBonds?.tiers?.mon_minor_theater) {
+        e.profile.rangeBonus = () => inInvasionCamera(b, e) ? extraRange : 0;
+      }
+    },
+    dealt(c, b, e) {
+      neural.dealt(c, b, e);
+      if (!doubleHit || !inInvasionCamera(b, e) || !e.alive || c.target.hp <= 0 || c.dmg.tags.includes('invasionCameraRepeat')) return;
+      b.dealDamage({ source: e, target: c.target, amount: e.s.atk, type: c.dmg.type, isAttack: true,
+        isProjectile: c.dmg.isProjectile, attackId: c.dmg.attackId, tags: ['invasionCameraRepeat'] });
+    },
+  };
+}
 
 /** 源石污染区 (act1 m04 infection tiles). */
 function infectionArts() {
@@ -477,16 +496,20 @@ export const SPECIAL_KITS = Object.freeze({
       castSlot(b, e, ab.sk.ForeverEnhance);   // each enhancement is its ForeverEnhance (display only)
       const s = ab.sk.ForeverEnhance ? ab.sk.ForeverEnhance.bb : {};
       b.addBuff(e, { key: 'ab:enhance', refresh: 'stack', stacks: 1, maxStacks: 5, persist: true, mods: { moveFlat: (s.move_speed_add ?? 0) * e.base.moveSpeed, atkPct: s.atk_add ?? 0 } });
+      if (b.hasHook('enemyAmmoUsed')) b.emit('enemyAmmoUsed', { enemy: e, left: 5 - a.n });
     },
   }],
-  enemy_10094_crstf: kitEp('neural', 'ep.ep_damage_ratio'),          // 临时收音师 · neural on hit (filming zones n/a → always)
+  enemy_10094_crstf: (ab) => {                                       // 临时收音师 · neural on hit outside the camera area
+    const neural = ep('neural', T(ab, 'ep.ep_damage_ratio') ?? 0);
+    return [{ dealt(c, b, e) { if (!inInvasionCamera(b, e)) neural.dealt(c, b, e); } }];
+  },
   enemy_10097_crshd: (ab) => [                                       // 心虚设计师 · neural to its blocker every s; front damage −80 % (faces the blocker, else the walk)
     { iv: 1, tick(b, e) { if (e.blockedBy) elem(b, e, e.blockedBy, 'neural', e.s.atk * (T(ab, 'block.ep_damage_ratio') ?? 0)); } },
     frontGuard(T(ab, 'weakness.damage_resistance') ?? 0, faceCrshd), // 减少来自正面的物理/法术伤害 (#869)
   ],
-  enemy_10098_crhro: (ab) => [ep('neural', T(ab, 'inside.attack@ep_damage_ratio') ?? 0), // 主角阵营角色 · neural on hit; 重生 once (reborn.duration s, full HP)
+  enemy_10098_crhro: (ab) => [theaterCameraActor(ab, { longRange: true }), // 主角阵营角色 · neural on hit; 重生 once
     reborn({ dur: T(ab, 'reborn.duration') ?? 0, invincible: T(ab, 'reborn.invincible') ?? 0 })],
-  enemy_10099_crvln: kitEp('neural', 'inside.attack@ep_damage_ratio'), // 反派阵营角色 · neural on hit
+  enemy_10099_crvln: (ab) => [theaterCameraActor(ab, { doubleHit: true })], // 反派阵营角色 · neural on hit
   enemy_10116_ymgtop: (ab) => {                                     // 水遁忍者 · spinning phase (SILENCE): phys AoE every s; 失衡 stops it
     const spin = {
       sil: true, cd: ab.sk.SwitchModeTrigger ? ab.sk.SwitchModeTrigger.cd : 60, icd: ab.sk.SwitchModeTrigger ? ab.sk.SwitchModeTrigger.icd : 10,

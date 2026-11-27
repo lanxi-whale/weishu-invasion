@@ -948,7 +948,7 @@ function enemyAttack(b, e, prevCd) {
   // 宿主士兵 2.5, 深池伙友卫队 1.4 … — that radius belongs to their abilities/splash, handled by content).
   // Content may flip it with `e.profile.melee = false`.
   const melee = e.profile?.melee ?? def.applyWay === 'MELEE';
-  const radius = melee ? 0 : e.base.rangeRadius;
+  const radius = melee ? 0 : e.base.rangeRadius + (e.profile?.rangeBonus?.(b, e) ?? 0);
   // the range circle takes an ally whose 0.25 collider touches it (PRTS 作战机制 §碰撞体积: 索敌 uses the colliders)
   const reach = radius > 0 ? radius + ALLY_COLLIDER_RADIUS : 0;
   // `e.profile.canTarget(ally)`: the enemy's own target rule (只攻击地面单位, 不会攻击飞行单位 …; content/enemies/*.js),
@@ -1025,6 +1025,7 @@ function enemyAttack(b, e, prevCd) {
   e.lastAttackAt = b.time;
   e.stats.attacks++;
   const attackId = ++b._attackSeq;
+  if (targets.length && b._hooks.enemyAttackCommitted) b.emit('enemyAttackCommitted', { enemy: e, attackId });
   const type = dmgType === 'heal' ? 'arts' : dmgType;
   const rangedShot = radius > 0 && !(e.blockedBy && targets[0] === e.blockedBy && radius < 1);
   // content-resolved attacks (`e.profile.deferHit`: 帝国炮火先兆者's shell landing 3 s later): the attack itself happens

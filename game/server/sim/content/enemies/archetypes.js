@@ -4,6 +4,7 @@
 // reused by several keys (kitEp, kitTimes …).
 
 import { MOVE_SCALE, COLS, STEALTH_RESTORE } from '../../constants.js';
+import { invasionDotMultiplier } from '../../battle/invasionBondsSub.js';
 import {
   HUSK_REBIRTH, BOOM_RADIUS, POLLUTION_INTERVAL, STEALTH_RESTORE_BY_KEY, DUCK_STEALTH_RESTORE, nthOf, stOf, safe, num, T, elem, hurt,
   areaAllies, areaAlliesInTiles, zone, spawnChildren, stepToward, setHits, hitCount, setForm, auraBuff,
@@ -285,6 +286,7 @@ function prisoner(ab, { freeAll = false } = {}) {
     b.addBuff(e, { key: 'ab:liberty', persist: true, visible: true, mods: {
       atkPct: t('liberty.atk'), defIgnorePct: t('liberty.def_penetrate'), resFlat: t('liberty.magic_resistance'), hpRegen: t('liberty.hp_recovery_per_sec') } });
     setForm(b, e, 'liberty', 'liberate');
+    if (b.hasHook('prisonerLiberated')) b.emit('prisonerLiberated', { enemy: e });
     if (freeAll && !stOf(b).freedAll) {
       // "第一次解放时同时解放全场敌人"
       stOf(b).freedAll = true;
@@ -295,12 +297,14 @@ function prisoner(ab, { freeAll = false } = {}) {
     liberate,
     spawn(b, e, a) {
       a.n = 0; a.free = false;
+      a.attacks = b.hasHook('prisonerConfinement')
+        ? b.emit('prisonerConfinement', { enemy: e, attacks: times }).attacks : times;
       b.addBuff(e, { key: 'ab:confined', persist: true, visible: true, mods: { aspd: t('confinement.attack_speed'), defFlat: t('confinement.def') } });
     },
     before(c, b, e, a) {
       if (a.free) return;
-      if (++a.n >= times) liberate(b, e, a);
-      else if (a.n === times - 1) setForm(b, e, 'warning');
+      if (++a.n >= a.attacks) liberate(b, e, a);
+      else if (a.n === a.attacks - 1) setForm(b, e, 'warning');
     },
   };
 }
@@ -364,6 +368,7 @@ function reborn({ dur = 0, hpRatio = 1, invincible = 0, invincibleUntargetable =
     e.atkCd = 0;
     rebirthCooldowns(e);
     setForm(b, e, 'form2', 'revive', { kind: 'reborn' });
+    if (b.hasHook('enemyReborn')) b.emit('enemyReborn', { enemy: e });
   };
   return {
     killed(c, b, e, a) {
@@ -511,7 +516,12 @@ function husk({ hits, delay, stealthy = true, unblock = false, onHusk = null, ke
       b._unblock(e);
       if (e.route) e.route.pts = null;
       setForm(b, e, 'husk', 'ember', { hits, dur: HUSK_REBIRTH + delay });
-      b.after(HUSK_REBIRTH, () => { if (e.alive && a.state === 'husk') { rebirthCooldowns(e); if (onHusk) onHusk(b, e); } }, { owner: e });
+      b.after(HUSK_REBIRTH, () => {
+        if (!e.alive || a.state !== 'husk') return;
+        rebirthCooldowns(e);
+        if (onHusk) onHusk(b, e);
+        if (b.hasHook('enemyReborn')) b.emit('enemyReborn', { enemy: e });
+      }, { owner: e });
       b.after(HUSK_REBIRTH + delay, () => revive(b, e, a), { owner: e });
       return true;
     },
@@ -554,6 +564,7 @@ function statue(ab) {
           setForm(battle, e, 'fly', 'revive', { kind: 'fly' });
         },
       });
+      if (b.hasHook('enemyReborn')) b.emit('enemyReborn', { enemy: e });
       return true;
     },
   };
@@ -570,7 +581,8 @@ function bleed(ab) {
       if (!(dmg > 0 && dur > 0)) return;
       b.addBuff(c.target, {
         key: 'ab:bleed', duration: dur, refresh: 'replace', interval: 1, visible: true,
-        onTick: ({ battle, unit }) => battle.dealDamage(e, unit, { amount: dmg, type: 'arts', canDodge: false, ignoreSelect: true, tags: ['enemyAbility', 'bleed'] }),
+        onTick: ({ battle, unit }) => battle.dealDamage({ source: e, target: unit, amount: dmg, type: 'arts',
+          canDodge: false, ignoreSelect: true, tags: ['enemyAbility', 'bleed'], mul: invasionDotMultiplier(e) }),
       });
     },
   };
@@ -583,13 +595,14 @@ function bleed(ab) {
  * her low tile: `low`); a unit inside several zones takes one tick per second (`mem.pollutedAt`: the last tick it took).
  */
 function pollution(b, src, x, y, r, life, low, high) {
+  if (b.hasHook('enemyZoneSpawn')) b.emit('enemyZoneSpawn', { source: src, x, y, radius: r, duration: life, kind: 'pollution' });
   // the client's projectile knows its source; the zone fx carries that id so the effect binding can tell a 秽蚀轰击 pool from a death pool
   zone(b, { x, y, r, life, iv: POLLUTION_INTERVAL, kind: 'pollution', id: src && src.id != null ? src.id : null, tick(units) {
     for (const u of units) {
       const v = u.ground ? low : high;
       if (!(v > 0) || b.time - (u.mem.pollutedAt ?? -Infinity) < POLLUTION_INTERVAL - 1e-6) continue;
       u.mem.pollutedAt = b.time;
-      hurt(b, src, u, v, 'true', { tags: ['pollution'], ignoreSelect: true });
+      hurt(b, src, u, v, 'true', { tags: ['pollution'], ignoreSelect: true, mul: invasionDotMultiplier(src) });
     }
   } });
 }
@@ -602,10 +615,10 @@ function pollution(b, src, x, y, r, life, low, high) {
  * airborne 起飞 ally reached (§21.22; until 0.1.2 it took everyone inside). `noAir`: "不可对空" — a flying ally (the 炎佑
  * dragon) is skipped too (集团军重型火炮's 【燃烧区域】, since 0.1.3).
  */
-function dmgZone(b, src, x, y, r, life, iv, amount, type = 'arts', kind = 'zone', el = null, elAmount = 0, { noAir = false } = {}) {
+function dmgZone(b, src, x, y, r, life, iv, amount, type = 'arts', kind = 'zone', el = null, elAmount = 0, { noAir = false, dotOwner = src } = {}) {
   zone(b, { x, y, r, life, iv, kind, pick: (zx, zy, zr) => areaAllies(b, src, zx, zy, zr).filter((u) => !(noAir && u.isFlying)), tick(units) {
     for (const u of units) {
-      hurt(b, src, u, amount, type, { tags: [kind] });
+      hurt(b, src, u, amount, type, { tags: [kind], mul: invasionDotMultiplier(dotOwner) });
       if (el && elAmount > 0) elem(b, src, u, el, elAmount, { tags: [kind] });
     }
   } });

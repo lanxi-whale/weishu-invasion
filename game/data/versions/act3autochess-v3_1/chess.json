@@ -180733,5 +180733,271 @@
    "portrait": "enemy_9025_aclts@s2",
    "spine": null
   }
+ },
+ "chess_mon_enemy_1104_lfkght_3": {
+  "chessId": "chess_mon_enemy_1104_lfkght_3",
+  "baseId": "chess_mon_enemy_1104_lfkght_3",
+  "goldenId": "chess_mon_enemy_1104_lfkght_3_b",
+  "isGolden": false,
+  "tier": 6,
+  "identifier": 642,
+  "isHidden": false,
+  "isDiy": false,
+  "visible": true,
+  "chessType": "PRESET",
+  "backup": {
+   "charId": null,
+   "tmplId": null,
+   "skillIndex": 0,
+   "uniEquipId": null,
+   "potRank": 0
+  },
+  "shopSortId": 403,
+  "charId": null,
+  "name": "“左手”泰特斯·白杨",
+  "appellation": null,
+  "rarity": 4,
+  "profession": "SNIPER",
+  "subProfessionId": null,
+  "subProfessionName": "骑士团",
+  "position": "RANGED",
+  "nationId": "monpow_none",
+  "bonds": [
+   "mon_minor_knight",
+   "mon_sub_reborn"
+  ],
+  "garrisonIds": [],
+  "price": 4,
+  "sellPrice": 1,
+  "upgradeNum": 3,
+  "upgradeChessId": "chess_mon_enemy_1104_lfkght_3_b",
+  "status": {
+   "phase": 1,
+   "level": 1,
+   "skillLevel": 1,
+   "equipLevel": 0
+  },
+  "stats": {
+   "maxHp": 20000,
+   "atk": 750,
+   "def": 700,
+   "res": 50,
+   "cost": 0,
+   "blockCnt": 1,
+   "bat": 2.5,
+   "aspd": 100,
+   "respawnTime": 70,
+   "spRecovery": 1,
+   "hpRecoveryPerSec": 0,
+   "moveSpeed": 0.75,
+   "tauntLevel": 0,
+   "massLevel": 3,
+   "deployLimit": 1,
+   "deckStack": 0
+  },
+  "immunities": {
+   "stun": false,
+   "silence": false,
+   "sleep": false,
+   "frozen": false,
+   "levitate": false
+  },
+  "rangeId": "1-1",
+  "rangeGrid": [
+   [
+    0,
+    -1
+   ],
+   [
+    -1,
+    0
+   ],
+   [
+    0,
+    0
+   ],
+   [
+    1,
+    0
+   ],
+   [
+    0,
+    1
+   ]
+  ],
+  "dmgType": "arts",
+  "attackKind": "ranged",
+  "projectile": null,
+  "canHitFly": false,
+  "targetPriority": null,
+  "trait": {
+   "desc": "使场上攻击力最高的我方单位攻击力大幅降低，持续一定时间；重生",
+   "descRaw": "使场上攻击力最高的我方单位攻击力大幅降低，持续一定时间；重生",
+   "bb": {},
+   "bbStr": {},
+   "rangeGrid": null
+  },
+  "skill": {
+   "skillId": null,
+   "iconId": null,
+   "name": "",
+   "level": 1,
+   "desc": "",
+   "descRaw": "",
+   "skillType": "AUTO",
+   "durationType": "NONE",
+   "duration": 0,
+   "spType": "INCREASE_WITH_TIME",
+   "spCost": 0,
+   "initSp": 0,
+   "maxChargeTime": 0,
+   "increment": 1,
+   "bb": {},
+   "bbStr": {},
+   "rangeId": null,
+   "rangeGrid": null,
+   "prefabId": null,
+   "trigger": null,
+   "index": 0,
+   "overrideTokenKey": null
+  },
+  "assets": {
+   "avatar": "enemy_1104_lfkght_3",
+   "portrait": "enemy_1104_lfkght_3",
+   "spine": "enemy_1104_lfkght_3"
+  }
+ },
+ "chess_mon_enemy_1104_lfkght_3_b": {
+  "chessId": "chess_mon_enemy_1104_lfkght_3_b",
+  "baseId": "chess_mon_enemy_1104_lfkght_3",
+  "goldenId": "chess_mon_enemy_1104_lfkght_3_b",
+  "isGolden": true,
+  "tier": 6,
+  "identifier": 643,
+  "isHidden": false,
+  "isDiy": false,
+  "visible": true,
+  "chessType": "PRESET",
+  "backup": {
+   "charId": null,
+   "tmplId": null,
+   "skillIndex": 0,
+   "uniEquipId": null,
+   "potRank": 0
+  },
+  "shopSortId": 404,
+  "charId": null,
+  "name": "“左手”泰特斯·白杨",
+  "appellation": null,
+  "rarity": 4,
+  "profession": "SNIPER",
+  "subProfessionId": null,
+  "subProfessionName": "骑士团",
+  "position": "RANGED",
+  "nationId": "monpow_none",
+  "bonds": [
+   "mon_minor_knight",
+   "mon_sub_reborn"
+  ],
+  "garrisonIds": [],
+  "price": 4,
+  "sellPrice": 1,
+  "upgradeNum": 0,
+  "upgradeChessId": null,
+  "status": {
+   "phase": 2,
+   "level": 1,
+   "skillLevel": 1,
+   "equipLevel": 0
+  },
+  "stats": {
+   "maxHp": 32000.0,
+   "atk": 1200.0,
+   "def": 1120.0,
+   "res": 50.0,
+   "cost": 0,
+   "blockCnt": 1,
+   "bat": 2.5,
+   "aspd": 100,
+   "respawnTime": 70,
+   "spRecovery": 1,
+   "hpRecoveryPerSec": 0,
+   "moveSpeed": 0.75,
+   "tauntLevel": 0,
+   "massLevel": 3,
+   "deployLimit": 1,
+   "deckStack": 0
+  },
+  "immunities": {
+   "stun": false,
+   "silence": false,
+   "sleep": false,
+   "frozen": false,
+   "levitate": false
+  },
+  "rangeId": "1-1",
+  "rangeGrid": [
+   [
+    0,
+    -1
+   ],
+   [
+    -1,
+    0
+   ],
+   [
+    0,
+    0
+   ],
+   [
+    1,
+    0
+   ],
+   [
+    0,
+    1
+   ]
+  ],
+  "dmgType": "arts",
+  "attackKind": "ranged",
+  "projectile": null,
+  "canHitFly": false,
+  "targetPriority": null,
+  "trait": {
+   "desc": "使场上攻击力最高的我方单位攻击力大幅降低，持续一定时间；重生",
+   "descRaw": "使场上攻击力最高的我方单位攻击力大幅降低，持续一定时间；重生",
+   "bb": {},
+   "bbStr": {},
+   "rangeGrid": null
+  },
+  "skill": {
+   "skillId": null,
+   "iconId": null,
+   "name": "",
+   "level": 1,
+   "desc": "",
+   "descRaw": "",
+   "skillType": "AUTO",
+   "durationType": "NONE",
+   "duration": 0,
+   "spType": "INCREASE_WITH_TIME",
+   "spCost": 0,
+   "initSp": 0,
+   "maxChargeTime": 0,
+   "increment": 1,
+   "bb": {},
+   "bbStr": {},
+   "rangeId": null,
+   "rangeGrid": null,
+   "prefabId": null,
+   "trigger": null,
+   "index": 0,
+   "overrideTokenKey": null
+  },
+  "assets": {
+   "avatar": "enemy_1104_lfkght_3@s2",
+   "portrait": "enemy_1104_lfkght_3@s2",
+   "spine": "enemy_1104_lfkght_3"
+  }
  }
 }

@@ -523,6 +523,7 @@ export function TopBar({ pub, priv, conn, hud, total, drawer, onExit, onDrawer, 
   const phase = pub?.phase;
   const boss = isBossPhase(phase);
   const duel = pub?.duel === true;
+  const prepClockLeft = duel && phase === PHASE.PREP;
   const gateLeaks = gateLeakCount(pub, fieldId);
   const showDefencePool = duel || (config?.monsterOnly === true && Number.isFinite(pub?.duelPool?.ops));
   const lp = showDefencePool ? pub.duelPool?.ops ?? null
@@ -556,6 +557,14 @@ export function TopBar({ pub, priv, conn, hud, total, drawer, onExit, onDrawer, 
   const pfClock = pf.countdown && (pfRemain != null || (phase === PHASE.PREP && (playerCount ?? 1) <= 1));
   const corner = useMemo(() => (pf.countdown && pf.ready ? cornerOffset(pack) : null), [pack, pf.countdown, pf.ready]);
   useTicker(pf.countdown && frozenSecs == null && pfRemain != null ? 1000 : 0);
+  const readyOnClock = !prepClockLeft && corner && pfClock && showReady;
+  const clock = pf.countdown
+    ? (pfClock ? html`<div class="pfclock" role="timer" aria-label=${pfRemain == null ? t('无倒计时') : t('剩余{remain}秒', { remain: pfRemain })}>
+        <${RegCountdown} pack=${pack} remain=${pfRemain} total=${total ?? null} ready=${!prepClockLeft && showReady && !!priv?.ready} still=${!settings?.themeMotion} />
+      </div>` : null)
+    : frozenSecs != null
+      ? html`<${Countdown} seconds=${frozenSecs} total=${total ?? undefined} size="md" label="PAUSED" />`
+      : html`<${Countdown} deadline=${pub?.deadline} total=${total ?? undefined} size="md" />`;
   const onLeft = () => (pen ? onPen(false) : onDrawer('info'));
   const onRight = () => (pen ? onPen(false) : penAvail ? onPen(true) : null);
   return html`<header class=${cx('gtop', pen && 'is-pen', pf.band && 'gtop--pf')}>
@@ -571,6 +580,7 @@ export function TopBar({ pub, priv, conn, hud, total, drawer, onExit, onDrawer, 
         <${UnofficialMark} room=${room} compact=${true} class="gtop__mod" />
         ${ruleLine(room?.content?.rules) ? html`<span class="gtop__rules" data-testid="plugin-rules">${ruleLine(room?.content?.rules)}</span>` : null}
       </div>
+      ${prepClockLeft && pub.deadline > 0 ? html`<div class="gtop__clock gtop__prep-clock">${clock}</div>` : null}
     </div>
 
     <div class="gtop__center">
@@ -615,20 +625,14 @@ export function TopBar({ pub, priv, conn, hud, total, drawer, onExit, onDrawer, 
     </div>
 
     <div class="gtop__right">
-      <div class=${cx('gtop__clock', pf.countdown && 'gtop__clock--pf')} style=${corner ? { '--pf-rx': corner.x, '--pf-ry': corner.y } : null}>
-        ${pf.countdown
-          ? (pfClock ? html`<div class="pfclock" role="timer" aria-label=${pfRemain == null ? t('无倒计时') : t('剩余{remain}秒', { remain: pfRemain })}>
-              <${RegCountdown} pack=${pack} remain=${pfRemain} total=${total ?? null} ready=${showReady && !!priv?.ready} still=${!settings?.themeMotion} />
-            </div>` : null)
-          : frozenSecs != null
-            ? html`<${Countdown} seconds=${frozenSecs} total=${total ?? undefined} size="md" label="PAUSED" />`
-            : html`<${Countdown} deadline=${pub?.deadline} total=${total ?? undefined} size="md" />`}
+      ${!prepClockLeft ? html`<div class=${cx('gtop__clock', pf.countdown && 'gtop__clock--pf')} style=${corner ? { '--pf-rx': corner.x, '--pf-ry': corner.y } : null}>
+        ${clock}
         ${pause && (pause.show || pause.paused) ? html`<${PauseButton} paused=${!!pause.paused} busy=${pause.busy} onToggle=${pause.onToggle} />` : null}
-        ${corner && pfClock && showReady ? html`<${ReadyToggle} priv=${priv} onToggle=${onReady} busy=${readyBusy} readyCount=${readyCount} total=${playerCount} pack=${pack} corner=${true} />` : null}
-      </div>
+        ${readyOnClock ? html`<${ReadyToggle} priv=${priv} onToggle=${onReady} busy=${readyBusy} readyCount=${readyCount} total=${playerCount} pack=${pack} corner=${true} />` : null}
+      </div>` : null}
       <${OvertimeWarning} ot=${ot} />
       ${pub?.duelWaiting ? html`<span class="readywrap__count" role="status">${t('阵容已锁定，等待对方备战结束')}</span>` : null}
-      ${showReady && !(corner && pfClock) ? html`<${ReadyToggle} priv=${priv} onToggle=${onReady} busy=${readyBusy} readyCount=${readyCount} total=${playerCount} pack=${pf.ready ? pack : null} />` : null}
+      ${showReady && !readyOnClock ? html`<${ReadyToggle} priv=${priv} onToggle=${onReady} busy=${readyBusy} readyCount=${readyCount} total=${playerCount} pack=${pf.ready ? pack : null} />` : null}
     </div>
   </header>`;
 }

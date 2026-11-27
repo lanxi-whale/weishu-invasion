@@ -1,5 +1,8 @@
 # SIM.md — battle simulation engine reference (server/sim)
 
+Invasion covenants use the per-spawn `invasionBonds` record. The creature carries its tier, gate and original
+attacker seat, and native offspring inherit their relevant effects. Both battle engines apply those effects.
+
 4v4 enemy summons use the existing `spawnChildren` path and keep the summoner's lane attribution. A delayed death spawn schedules `after` with `holdsBattle`, so the field waits for it after the final parent is killed. The scheduled callback still obeys the field timeout and the normal runtime spawn cap.
 
 4v4 invasion strategy marks travel with the individual scheduled creatures in `BattleSpec.spawns[].invasion`.
@@ -1054,7 +1057,7 @@ registration order. `battle.off(handle)` / `battle.off(name, fn)` / `battle.offO
 | `statusApplied` | `{ source, target, status, duration, value, entered }` | after immunity check; `duration` = final (after 抵抗 / weight); `entered` = newly started (not a refresh) |
 | `blocked` | `{ blocker, enemy }` | enemy became blocked |
 | `enemySpawn` / `enemyLeak` | `{ enemy }` | |
-| `elementBurst` | `{ source, target, element }` | before the burst's lock/effects; same-element fills of `target` are already refused |
+| `elementBurst` | `{ source, credit, target, element, neuralMultiplier }` | Before the burst effects, with gauge fills already locked. `neuralMultiplier` defaults to 1 and scales the damage and stun duration of neural bursts on defenders. The gauge cooldown uses its own duration. |
 | `palsyTrigger` | `{ enemy, buff, keep }` | a 麻痹 stack interrupts the enemy's normal attack ("触发麻痹"), before the stack is used: set `keep` to leave it (真言 噤声限域); a handler may kill the enemy (its turn ends) |
 | `dodge` | `{ source, target, dmg }` | an attack was dodged |
 | `boomerangCaught` | `{ unit, attackId, isSkill, x, y }` | a 回环射手 boomerang came back to its thrower (`ai.js throwBoomerang`; `isSkill` = thrown by a skill attack): 娜仁图亚 LPS-Y "每回收5次回旋投射物", S3 "投射物全部回收时" |

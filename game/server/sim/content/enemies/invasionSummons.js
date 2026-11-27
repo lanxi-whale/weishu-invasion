@@ -52,7 +52,7 @@ function splitAtLowHp(ab) {
     iv: T(ab, '0.interval') ?? 0,
     tick(battle, enemy) {
       if (enemy.mem.didHealthSplit || !(enemy.hpRatio < ratio) || !battle.data.getEnemy(key)) return;
-      const [child] = spawnChildren(battle, enemy, key, 1);
+      const [child] = spawnChildren(battle, enemy, key, 1, { offspringKind: 'split' });
       if (!child) return;
       enemy.mem.didHealthSplit = true;
       child.mem.didHealthSplit = true;

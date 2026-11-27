@@ -2,17 +2,14 @@
 """生成怪物图鉴数据（主羁绊=阵营，副羁绊=战术特性）"""
 
 import json
-import os
-import re
+from pathlib import Path
 
-from rules import (AC_CN, MAIN_BONDS, MINOR_BONDS, SUB_BONDS,
-                   NAME_OF_MAIN, factions_of, minors_of, subs_of, invasion_star_stats)
+from rules import (MAIN_BONDS, MINOR_BONDS, SUB_BONDS, factions_of, minors_of, subs_of,
+                   invasion_star_stats, native_star_base)
 
-SRC = r"E:\明日方舟卫戍协议\SP\Stronghold-Protocol\data\versions\act3autochess-v3_1\enemies.json"
-ICON_DIR = r"E:\明日方舟卫戍协议\SP\Stronghold-Protocol\public\assets\enemy\icon"
-OUT = r"E:\明日方舟卫戍协议\4v4\怪物图鉴\data.js"
-POOL_PATH = r"E:\明日方舟卫戍协议\4v4\data\units.json"
-CHESS_PATH = os.path.join(os.path.dirname(__file__), "game", "data", "versions", "act3autochess-v3_1", "chess.json")
+ROOT = Path(__file__).resolve().parent
+VERSION = ROOT / "game" / "data" / "versions" / "act3autochess-v3_1"
+CATALOGUE = ROOT / "怪物图鉴"
 
 TAG_CN = {
     "sarkaz": "萨卡兹", "origen": "源石", "machine": "机械", "drone": "无人机",
@@ -20,33 +17,19 @@ TAG_CN = {
     "mutant": "变异", "collapsal": "坍缩", "animated": "构造体",
 }
 
-enemies = json.load(open(SRC, encoding="utf-8"))
-icons = set(os.listdir(ICON_DIR))
-with open(CHESS_PATH, encoding="utf-8") as file:
-    chess = json.load(file)
+enemies = json.loads((VERSION / "enemies.json").read_text(encoding="utf-8"))
+chess = json.loads((VERSION / "chess.json").read_text(encoding="utf-8"))
+icons = {path.name for path in (CATALOGUE / "icons").glob("*.png")}
 
 pool = {}
 try:
-    for u in json.load(open(POOL_PATH, encoding="utf-8"))["units"]:
+    for u in json.loads((ROOT / "data" / "units.json").read_text(encoding="utf-8"))["units"]:
         pool[u["id"]] = u
         for st in (u.get("stars") or []):
             if st["star"] > 1 and not st.get("synthetic"):
                 pool.setdefault(st["id"], u)
 except Exception:
     pass
-
-all_keys = {x.get("key") for x in enemies.values()}
-VAR_BASE = {}
-for k in all_keys:
-    m = re.match(r"^(.*)_([23])$", k or "")
-    if not (m and m.group(1) in all_keys):
-        continue
-    bn = enemies[m.group(1)].get("name") or ""
-    vn = enemies[k].get("name") or ""
-    # 残党乐团 / 巫王乐团 拆成独立阵营，不算升星关系
-    if ("残党" in bn and "巫王" in vn) or ("巫王" in bn and "残党" in vn):
-        continue
-    VAR_BASE[k] = (m.group(1), int(m.group(2)))
 
 items = []
 for x in enemies.values():
@@ -58,6 +41,7 @@ for x in enemies.values():
     tags = [TAG_CN.get(t, t) for t in (x.get("tags") or [])]
     pu = pool.get(key) or {}
     card = chess.get("chess_mon_" + pu.get("id", ""), {})
+    variant_of, variant_star = native_star_base(key, enemies) or (None, 0)
 
     items.append({
         "id": key,
@@ -87,10 +71,11 @@ for x in enemies.values():
         "icon": f"icons/{key}.png" if f"{key}.png" in icons else "",
         "stars": [{"star": s["star"], "name": s["name"], "hp": s["hp"], "atk": s["atk"],
                    "synthetic": bool(s.get("synthetic"))} for s in (pu.get("stars") or [])],
-        "variantOf": VAR_BASE.get(key, (None, 0))[0],
-        "variantStar": VAR_BASE.get(key, (None, 0))[1],
+        "variantOf": variant_of,
+        "variantStar": variant_star,
         "recruit": key in pool,
         "cost": card.get("price", pu.get("cost", 0)),
+        **({"tier": card["tier"]} if card else {}),
     })
 
 rank_weight = {"BOSS": 0, "ELITE": 1, "NORMAL": 2}
@@ -126,7 +111,7 @@ payload = {
     "groups": groups,
 }
 
-with open(OUT, "w", encoding="utf-8") as f:
+with (CATALOGUE / "data.js").open("w", encoding="utf-8") as f:
     f.write("window.MONSTERS = ")
     json.dump(payload, f, ensure_ascii=False, separators=(",", ":"))
     f.write(";\n")

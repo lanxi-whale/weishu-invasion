@@ -377,7 +377,15 @@ export function attachAudit(m, { invariants = true, limit = 200 } = {}) {
     runInvariants();
     check('prep', () => {
       if (m.phase !== PHASE.PREP) return;
-      if (m.soloUntimed) { if (m.deadline) fail('untimed prep is timed'); } else if (!m._prepEndQueued) expectDeadline(gd.prepTime(m.round), 'PREP');
+      if (m.opts?.duel) {
+        const clock = m._duelPrepClock;
+        const deadline = clock?.round === m.round ? clock.deadline : 0;
+        if (m.deadline !== deadline) fail('PREP: local deadline differs from the shared 4v4 clock');
+      } else if (m.soloUntimed) {
+        if (m.deadline) fail('untimed prep is timed');
+      } else if (!m._prepEndQueued) {
+        expectDeadline(gd.prepTime(m.round), 'PREP');
+      }
     });
     return res;
   });

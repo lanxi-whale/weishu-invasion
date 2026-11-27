@@ -126,7 +126,11 @@ export class BattleDisplacement {
 
   /** Official distance (tiles) a push of 力度 `force` would move `e` on open ground (0 when it cannot be displaced). */
   pushDistance(e, force, { effect = false } = {}) {
-    return this._displaceable(e) ? pushTiles(this.forceLevel(e, force), effect) : 0;
+    return this._displaceable(e) ? this._effectiveDisplaceDistance(e, pushTiles(this.forceLevel(e, force), effect)) : 0;
+  }
+
+  _effectiveDisplaceDistance(enemy, distance) {
+    return this._hooks.displaceDistance ? this.emit('displaceDistance', { enemy, distance }).distance : distance;
   }
 
   /** Pull `e` "至面前" of ally `unit` (拉力起点 PULL_ORIGIN tiles ahead along its direction, 急停 around its centre). */
@@ -191,7 +195,7 @@ export class BattleDisplacement {
     const dxv = fin(dir.x, 0), dyv = fin(dir.y, 0);
     const len = hypot(dxv, dyv);
     if (!(len > 0)) return 0;
-    const eff = Math.min(fin(distance, 0), 2 * COLS);
+    const eff = Math.min(fin(this._effectiveDisplaceDistance(e, distance), 0), 2 * COLS);
     if (!(eff > 0)) return 0;
     const ux = dxv / len, uy = dyv / len;
     let moved = 0;

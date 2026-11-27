@@ -16,14 +16,13 @@
 import json
 import os
 import random
-import re
 import sys
 from collections import Counter, defaultdict
 from pathlib import Path
 
-ROOT = r"E:\明日方舟卫戍协议\SP\Stronghold-Protocol"
-SRC = os.path.join(ROOT, "data", "versions", "act3autochess-v3_1")
-OUT = Path(__file__).resolve().parent / "data"
+ROOT = Path(__file__).resolve().parent
+SRC = ROOT / "game" / "data" / "versions" / "act3autochess-v3_1"
+OUT = ROOT / "data"
 os.makedirs(OUT, exist_ok=True)
 
 from rules import (
@@ -31,6 +30,7 @@ from rules import (
     MAIN_BONDS, MINOR_BONDS, SUB_BONDS,
     NAME_OF_MAIN, NAME_OF_MINOR, NAME_OF_SUB,
     main_keys_of, minor_keys_of, sub_keys_of, invasion_star_stats,
+    INDEPENDENT_ENEMY_VARIANTS, native_star_base,
 )
 
 
@@ -79,17 +79,12 @@ STAR_CAP = {"NORMAL": 2, "ELITE": 2, "BOSS": 2}
 TARGET_NORMAL = 52
 
 # ---------------------------------------------------------------- 升星映射
-# 残党乐团 ↔ 巫王乐团 带 _2 后缀，但不作为上下级，拆成两个独立阵营
 STAR_MAP = {}
 for k in enemies:
-    m = re.match(r"^(.*)_([23])$", k)
-    if not m or m.group(1) not in enemies:
-        continue
-    base, var = enemies[m.group(1)], enemies[k]
-    bn, vn = base.get("name") or "", var.get("name") or ""
-    if ("残党" in bn and "巫王" in vn) or ("巫王" in bn and "残党" in vn):
-        continue
-    STAR_MAP.setdefault(m.group(1), {1: m.group(1)})[int(m.group(2))] = k
+    pair = native_star_base(k, enemies)
+    if pair:
+        base, star = pair
+        STAR_MAP.setdefault(base, {1: base})[star] = k
 for base, forms in STAR_MAP.items():
     forms.setdefault(1, base)
 
@@ -112,6 +107,10 @@ def add(x):
         return
     picked.append(x)
     picked_ids.add(x["key"])
+
+
+for key in sorted(INDEPENDENT_ENEMY_VARIANTS & enemies.keys()):
+    add(enemies[key])
 
 
 def take(group, quota):
@@ -237,6 +236,30 @@ def to_entry(x):
 units = [to_entry(x) for x in picked]
 
 
+# Update independent recruits without rebuilding the hand-tuned pool.
+if "--refresh-independent-variants" in sys.argv:
+    pool = json.loads((OUT / "units.json").read_text(encoding="utf-8"))
+    catalog = json.loads((OUT / "bonds.json").read_text(encoding="utf-8"))
+    tier_groups = json.loads((OUT / "monster_tiers.json").read_text(encoding="utf-8"))
+    tiers = {uid: int(tier) for tier, ids in tier_groups.items() for uid in ids}
+    updates = [unit for unit in units if unit["id"] in INDEPENDENT_ENEMY_VARIANTS]
+    existing = {unit["id"]: unit for unit in pool["units"]}
+    for unit in updates:
+        unit["cost"] = (tiers[unit["id"]] + 1) // 2 + 1
+        existing[unit["id"]] = unit
+    pool["units"] = list(existing.values())
+    fields = {"MAIN": "bondKeys", "MINOR": "minorKeys", "SUB": "subKeys"}
+    for bond in catalog["bonds"] + catalog["main"] + catalog["minor"] + catalog["sub"]:
+        members = [uid for uid in bond["members"] if uid not in INDEPENDENT_ENEMY_VARIANTS]
+        members.extend(unit["id"] for unit in updates if bond["key"] in unit[fields[bond["kind"]]])
+        bond.update(members=members, memberCount=len(members), pending=len(members) < bond["thresholds"][0])
+    summary = {"total": len(existing), **{key: dict(Counter(unit[key] for unit in existing.values()))
+                                         for key in ("cost", "rank", "faction")}}
+    for name, data in (("units", pool), ("bonds", catalog), ("summary", summary)):
+        (OUT / f"{name}.json").write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")
+    sys.exit(0)
+
+
 # ---------------------------------------------------------------- 羁绊
 # 羁绊层数门槛：主 4/7，小 2，副 3/6
 TIERS = {"MAIN": [4, 7], "MINOR": [2], "SUB": [3, 6]}
@@ -255,7 +278,7 @@ for key, name, fn, quota, note in MAIN_BONDS:
     bonds.append({
         "id": f"main_{key}", "key": key, "name": name, "kind": "MAIN",
         "members": members, "memberCount": len(members),
-        "thresholds": thresholds(len(members), "MAIN"),
+        "thresholds": [4, 6] if key == "witchking" else thresholds(len(members), "MAIN"),
         "pending": len(members) < TIERS["MAIN"][0], "note": note,
     })
 
