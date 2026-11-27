@@ -1,5 +1,7 @@
 # 卫戍协议：侵略 · Stronghold Protocol: Invasion
 
+> ▶ **试玩视频（4v4 v1.0.0 联机测试）**：<https://www.bilibili.com/video/BV1zT1tz3Enr>
+
 > 本项目以 B 站 UP 主 **Ausevay** 的作品《卫戍协议：盟约》为基础二次创作。
 >
 > - 原视频：<https://www.bilibili.com/video/BV1QoaU6gEF2>
