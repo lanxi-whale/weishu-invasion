@@ -50,7 +50,7 @@ npm run dev
 美术与音频素材（约 1.5 GB）**不在本仓库**，单独发在 Release **`v1.0.0`**：
 
 - **下载**：<https://github.com/lanxi-whale/weishu-invasion/releases/download/v1.0.0/4v4-assets-v1.0.zip>（`4v4-assets-v1.0.zip`，2.0 GB）
-- **解压**：解压到**和游戏本体同一个上级目录**——两个包里都有 `4v4-Portable`，会合并。例：本体解到 `D:\Gamesv4-Portable`，素材包也选 `D:\Games`；重新双击 `启动游戏.bat` 就会加载素材。
+- **解压**：解压到**和游戏本体同一个上级目录**——两个包里都有 `4v4-Portable`，会合并。例：本体解到 `D:\Games\4v4-Portable`，素材包也选 `D:\Games`；重新双击 `启动游戏.bat` 就会加载素材。
 - 不解压也能玩，只是用简化战场和占位图；想同时留「带素材」和「简化」两份，就分别解到两个目录。
 
 素材版权归 **Ausevay**（<https://github.com/sganggs/Stronghold-Protocol>）与原作方所有，仅供同人交流使用。
