@@ -19,6 +19,17 @@
 > [!IMPORTANT]
 > 本项目是玩家自制的**非官方同人作品**，与上海鹰角网络科技有限公司（Hypergryph）、Yostar 及其关联方没有任何关系，未获其授权或认可。
 
+## 下载
+
+| 版本 | 文件 | 说明 |
+|---|---|---|
+| **v1.1.0**（最新） | [4v4-windows-v1.1.0.zip](../../releases/download/v1.1.0/4v4-windows-v1.1.0.zip) | **问题修复版**（100 MB），解压到新文件夹后双击 `启动游戏.bat` |
+| v1.1.0 | [readme-v1.1.0.txt](../../releases/download/v1.1.0/readme-v1.1.0.txt) | 更新说明原文 |
+| v1.0.0 | [4v4-windows-v1.0.zip](../../releases/download/v1.0.0/4v4-windows-v1.0.zip) | 首个可玩版本 |
+| 素材（选装） | [4v4-assets-v1.0.zip](../../releases/download/v1.0.0/4v4-assets-v1.0.zip) | 2.0 GB 美术与音频，解压到和本体**同一个上级目录**即可合并 |
+
+全部版本见 [Releases](../../releases)。不解压素材也能玩，只是用简化战场和占位图。
+
 ## 目录
 
 | 路径 | 内容 |
